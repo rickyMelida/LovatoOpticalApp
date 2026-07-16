@@ -1,0 +1,219 @@
+﻿<div class="modal fade" id="newCrystalModal" tabindex="-1" aria-labelledby="newCrystalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="newCrystalModalLabel">
+                    <i class="bi bi-plus-circle me-2"></i>Nuevo Cristal
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="newCrystalForm">
+                    <div class="row g-3">
+
+                        
+                        <div class="col-12">
+                            <label for="crystalName" class="form-label">Nombre <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="crystalName" name="Name"
+                                   placeholder="Progresivo High Index" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="crystalType" class="form-label">Tipo <span class="text-danger">*</span></label>
+                            <select class="form-select" id="crystalType" name="Type" required>
+                                <option value="" disabled selected>Seleccionar…</option>
+                                <option>Monofocal</option>
+                                <option>Bifocal</option>
+                                <option>Progresivo</option>
+                                <option>Ocupacional</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="crystalMaterial" class="form-label">Material <span class="text-danger">*</span></label>
+                            <select class="form-select" id="crystalMaterial" name="Material" required>
+                                <option value="" disabled selected>Seleccionar…</option>
+                                <option>CR-39</option>
+                                <option>Policarbonato</option>
+                                <option>High Index</option>
+                                <option>Trivex</option>
+                                <option>Glass</option>
+                            </select>
+                        </div>
+
+                      
+                        <div class="col-md-4">
+                            <label for="crystalPrice" class="form-label">Precio base <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="crystalPrice" name="Price"
+                                       placeholder="0.00" min="0" step="0.01" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="crystalStock" class="form-label">Stock <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="crystalStock" name="Stock"
+                                   placeholder="0" min="0" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="crystalMinStock" class="form-label">
+                                Stock mínimo <span class="text-danger">*</span>
+                                <i class="bi bi-info-circle text-muted ms-1" title="Alerta cuando el stock baje de este valor"></i>
+                            </label>
+                            <input type="number" class="form-control" id="crystalMinStock" name="MinStock"
+                                   placeholder="0" min="0" required>
+                        </div>
+
+                    
+                        <div class="col-12">
+                            <label class="form-label">Tratamientos disponibles para este cristal</label>
+                            <div id="crystalTreatmentList" class="border rounded p-3 d-flex flex-column gap-2">
+
+                                <div class="d-flex align-items-center gap-2 treatment-item">
+                                    <input class="form-check-input mt-0 flex-shrink-0" type="checkbox"
+                                           name="Treatments" value="Antirreflejo" checked>
+                                    <span class="flex-grow-1">Antirreflejo</span>
+                                    <div class="input-group input-group-sm" style="width:130px;">
+                                        <span class="input-group-text">+$</span>
+                                        <input type="number" class="form-control" placeholder="0.00"
+                                               name="TreatmentPrice_Antirreflejo" value="25.00" min="0" step="0.01">
+                                    </div>
+                                    <button type="button" class="btn btn-outline-danger btn-sm remove-treatment" title="Quitar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2 treatment-item">
+                                    <input class="form-check-input mt-0 flex-shrink-0" type="checkbox"
+                                           name="Treatments" value="Filtro Azul" checked>
+                                    <span class="flex-grow-1">Filtro Azul</span>
+                                    <div class="input-group input-group-sm" style="width:130px;">
+                                        <span class="input-group-text">+$</span>
+                                        <input type="number" class="form-control" placeholder="0.00"
+                                               name="TreatmentPrice_FiltroAzul" value="20.00" min="0" step="0.01">
+                                    </div>
+                                    <button type="button" class="btn btn-outline-danger btn-sm remove-treatment" title="Quitar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2 treatment-item">
+                                    <input class="form-check-input mt-0 flex-shrink-0" type="checkbox"
+                                           name="Treatments" value="Fotocromático">
+                                    <span class="flex-grow-1">Fotocromático</span>
+                                    <div class="input-group input-group-sm" style="width:130px;">
+                                        <span class="input-group-text">+$</span>
+                                        <input type="number" class="form-control" placeholder="0.00"
+                                               name="TreatmentPrice_Fotocromatico" value="40.00" min="0" step="0.01">
+                                    </div>
+                                    <button type="button" class="btn btn-outline-danger btn-sm remove-treatment" title="Quitar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2 treatment-item">
+                                    <input class="form-check-input mt-0 flex-shrink-0" type="checkbox"
+                                           name="Treatments" value="Polarizado">
+                                    <span class="flex-grow-1">Polarizado</span>
+                                    <div class="input-group input-group-sm" style="width:130px;">
+                                        <span class="input-group-text">+$</span>
+                                        <input type="number" class="form-control" placeholder="0.00"
+                                               name="TreatmentPrice_Polarizado" value="35.00" min="0" step="0.01">
+                                    </div>
+                                    <button type="button" class="btn btn-outline-danger btn-sm remove-treatment" title="Quitar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        
+                            <div class="d-flex gap-2 mt-2" id="addTreatmentRow">
+                                <input type="text" class="form-control form-control-sm" id="newTreatmentName"
+                                       placeholder="Nombre del tratamiento">
+                                <div class="input-group input-group-sm" style="width:150px;">
+                                    <span class="input-group-text">+$</span>
+                                    <input type="number" class="form-control" id="newTreatmentPrice"
+                                           placeholder="0.00" min="0" step="0.01">
+                                </div>
+                                <button type="button" class="btn btn-outline-secondary btn-sm text-nowrap" id="btnAddTreatment">
+                                    <i class="bi bi-plus-lg me-1"></i>Agregar
+                                </button>
+                            </div>
+                        </div>
+
+                  
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="crystalIsActive" name="IsActive" checked>
+                                <label class="form-check-label" for="crystalIsActive">
+                                    Activo en catálogo
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg me-1"></i>Cancelar
+                </button>
+                <button type="submit" form="newCrystalForm" class="btn btn-primary">
+                    <i class="bi bi-floppy me-1"></i>Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            const list = document.getElementById('crystalTreatmentList');
+            const btnAdd = document.getElementById('btnAddTreatment');
+
+            // Quitar tratamiento existente
+            list.addEventListener('click', function (e) {
+                const btn = e.target.closest('.remove-treatment');
+                if (btn) btn.closest('.treatment-item').remove();
+            });
+
+            // Agregar tratamiento personalizado
+            btnAdd.addEventListener('click', function () {
+                const nameInput = document.getElementById('newTreatmentName');
+                const priceInput = document.getElementById('newTreatmentPrice');
+                const name = nameInput.value.trim();
+                const price = parseFloat(priceInput.value) || 0;
+
+                if (!name) {
+                    nameInput.classList.add('is-invalid');
+                    return;
+                }
+                nameInput.classList.remove('is-invalid');
+
+                const key = name.replace(/\s+/g, '');
+                const item = document.createElement('div');
+                item.className = 'd-flex align-items-center gap-2 treatment-item';
+                item.innerHTML = `
+                    <input class="form-check-input mt-0 flex-shrink-0" type="checkbox"
+                           name="Treatments" value="${name}" checked>
+                    <span class="flex-grow-1">${name}</span>
+                    <div class="input-group input-group-sm" style="width:130px;">
+                        <span class="input-group-text">+$</span>
+                        <input type="number" class="form-control" placeholder="0.00"
+                               name="TreatmentPrice_${key}" value="${price.toFixed(2)}" min="0" step="0.01">
+                    </div>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-treatment" title="Quitar">
+                        <i class="bi bi-trash"></i>
+                    </button>`;
+                list.appendChild(item);
+
+                nameInput.value = '';
+                priceInput.value = '';
+            });
+        })();
+    </script>
+}

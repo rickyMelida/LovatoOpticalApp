@@ -1,0 +1,59 @@
+﻿<div class="modal fade" id="newCustomerModal" tabindex="-1" aria-labelledby="newCustomerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="newCustomerModalLabel">
+                    <i class="bi bi-plus-circle me-2"></i>Nuevo Cliente
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="newCustomerForm">
+                    <div class="row g-3">
+
+                        <div class="col-6">
+                            <label for="customerName" class="form-label">Nombre<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="customerName" name="Name"
+                                   placeholder="Juan" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="customerLastname" class="form-label">Apellido<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="customerLastname" name="Lastname"
+                                   placeholder="Perez" required>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="customerCiRuc" class="form-label">CI - RUC<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="customerCiRuc" name="Ciruc"
+                                   placeholder="800100-6" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="customerBirthDay" class="form-label">Fecha Nacimiento<span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="customerBirthDay" name="Birthday"
+                                   placeholder="" required>
+                        </div>
+                        
+                        <div class="col-6">
+                            <label for="customerAddress" class="form-label">Dirección<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="customerAddress" name="Address"
+                                   placeholder="Avda. Fernando de la Mora 123" required>
+                        </div>
+                        <div class="col-6">
+                            <label for="customerPhone" class="form-label">Teléfono/Celular<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="customerPhone" name="Phone"
+                                   placeholder="0991 123 456" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg me-1"></i>Cancelar
+                </button>
+                <button type="submit" form="newAccessoryForm" id="btnSaveCustomer" class="btn btn-primary">
+                    <i class="bi bi-floppy me-1"></i>Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

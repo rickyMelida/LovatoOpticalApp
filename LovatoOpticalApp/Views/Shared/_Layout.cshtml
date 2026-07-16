@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LovatoOpticalApp</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LovatoOpticalApp.styles.css" asp-append-version="true" />
+    <link href="~/lib/bootstrap-icon/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/lib/sweetalert2/css/sweetalert2.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <!-- Barra lateral -->
+    @{
+        var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    }
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-title">Menú</span>
+            <button class="toggle-btn" id="toggleSidebar">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+
+        <ul class="nav flex-column mt-2">
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Home" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-house-door"></i>
+                    <span class="link-text">Inicio</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Customer" ? "active" : "")" asp-area="" asp-controller="Customer" asp-action="Index">
+                    <i class="bi bi-person"></i>
+                    <span class="link-text">Clientes</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Catalog" ? "active" : "")" asp-area="" asp-controller="Catalog" asp-action="Index">
+                    <i class="bi bi-card-list"></i>
+                    <span class="link-text">Catalogos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Inventory" ? "active" : "")" asp-area="" asp-controller="Inventory" asp-action="Index">
+                    <i class="bi bi-box-seam-fill"></i>
+                    <span class="link-text">Inventario</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Order" ? "active" : "")" asp-area="" asp-controller="Order" asp-action="Index">
+                    <i class="bi bi-cart-check"></i>
+                    <span class="link-text">Pedidos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Invoice" ? "active" : "")" asp-area="" asp-controller="Invoice" asp-action="Index">
+                    <i class="bi bi-receipt"></i>
+                    <span class="link-text">Facturas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Report" ? "active" : "")" asp-area="" asp-controller="Report" asp-action="Index">
+                    <i class="bi bi-clipboard-data"></i>
+                    <span class="link-text">Reportes</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span class="link-text">Salir</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/sweetalert2/js/sweetalert2.all.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Contenido principal -->
+    <main>
+        @RenderBody()
+    </main>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        const toggleButton = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleButton.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        });
+    </script>
+</body>
+</html>

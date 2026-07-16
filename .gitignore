@@ -1,0 +1,144 @@
+# .gitignore for a .NET API project
+
+# Visual Studio Code
+.vscode/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.suo
+*.user
+*.sdf
+*.opensdf
+*.cachefile
+*.log
+*.bin
+*.obj
+*.ncb
+*.pidb
+*.ipch
+*.pss
+*.log
+*.vspscc
+*.vssscc
+*.mdb
+*.dbmdl
+*.pch
+*.vsp
+*.psess
+*.scc
+
+# Rider
+.idea/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.suo
+*.suo
+*.user
+*.suo
+*.user
+*.suo
+*.user
+*.suo
+*.user
+*.suo
+*.user
+*.suo
+*.user
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.obj
+
+# Packages
+*.7z
+*.zip
+*.rar
+*.gz
+*.tar
+*.bz2
+*.xpi
+*.nupkg
+*.tar.gz
+*.tgz
+*.rar
+*.zip
+*.7z
+*.exe
+
+# Logs and databases
+*.log
+*.sqlite
+*.sqlite3
+*.log
+*.pdb
+*.idb
+
+# OS generated files
+Thumbs.db
+.DS_Store
+ehthumbs.db
+
+# Compiled Python files
+*.pyc
+
+# Compiled TypeScript files
+*.js
+*.js.map
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# .NET Scaffolding
+bin/
+obj/
+
+# Visual Studio Code folders
+.vscode/
+.idea/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code directories
+.vscode/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# obj folder
+LovatoOpticalApp/obj
+LovatoOpticalApp.Core/obj
+LovatoOpticalApp.Persistence/obj
+LovatoOpticalApp.Infrastructure/obj
+
+# Bin folder
+LovatoOpticalApp.Application/bin
+LovatoOpticalApp.Core/bin
+LovatoOpticalApp.Persistence/bin
+LovatoOpticalApp.Infrastructure/bin
