@@ -2,5 +2,8 @@
   <Project Path="../LovatoOpticalApp.Core/LovatoOpticalApp.Core.csproj" />
   <Project Path="../LovatoOpticalApp.Infrastructure/LovatoOpticalApp.Application.csproj" />
   <Project Path="../LovatoOpticalApp.Persistence/LovatoOpticalApp.Persistence.csproj" />
+  <Project Path="../LovatoOpticalApp.Tests/LovatoOpticalApp.Tests.csproj">
+    <Build Solution="Debug|*" Project="false" />
+  </Project>
   <Project Path="LovatoOpticalApp.csproj" />
 </Solution>

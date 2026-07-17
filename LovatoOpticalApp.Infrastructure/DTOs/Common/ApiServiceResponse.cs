@@ -1,4 +1,4 @@
-﻿namespace LovatoOpticalApp.Application.DTOs
+﻿namespace LovatoOpticalApp.Application.DTOs.Common
 {
     public class ApiServiceResponse
     {

@@ -1,4 +1,5 @@
 ﻿using LovatoOpticalApp.Application.DTOs;
+using LovatoOpticalApp.Application.DTOs.Common;
 
 namespace LovatoOpticalApp.Application.Interfaces
 {

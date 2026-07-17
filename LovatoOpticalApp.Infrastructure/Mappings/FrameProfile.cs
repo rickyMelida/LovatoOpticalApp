@@ -11,8 +11,8 @@ namespace LovatoOpticalApp.Application.Mappings
 		{
 			CreateMap<FrameRequestDto, Frame>()
 				.ForMember(dest => dest.Material, opt => opt.MapFrom(src => ParseMaterial(src.Material)))
-				.ForMember(dest => dest.Shape, opt => opt.MapFrom(src => ParseShape(src.Shape)))
-				.ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
+				.ForMember(dest => dest.Shape, opt => opt.MapFrom(src => ParseShape(src.Shape)));
+				//.ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
 
 			CreateMap<Frame, FrameRequestDto>();
 		}

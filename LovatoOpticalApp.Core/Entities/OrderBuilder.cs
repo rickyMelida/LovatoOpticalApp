@@ -1,4 +1,6 @@
-﻿namespace LovatoOpticalApp.Core.Entities
+﻿using LovatoOpticalApp.Core.Interfaces;
+
+namespace LovatoOpticalApp.Core.Entities
 {
     public class OrderBuilder
     {
@@ -35,13 +37,13 @@
             return this;
         }
 
-        public OrderBuilder WithCase(Accessory accessory)
+        public OrderBuilder WithGlassesCase(IAccessory glassesCase)
         {
-            _order.Accessories.Add(accessory);
+            _order.GlassesCase = glassesCase;
             return this;
         }
 
-        public OrderBuilder AddAccessory(Accessory accessory)
+        public OrderBuilder AddAccessory(IAccessory accessory)
         {
             _order.Accessories.Add(accessory);
             return this;
@@ -62,10 +64,6 @@
 
             return _order;
         }
-
-        internal object ConCristalIzquierdo(Crystal cristal)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
+

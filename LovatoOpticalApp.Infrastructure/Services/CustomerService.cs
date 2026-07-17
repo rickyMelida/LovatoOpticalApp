@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LovatoOpticalApp.Application.DTOs;
+using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Application.Interfaces;
 using LovatoOpticalApp.Core.Entities;
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LovatoOpticalApp.Application.DTOs;
+using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Application.Interfaces;
 using LovatoOpticalApp.Core.Entities;
 using LovatoOpticalApp.Persistence;
@@ -14,7 +15,7 @@ namespace LovatoOpticalApp.Application.Services
 		private readonly IMapper _mapper;
 
 		public FrameService(IProductRepository<Frame> repository, IMapper mapper) =>
-		(_repository, _mapper) = (repository, mapper);
+			(_repository, _mapper) = (repository, mapper);
 
 		public async Task<ApiServiceResponse> CreateFrame(FrameRequestDto frame)
 		{
@@ -23,6 +24,5 @@ namespace LovatoOpticalApp.Application.Services
 
 			return new ApiServiceResponse("Armazon creado correctamente", 200);
 		}
-
 	}
 }

@@ -18,18 +18,19 @@
 
                         <div class="col-md-12">
                             <label for="frameCode" class="form-label">Código <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="frameCode" name="Code" required>
-                            <div id="frameCodeHelp" class="form-text"><span class="text-muted">Ingrese el código del armazón. Ej: <em>GU2872 069 54-17 140</em></span></div>
+                            <input type="text" class="form-control" id="frameCode" name="frameCode" required>
+                            <div id="frameCodelHelp" class="form-text"><span class="text-muted">Ingrese el código del armazón. Ej: <em>GU2872 069 54-17 140</em></span></div>
                         </div>
                
                         <div class="col-md-4">
                             <label for="frameMaterial" class="form-label">Material <span class="text-danger">*</span></label>
                             <select class="form-select" id="frameMaterial" name="Material" required>
                                 <option value="" disabled selected>Seleccionar…</option>
-                                <option value="Acetato">Acetato</option>
-                                <option value="Metal">Metal</option>
-                                <option value="Titanio">Titanio</option>
-                                <option value="Plastico">Plástico</option>
+                                <option>Acetato</option>
+                                <option>Metal</option>
+                                <option>Titanio</option>
+                                <option>Mixto</option>
+                                <option>Plástico</option>
                             </select>
                         </div>
 
@@ -37,38 +38,40 @@
                             <label for="frameShape" class="form-label">Forma <span class="text-danger">*</span></label>
                             <select class="form-select" id="frameShape" name="Shape" required>
                                 <option value="" disabled selected>Seleccionar…</option>
-                                <option value="Rectangular">Rectangular</option>
-                                <option value="Circle">Redondo</option>
-                                <option value="Square">Cuadrado</option>
-                                <option value="Oval">Ovalado</option>
+                                <option>Rectangular</option>
+                                <option>Redondo</option>
+                                <option>Cuadrado</option>
+                                <option>Ovalado</option>
+                                <option>Cat-eye</option>
+                                <option>Aviador</option>
                             </select>
                         </div>
 
                         <div class="col-md-4">
                             <label for="frameColor" class="form-label">Color <span class="text-danger">*</span></label>
-                            <input type="color" class="form-control" id="frameColor" name="Color"
+                            <input type="text" class="form-control" id="frameColor" name="Color"
                                    placeholder="Negro" required>
                         </div>
 
                    
                         <div class="col-md-6">
-                            <label for="framePurchasePrice" class="form-label">Precio Compra<span class="text-danger">*</span></label>
+                            <label for="framePrice" class="form-label">Precio Compra<span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <span class="input-group-text">₲</span>
-                                <input type="number" class="form-control" id="framePurchasePrice" name="PurchasePrice" placeholder="0.00" min="0" step="0.01" required>
+                                <input type="number" class="form-control" id="framePrice" name="Price" placeholder="0.00" min="0" step="0.01" required>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="frameSalePrice" class="form-label">Precio Venta<span class="text-danger">*</span></label>
+                            <label for="framePrice" class="form-label">Precio Venta<span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <span class="input-group-text">₲</span>
-                                <input type="number" class="form-control" id="frameSalePrice" name="SalePrice" placeholder="0.00" min="0" step="0.01" required>
+                                <input type="number" class="form-control" id="framePrice" name="Price" placeholder="0.00" min="0" step="0.01" required>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <label for="frameStock" class="form-label">Stock inicial <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="frameStock" name="Quantity"
+                            <input type="number" class="form-control" id="frameStock" name="Stock"
                                    placeholder="0" min="0" required>
                         </div>
 
@@ -77,7 +80,7 @@
                                 Stock mínimo <span class="text-danger">*</span>
                                 <i class="bi bi-info-circle text-muted ms-1" title="Alerta cuando el stock baje de este valor"></i>
                             </label>
-                            <input type="number" class="form-control" id="frameMinStock" name="MinimumQuantity"
+                            <input type="number" class="form-control" id="frameMinStock" name="MinStock"
                                    placeholder="0" min="0" required>
                         </div>
 
@@ -95,7 +98,7 @@
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                     <i class="bi bi-x-lg me-1"></i>Cancelar
                 </button>
-                <button type="submit" form="newFrameForm" class="btn btn-primary" id="btnFormSubmit">
+                <button type="submit" form="newFrameForm" class="btn btn-primary">
                     <i class="bi bi-floppy me-1"></i>Guardar
                 </button>
             </div>

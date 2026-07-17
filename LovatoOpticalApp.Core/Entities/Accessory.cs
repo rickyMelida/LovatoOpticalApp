@@ -18,6 +18,8 @@ namespace LovatoOpticalApp.Core.Entities
 
         public int MinimumQuantity { get; private set; }
 
+        private Accessory() { }
+
         public Accessory(string name, decimal purchasePrice, decimal salePrice, bool isOptional, int quantity, int minimumQuantity)
         {
             Name = name;

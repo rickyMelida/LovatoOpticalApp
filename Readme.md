@@ -83,4 +83,4 @@ El proyecto se encuentra en desarrollo inicial. La estructura base está bien de
 
 ## Conclusión
 
-Lovato Optical App representa una base sólida para construir una solución completa de gestión para una óptica, con una arquitectura limpia y modular que facilita su evolución.
+Lovato Optical representa una base sólida para construir una solución completa de gestión para una óptica, con una arquitectura limpia y modular que facilita su evolución.

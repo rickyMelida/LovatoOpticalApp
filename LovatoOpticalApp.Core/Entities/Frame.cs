@@ -10,7 +10,8 @@ namespace LovatoOpticalApp.Core.Entities
         public FrameShapeEnum Shape { get; set; }
         public string Color { get; set; }
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
-        public Guid CreatedBy { get; private set; }
+
+        private Frame() { }
 
         public Frame(
             string name,
@@ -21,7 +22,6 @@ namespace LovatoOpticalApp.Core.Entities
             decimal purchasePrice,
             decimal salePrice,
             int quantity,
-			Guid createdBy,
             int minimumQuantity = 1)
         {
             Type = ProductTypeEnum.Frame;  // se asigna aquí
@@ -34,7 +34,6 @@ namespace LovatoOpticalApp.Core.Entities
             SalePrice = salePrice;
             Quantity = quantity;
             MinimumQuantity = minimumQuantity;
-            CreatedBy = createdBy;
         }
     }
 }
