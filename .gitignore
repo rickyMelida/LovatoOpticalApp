@@ -93,7 +93,6 @@ ehthumbs.db
 *.pyc
 
 # Compiled TypeScript files
-*.js
 *.js.map
 
 # Node.js
