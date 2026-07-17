@@ -1,38 +1,28 @@
-﻿using LovatoOpticalApp.Core.Entities;
-using LovatoOpticalApp.Core.Interfaces;
+﻿using AutoMapper;
+using LovatoOpticalApp.Application.DTOs;
+using LovatoOpticalApp.Application.Interfaces;
+using LovatoOpticalApp.Core.Entities;
 using LovatoOpticalApp.Persistence;
 
-namespace LovatoOpticalApp.Application.Services;
-
-public class FrameService : IProductService<Frame>
+namespace LovatoOpticalApp.Application.Services
 {
-    private readonly ProductRepository<Frame> _repository;
 
-    public FrameService(ProductRepository<Frame> repository)
-        => _repository = repository;
 
-    public Task AddAsync(Frame product)
-    {
-        throw new NotImplementedException();
-    }
+	public class FrameService : IFrameService
+	{
+		private readonly IProductRepository<Frame> _repository;
+		private readonly IMapper _mapper;
 
-    public Task DeleteAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
+		public FrameService(IProductRepository<Frame> repository, IMapper mapper) =>
+		(_repository, _mapper) = (repository, mapper);
 
-    public Task<IEnumerable<Frame>> GetAllAsync()
-    {
-        throw new NotImplementedException();
-    }
+		public async Task<ApiServiceResponse> CreateFrame(FrameRequestDto frame)
+		{
+			var frameEntity = _mapper.Map<Frame>(frame);
+			await _repository.AddAsync(frameEntity);
 
-    public Task<Frame?> GetByIdAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
+			return new ApiServiceResponse("Armazon creado correctamente", 200);
+		}
 
-    public Task UpdateAsync(Frame product)
-    {
-        throw new NotImplementedException();
-    }
+	}
 }

@@ -10,7 +10,12 @@ namespace LovatoOpticalApp.Application
         public static void ConfigureApplication(this IServiceCollection services)
         {
             services.AddScoped<ICustomerService, CustomerService>();
-            services.AddAutoMapper(cfg => cfg.AddProfile<CustomerProfile>());
+			services.AddScoped<IFrameService, FrameService>();
+            services.AddAutoMapper(cfg => 
+            {
+                cfg.AddProfile<CustomerProfile>();
+                cfg.AddProfile<FrameProfile>();
+            });
         }
     }
 }

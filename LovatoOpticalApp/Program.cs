@@ -1,10 +1,12 @@
 using LovatoOpticalApp.Application;
+using LovatoOpticalApp.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.ConfigureApplication();
+builder.Services.ConfigurePersistence(builder.Configuration);
 
 var app = builder.Build();
 
