@@ -169,6 +169,9 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("FrameType")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Material")
                         .HasColumnType("integer");
 
@@ -187,9 +190,6 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("numeric");
-
-                    b.Property<int>("Shape")
-                        .HasColumnType("integer");
 
                     b.Property<int>("Type")
                         .HasColumnType("integer");

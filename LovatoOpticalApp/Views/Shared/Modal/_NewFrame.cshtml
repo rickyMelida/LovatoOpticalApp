@@ -1,107 +1,112 @@
 ﻿<div class="modal fade" id="newFrameModal" tabindex="-1" aria-labelledby="newFrameModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="newFrameModalLabel">
-                    <i class="bi bi-plus-circle me-2"></i>Nuevo Armazón
-                </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="newFrameForm">
-                    <div class="row g-3">
-                        
-                        <div class="col-12">
-                            <label for="frameName" class="form-label">Nombre <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="frameName" name="Name" required>
-                        </div>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="newFrameModalLabel">
+					<i class="bi bi-plus-circle me-2"></i>Nuevo Armazón
+				</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="newFrameForm">
+					<div class="row g-3">
 
-                        <div class="col-md-12">
-                            <label for="frameCode" class="form-label">Código <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="frameCode" name="Code" required>
-                            <div id="frameCodeHelp" class="form-text"><span class="text-muted">Ingrese el código del armazón. Ej: <em>GU2872 069 54-17 140</em></span></div>
-                        </div>
-               
-                        <div class="col-md-4">
-                            <label for="frameMaterial" class="form-label">Material <span class="text-danger">*</span></label>
-                            <select class="form-select" id="frameMaterial" name="Material" required>
-                                <option value="" disabled selected>Seleccionar…</option>
-                                <option>Acetato</option>
-                                <option>Metal</option>
-                                <option>Titanio</option>
-                                <option>Mixto</option>
-                                <option>Plástico</option>
-                            </select>
-                        </div>
+						<div class="col-12">
+							<label for="frameName" class="form-label">Nombre <span class="text-danger">*</span></label>
+							<input type="text" class="form-control" id="frameName" name="Name" required>
+						</div>
 
-                        <div class="col-md-4">
-                            <label for="frameShape" class="form-label">Forma <span class="text-danger">*</span></label>
-                            <select class="form-select" id="frameShape" name="Shape" required>
-                                <option value="" disabled selected>Seleccionar…</option>
-                                <option>Rectangular</option>
-                                <option>Redondo</option>
-                                <option>Cuadrado</option>
-                                <option>Ovalado</option>
-                                <option>Cat-eye</option>
-                                <option>Aviador</option>
-                            </select>
-                        </div>
+						<div class="col-md-12">
+							<label for="frameCode" class="form-label">Código <span class="text-danger">*</span></label>
+							<input type="text" class="form-control" id="frameCode" name="Code" required>
+							<div id="frameCodeHelp" class="form-text"><span class="text-muted">Ingrese el código del
+								armazón. Ej: <em>GU2872 069 54-17 140</em></span></div>
+							</div>
 
-                        <div class="col-md-4">
-                            <label for="frameColor" class="form-label">Color <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="frameColor" name="Color"
-                                   placeholder="Negro" required>
-                        </div>
+							<div class="col-md-4">
+								<label for="frameMaterial" class="form-label">Material <span
+									class="text-danger">*</span></label>
+									<select class="form-select" id="frameMaterial" name="Material" required>
+										<option value="" disabled selected>Seleccionar…</option>
+										<option>Acetato</option>
+										<option>Metal</option>
+										<option>Titanio</option>
+										<option>Mixto</option>
+										<option>Plástico</option>
+									</select>
+								</div>
+
+								<div class="col-md-4">
+									<label for="frameType" class="form-label">Tipo <span class="text-danger">*</span></label>
+									<select class="form-select" id="frameType" name="FrameType" required>
+										<option value="" disabled selected>Seleccionar…</option>
+										<option>Hilo</option>
+										<option>Al Tornillo</option>
+										<option>Aro Completo</option>
+									</select>
+								</div>
+
+								<div class="col-md-4">
+									<label for="frameColor" class="form-label">Color <span class="text-danger">*</span></label>
+									<input type="color" class="form-control" id="frameColor" name="Color" placeholder="Negro"
+										   required>
+								</div>
 
                    
-                        <div class="col-md-6">
-                            <label for="framePurchasePrice" class="form-label">Precio Compra<span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <span class="input-group-text">₲</span>
-                                <input type="number" class="form-control" id="framePurchasePrice" name="PurchasePrice" placeholder="0.00" min="0" step="0.01" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="frameSalePrice" class="form-label">Precio Venta<span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <span class="input-group-text">₲</span>
-                                <input type="number" class="form-control" id="frameSalePrice" name="SalePrice" placeholder="0.00" min="0" step="0.01" required>
-                            </div>
-                        </div>
+								<div class="col-md-6">
+									<label for="framePurchasePrice" class="form-label">Precio Compra<span
+										class="text-danger">*</span></label>
+										<div class="input-group">
+											<span class="input-group-text">₲</span>
+											<input type="number" class="form-control" id="framePurchasePrice" name="PurchasePrice"
+												   placeholder="0.00" min="0" step="0.01" required>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<label for="frameSalePrice" class="form-label">Precio Venta<span
+											class="text-danger">*</span></label>
+											<div class="input-group">
+												<span class="input-group-text">₲</span>
+												<input type="number" class="form-control" id="frameSalePrice" name="SalePrice"
+													   placeholder="0.00" min="0" step="0.01" required>
+											</div>
+										</div>
 
-                        <div class="col-md-6">
-                            <label for="frameQuantity" class="form-label">Stock inicial <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="frameQuantity" name="Quantity"
-                                   placeholder="0" min="0" required>
-                        </div>
+										<div class="col-md-6">
+											<label for="frameQuantity" class="form-label">Stock inicial <span
+												class="text-danger">*</span></label>
+												<input type="number" class="form-control" id="frameQuantity" name="Quantity" placeholder="0"
+													   min="0" required>
+											</div>
 
-                        <div class="col-md-6">
-                            <label for="frameMinimumQuantity" class="form-label">
-                                Stock mínimo <span class="text-danger">*</span>
-                                <i class="bi bi-info-circle text-muted ms-1" title="Alerta cuando el stock baje de este valor"></i>
-                            </label>
-                            <input type="number" class="form-control" id="frameMinimumQuantity" name="MinimumQuantity"
-                                   placeholder="0" min="0" required>
-                        </div>
+											<div class="col-md-6">
+												<label for="frameMinimumQuantity" class="form-label">
+													Stock mínimo <span class="text-danger">*</span>
+													<i class="bi bi-info-circle text-muted ms-1"
+													   title="Alerta cuando el stock baje de este valor"></i>
+												</label>
+												<input type="number" class="form-control" id="frameMinimumQuantity" name="MinimumQuantity"
+													   placeholder="0" min="0" required>
+											</div>
 
                  
-                        <div class="col-12">
-                            <label for="frameDescription" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="frameDescription" name="Description"
-                                      rows="3" placeholder="Descripción opcional del armazón…"></textarea>
-                        </div>
+											<div class="col-12">
+												<label for="frameDescription" class="form-label">Descripción</label>
+												<textarea class="form-control" id="frameDescription" name="Description" rows="3"
+														  placeholder="Descripción opcional del armazón…"></textarea>
+											</div>
 
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg me-1"></i>Cancelar
-                </button>
-                <button type="submit" form="newFrameForm" class="btn btn-primary" id="btnFormSubmit">
-                    <i class="bi bi-floppy me-1"></i>Guardar
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+										</div>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+										<i class="bi bi-x-lg me-1"></i>Cancelar
+									</button>
+									<button type="submit" form="newFrameForm" class="btn btn-primary" id="btnFormSubmit">
+										<i class="bi bi-floppy me-1"></i>Guardar
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>

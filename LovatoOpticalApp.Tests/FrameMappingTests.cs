@@ -11,7 +11,7 @@ namespace LovatoOpticalApp.Tests;
 public class FrameMappingTests
 {
     [Fact]
-    public void Map_FrameRequestDtoToFrame_WithSpanishShapeName_MapsToEnum()
+    public void Map_FrameRequestDtoToFrame_WithSpanishFrameTypeName_MapsToEnum()
     {
         var services = new ServiceCollection();
         services.AddLogging();
@@ -29,7 +29,7 @@ public class FrameMappingTests
             Name = "Armazón",
             Code = "A1",
             Material = "Acetato",
-            Shape = "Cuadrado",
+            FrameType = "Hilo",
             Color = "Green",
             PurchasePrice = 100,
             SalePrice = 150,
@@ -40,7 +40,7 @@ public class FrameMappingTests
 
         var frame = mapper.Map<Frame>(dto);
 
-        Assert.Equal(FrameShapeEnum.Square, frame.Shape);
+        Assert.Equal(FrameTypeEnum.Hilo, frame.FrameType);
         Assert.Equal(FrameMaterialEnum.Acetato, frame.Material);
     }
 }

@@ -7,7 +7,7 @@ namespace LovatoOpticalApp.Core.Entities
     {
         public string Code { get; private set; }
         public FrameMaterialEnum Material { get; private set; }
-        public FrameShapeEnum Shape { get; set; }
+        public FrameTypeEnum FrameType { get; set; }
         public string Color { get; set; }
         public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
@@ -17,7 +17,7 @@ namespace LovatoOpticalApp.Core.Entities
             string name,
             string code,
             FrameMaterialEnum material,
-            FrameShapeEnum shape,
+            FrameTypeEnum frameType,
             string color,
             decimal purchasePrice,
             decimal salePrice,
@@ -28,7 +28,7 @@ namespace LovatoOpticalApp.Core.Entities
             Name = name;
             Code = code;
             Material = material;
-            Shape = shape;
+            FrameType = frameType;
             Color = color;
             PurchasePrice = purchasePrice;
             SalePrice = salePrice;

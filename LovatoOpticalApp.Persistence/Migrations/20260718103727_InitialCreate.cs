@@ -143,7 +143,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Code = table.Column<string>(type: "text", nullable: false),
                     Material = table.Column<int>(type: "integer", nullable: false),
-                    Shape = table.Column<int>(type: "integer", nullable: false),
+                    FrameType = table.Column<int>(type: "integer", nullable: false),
                     Color = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),

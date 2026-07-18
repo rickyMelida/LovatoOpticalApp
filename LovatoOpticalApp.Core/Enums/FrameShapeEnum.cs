@@ -1,10 +1,9 @@
 ﻿namespace LovatoOpticalApp.Core.Enums
 {
-    public enum FrameShapeEnum
+    public enum FrameTypeEnum
     {
-        Rectangular,
-        Circle,
-        Square,
-        Oval
+        Hilo,
+		AlTornillo,
+		AroCompleto
     }
 }

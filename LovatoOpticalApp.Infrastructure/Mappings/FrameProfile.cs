@@ -10,11 +10,11 @@ namespace LovatoOpticalApp.Application.Mappings
 		public FrameProfile()
 		{
 			CreateMap<string, FrameMaterialEnum>().ConvertUsing(src => ParseMaterial(src));
-			CreateMap<string, FrameShapeEnum>().ConvertUsing(src => ParseShape(src));
+			CreateMap<string, FrameTypeEnum>().ConvertUsing(src => ParseFrameType(src));
 
 			CreateMap<FrameRequestDto, Frame>()
 				.ForMember(dest => dest.Material, opt => opt.MapFrom(src => src.Material))
-				.ForMember(dest => dest.Shape, opt => opt.MapFrom(src => src.Shape));
+				.ForMember(dest => dest.FrameType, opt => opt.MapFrom(src => src.FrameType));
 
 			CreateMap<Frame, FrameRequestDto>();
 		}
@@ -34,17 +34,16 @@ namespace LovatoOpticalApp.Application.Mappings
 			};
 		}
 
-		private static FrameShapeEnum ParseShape(string? shape)
+		private static FrameTypeEnum ParseFrameType(string? frameType)
 		{
-			if (string.IsNullOrWhiteSpace(shape))
+			if (string.IsNullOrWhiteSpace(frameType))
 				return default;
 
-			return shape.Trim().ToLowerInvariant() switch
+			return frameType.Trim().ToLowerInvariant() switch
 			{
-				"rectangular" or "rectangulares" => FrameShapeEnum.Rectangular,
-				"circle" or "redondo" or "redonda" or "circular" => FrameShapeEnum.Circle,
-				"square" or "cuadrado" or "cuadrada" => FrameShapeEnum.Square,
-				"oval" or "ovalado" or "ovalada" => FrameShapeEnum.Oval,
+				"hilo" => FrameTypeEnum.Hilo,
+				"al tornillo" => FrameTypeEnum.AlTornillo,
+				"aro completo" => FrameTypeEnum.AroCompleto,
 				_ => default
 			};
 		}

@@ -25,7 +25,7 @@ public static class OrderTestFixture
             name: "Ray-Ban RB5154",
             code: "RB5154",
             material: FrameMaterialEnum.Acetato,
-            shape: FrameShapeEnum.Square,
+			frameType: FrameTypeEnum.Hilo,
             color: "Negro",
             purchasePrice: 100.00m,
             salePrice: salePrice,

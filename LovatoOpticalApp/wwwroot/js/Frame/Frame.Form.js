@@ -9,7 +9,7 @@ const buildFramePayload = () => {
         Name: formData.get("Name")?.toString().trim() ?? "",
         Code: formData.get("Code")?.toString().trim() ?? "",
         Material: formData.get("Material")?.toString() ?? "",
-        Shape: formData.get("Shape")?.toString() ?? "",
+        FrameType: formData.get("FrameType")?.toString() ?? "",
         Color: formData.get("Color")?.toString().trim() ?? "",
         PurchasePrice: parseFloat(formData.get("PurchasePrice") ?? 0) || 0,
         SalePrice: parseFloat(formData.get("SalePrice") ?? 0) || 0,
@@ -22,9 +22,11 @@ const buildFramePayload = () => {
 
 btnFormSubmit.addEventListener("click", async (e) => {
     e.preventDefault();
+	enableButton(btnFormSubmit, true);
 
     if (!form.checkValidity()) {
         form.reportValidity();
+		enableButton(btnFormSubmit, false);
         return;
     }
 
@@ -41,8 +43,33 @@ btnFormSubmit.addEventListener("click", async (e) => {
         });
 
         const data = await response.json();
-        console.log("Frame created successfully:", data);
+		showAlert(data.message, "Éxito", "success")
+			.then(() => hideModal());
+		resetForm();
     } catch (error) {
-        console.error("Error creating frame:", error);
+        showAlert("Error al crear el armazon", "Error", "error");
+        enableButton(btnFormSubmit, false);
     }
 });
+
+const enableButton = (button, disable = false) => {
+	const originalText = `<i class="bi bi-floppy me-1"></i>Guardar`;
+	const loadingSpinner = `<div class="spinner-border spinner-border-sm" role="status">
+											<span class="visually-hidden">Loading...</span>
+										</div>`;
+	
+	button.innerHTML = disable ? loadingSpinner : originalText;
+	button.disabled = disable;
+	button.classList.toggle("loading-btn", disable);
+}
+
+const resetForm = () => {
+	form.reset();
+	enableButton(btnFormSubmit, false);
+}
+
+const hideModal = () => {
+	const modalElement = document.getElementById("newFrameModal");
+	const modalInstance = bootstrap.Modal.getInstance(modalElement);
+	modalInstance.hide();
+}

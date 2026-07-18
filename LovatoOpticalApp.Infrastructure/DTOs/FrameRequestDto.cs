@@ -8,7 +8,7 @@ namespace LovatoOpticalApp.Application.DTOs
 		public string Name { get; set; }
 		public string Code { get; set; }
 		public string Material { get; set; }
-		public string Shape { get; set; }
+		public string FrameType { get; set; }
 		public string Color { get; set; }
 		public decimal PurchasePrice { get; set; }
 		public decimal SalePrice { get; set; }
