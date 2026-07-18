@@ -3,8 +3,8 @@ using LovatoOpticalApp.Application.DTOs.Common;
 
 namespace LovatoOpticalApp.Application.Interfaces
 {
-	public interface IFrameService
+	public interface IProductService
 	{
-		Task<ApiServiceResponse> CreateFrame(FrameRequestDto frame);
+		Task<PagedResult<ProductResponse>> GetProducts(PaginationParams paginationParams);
 	}
 }

@@ -24,5 +24,11 @@ namespace LovatoOpticalApp.Application.Services
 
 			return new ApiServiceResponse("Armazon creado correctamente", 200);
 		}
+
+		public async Task<List<FrameResponseDto>> GetFrames()
+		{
+			var frames = await _repository.GetAllAsync();
+			return _mapper.Map<List<FrameResponseDto>>(frames);
+		}
 	}
 }

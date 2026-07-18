@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LovatoOpticalApp.Infrastructure\LovatoOpticalApp.Application.csproj" />
+    <ProjectReference Include="..\LovatoOpticalApp.Application\LovatoOpticalApp.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

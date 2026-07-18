@@ -43,4 +43,27 @@ public class FrameMappingTests
         Assert.Equal(FrameTypeEnum.Hilo, frame.FrameType);
         Assert.Equal(FrameMaterialEnum.Acetato, frame.Material);
     }
+
+    [Fact]
+    public void Map_FrameToFrameResponseDto_MapsSalePriceAndType()
+    {
+        var services = new ServiceCollection();
+        services.AddLogging();
+        services.AddAutoMapper(cfg =>
+        {
+            cfg.AddProfile<FrameProfile>();
+        });
+
+        using var serviceProvider = services.BuildServiceProvider();
+        var mapper = serviceProvider.GetRequiredService<IMapper>();
+
+        var frame = new Frame("Armazón", "A1", FrameMaterialEnum.Acetato, FrameTypeEnum.Hilo, "Green", 100, 150, 10, 1);
+
+        var dto = mapper.Map<FrameResponseDto>(frame);
+
+        Assert.Equal(frame.Name, dto.Name);
+        Assert.Equal(150m, dto.Price);
+        Assert.Equal(frame.Color, dto.Color);
+        Assert.Equal(ProductTypeEnum.Frame, dto.Type);
+    }
 }

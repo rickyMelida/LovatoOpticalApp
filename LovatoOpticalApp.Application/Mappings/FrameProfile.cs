@@ -17,6 +17,8 @@ namespace LovatoOpticalApp.Application.Mappings
 				.ForMember(dest => dest.FrameType, opt => opt.MapFrom(src => src.FrameType));
 
 			CreateMap<Frame, FrameRequestDto>();
+			CreateMap<Frame, FrameResponseDto>()
+				.ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.SalePrice));
 		}
 
 		private static FrameMaterialEnum ParseMaterial(string? material)

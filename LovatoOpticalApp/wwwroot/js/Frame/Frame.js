@@ -1,4 +1,4 @@
-﻿import './Frame.Form.js';
+﻿import { initFrameForm } from './Frame.Form.js';
 
 const frameCode = document.getElementById("frameCode");
 const frameCodeHelp = document.getElementById('frameCodeHelp');
@@ -7,7 +7,7 @@ const frameCodeHelp = document.getElementById('frameCodeHelp');
 // Partes: [Código armazón] [Color] [Ancho-Alto] [Largo patilla]
 const FRAME_CODE_REGEX = /^([A-Za-z0-9]+)(?:\s+(\d+))?(?:\s+(\d+)-(\d+))?(?:\s+(\d+))?$/;
 
-function parseFrameCode(value) {
+const parseFrameCode = (value) => {
     const trimmed = value.trim();
     if (!trimmed) {
         return '<span class="text-muted">Ingrese el código del armazón. Ej: <em>GU2872 069 54-17 140</em></span>';
@@ -36,6 +36,11 @@ function parseFrameCode(value) {
     return parts.join('<span class="text-muted mx-1">|</span>');
 }
 
-frameCode.addEventListener('input', (e) => {
-    frameCodeHelp.innerHTML = parseFrameCode(e.target.value);
-});
+
+export const initFrame = () => {
+	initFrameForm();
+	
+	frameCode.addEventListener('input', (e) => {
+		frameCodeHelp.innerHTML = parseFrameCode(e.target.value);
+	});
+}

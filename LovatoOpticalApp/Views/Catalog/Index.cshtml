@@ -1,11 +1,17 @@
-﻿@{
+﻿@using LovatoOpticalApp.Application.DTOs;
+@using LovatoOpticalApp.Application.DTOs.Common
+
+@model PagedResult<ProductResponse>
+
+@{
     ViewData["Title"] = "Catalog";
+	var products = ViewData["Products"] as PagedResult<ProductResponse>;
 }
 <div class="row">
     <div class="col-md-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">Catalogos Productos</li>
+                <li class="breadcrumb-item active" aria-current="page">Catalogos Productos @products.Items.Count</li>
             </ol>
         </nav>
     </div>
@@ -119,4 +125,4 @@
 @await Html.PartialAsync("Modal/_NewCrystal")
 @await Html.PartialAsync("Modal/_NewFrame")
 
-<script src="~/js/Frame/Frame.js" type="module"></script>
+<script src="~/js/Catalog/Catalog.js" type="module"></script>
