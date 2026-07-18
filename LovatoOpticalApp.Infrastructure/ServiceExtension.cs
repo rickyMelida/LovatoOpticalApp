@@ -1,6 +1,8 @@
 ﻿using LovatoOpticalApp.Application.Interfaces;
 using LovatoOpticalApp.Application.Mappings;
 using LovatoOpticalApp.Application.Services;
+using LovatoOpticalApp.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LovatoOpticalApp.Application
@@ -9,8 +11,11 @@ namespace LovatoOpticalApp.Application
     {
         public static void ConfigureApplication(this IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>();
+            services.AddScoped(typeof(IProductRepository<>), typeof(ProductRepository<>));
+
             services.AddScoped<ICustomerService, CustomerService>();
-			services.AddScoped<IFrameService, FrameService>();
+            services.AddScoped<IFrameService, FrameService>();
             services.AddAutoMapper(cfg => 
             {
                 cfg.AddProfile<CustomerProfile>();

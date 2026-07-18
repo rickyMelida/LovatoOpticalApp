@@ -16,7 +16,7 @@ const buildFramePayload = () => {
         Quantity: parseInt(formData.get("Quantity") ?? 0, 10) || 0,
         MinimumQuantity: parseInt(formData.get("MinimumQuantity") ?? 0, 10) || 0,
         Description: formData.get("Description")?.toString().trim() ?? "",
-        CreatedBy: ""
+        CreatedBy: "00000000-0000-0000-0000-000000000000"
     };
 };
 

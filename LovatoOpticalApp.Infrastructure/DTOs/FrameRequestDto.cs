@@ -14,7 +14,7 @@ namespace LovatoOpticalApp.Application.DTOs
 		public decimal SalePrice { get; set; }
 		public int Quantity { get; set; }
 		public int MinimumQuantity { get; set; }
-		public Guid CreatedBy { get; set; }
+		public Guid? CreatedBy { get; set; }
 		public string Description { get; set; }
 	}
 }

@@ -9,34 +9,42 @@ namespace LovatoOpticalApp.Application.Mappings
 	{
 		public FrameProfile()
 		{
+			CreateMap<string, FrameMaterialEnum>().ConvertUsing(src => ParseMaterial(src));
+			CreateMap<string, FrameShapeEnum>().ConvertUsing(src => ParseShape(src));
+
 			CreateMap<FrameRequestDto, Frame>()
-				.ForMember(dest => dest.Material, opt => opt.MapFrom(src => ParseMaterial(src.Material)))
-				.ForMember(dest => dest.Shape, opt => opt.MapFrom(src => ParseShape(src.Shape)));
-				//.ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy));
+				.ForMember(dest => dest.Material, opt => opt.MapFrom(src => src.Material))
+				.ForMember(dest => dest.Shape, opt => opt.MapFrom(src => src.Shape));
 
 			CreateMap<Frame, FrameRequestDto>();
 		}
 
-		private static FrameMaterialEnum ParseMaterial(string material)
+		private static FrameMaterialEnum ParseMaterial(string? material)
 		{
-			return material switch
+			if (string.IsNullOrWhiteSpace(material))
+				return default;
+
+			return material.Trim().ToLowerInvariant() switch
 			{
-				"Metal" => FrameMaterialEnum.Metal,
-				"Acetato" => FrameMaterialEnum.Acetato,
-				"Titanio" => FrameMaterialEnum.Titanio,
-				"Plastico" or "Plástico" => FrameMaterialEnum.Plastico,
+				"metal" => FrameMaterialEnum.Metal,
+				"acetato" => FrameMaterialEnum.Acetato,
+				"titanio" => FrameMaterialEnum.Titanio,
+				"plastico" or "plástico" or "plastic" => FrameMaterialEnum.Plastico,
 				_ => default
 			};
 		}
 
-		private static FrameShapeEnum ParseShape(string shape)
+		private static FrameShapeEnum ParseShape(string? shape)
 		{
-			return shape switch
+			if (string.IsNullOrWhiteSpace(shape))
+				return default;
+
+			return shape.Trim().ToLowerInvariant() switch
 			{
-				"Rectangular" => FrameShapeEnum.Rectangular,
-				"Circle" or "Redondo" => FrameShapeEnum.Circle,
-				"Square" or "Cuadrado" => FrameShapeEnum.Square,
-				"Oval" or "Ovalado" => FrameShapeEnum.Oval,
+				"rectangular" or "rectangulares" => FrameShapeEnum.Rectangular,
+				"circle" or "redondo" or "redonda" or "circular" => FrameShapeEnum.Circle,
+				"square" or "cuadrado" or "cuadrada" => FrameShapeEnum.Square,
+				"oval" or "ovalado" or "ovalada" => FrameShapeEnum.Oval,
 				_ => default
 			};
 		}

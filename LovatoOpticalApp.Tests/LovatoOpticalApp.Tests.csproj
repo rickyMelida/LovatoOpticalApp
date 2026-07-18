@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LovatoOpticalApp.Core\LovatoOpticalApp.Core.csproj" />
+    <ProjectReference Include="..\LovatoOpticalApp.Infrastructure\LovatoOpticalApp.Application.csproj" />
   </ItemGroup>
 
 </Project>

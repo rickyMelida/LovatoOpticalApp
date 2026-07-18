@@ -29,8 +29,7 @@ public static class OrderTestFixture
             color: "Negro",
             purchasePrice: 100.00m,
             salePrice: salePrice,
-            quantity: 10,
-            createdBy: Guid.NewGuid());
+            quantity: 10);
 
     public static Crystal DefaultCrystal(decimal salePrice = 85.00m, OpticalPrescription? prescription = null) =>
         new(

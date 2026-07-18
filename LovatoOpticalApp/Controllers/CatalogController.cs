@@ -19,8 +19,12 @@ namespace LovatoOpticalApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateFrame([FromBody] FrameRequestDto frame)
+        public async Task<IActionResult> CreateFrame([FromBody] FrameRequestDto? frame)
         {
+            if (frame is null)
+            	return BadRequest("El cuerpo de la solicitud no es válido.");
+            
+
             var result = await _frameService.CreateFrame(frame);
             return Ok(result);
         }
