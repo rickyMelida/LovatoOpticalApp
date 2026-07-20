@@ -4,42 +4,49 @@
 @model PagedResult<ProductResponse>
 
 @{
-    ViewData["Title"] = "Catalog";
-	var products = ViewData["Products"] as PagedResult<ProductResponse> 
+	ViewData["Title"] = "Catalog";
+	var products = ViewData["Products"] as PagedResult<ProductResponse>
 		?? new PagedResult<ProductResponse>();
 }
 <div class="row">
-    <div class="col-md-12">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">Catalogos Productos @products.Items.Count</li>
-            </ol>
-        </nav>
-    </div>
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item active" aria-current="page">Catalogos Productos</li>
+			</ol>
+		</nav>
+	</div>
 </div>
-<div class="row mt-3 mb-2">
-    <div class="col-md-6">
 
-        <div class="row g-3 align-items-center">
-            <div class="col-auto">
-                <label for="inputPassword6" class="col-form-label">Buscar Producto</label>
-            </div>
-            <div class="col-auto">
-                <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <button type="button" class="btn btn-primary float-end " data-bs-toggle="modal" data-bs-target="#newProductModal">
-            <i class="bi bi-plus-circle me-2"></i>Agregar
-        </button>
-    </div>
+<div class="row mt-3 mb-2">
+	<div class="col-md-6">
+		<div class="row g-3 align-items-center">
+			<div class="col-auto">
+				<label for="inputPassword6" class="col-form-label">Buscar Producto</label>
+			</div>
+			<div class="col-auto">
+				<input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<button type="button" class="btn btn-primary float-end " data-bs-toggle="modal"
+				data-bs-target="#newProductModal">
+			<i class="bi bi-plus-circle me-2"></i>Agregar
+		</button>
+	</div>
 </div>
+
 <div class="row">
-    <div class="col-md-12">
-        <hr />
-    </div>
+	<div class="col-md-12">
+		<hr />
+	</div>
 </div>
+
+<div class="row mt-3 mb-2">
+	<h6>Cantidad de Productos <span class="badge text-bg-primary">@products.Items.Count</span></h6>
+</div>
+
 @if (products.Items.Count == 0)
 {
 	<div class="row">
@@ -49,7 +56,8 @@
 			</div>
 		</div>
 	</div>
-}else
+}
+else
 {
 	@await Html.PartialAsync("Grid/_CatalogGrid")
 }

@@ -5,7 +5,7 @@ const buildFramePayload = () => {
 	const formData = new FormData(form);
 
 	return {
-		Type: 0,
+		Type: 1,
 		Name: formData.get("Name")?.toString().trim() ?? "",
 		Code: formData.get("Code")?.toString().trim() ?? "",
 		Material: formData.get("Material")?.toString() ?? "",
@@ -43,7 +43,7 @@ const hideModal = () => {
 	modalInstance.hide();
 }
 
-export const initFrameForm = () => {
+export const initFrameForm = async () => {
 	btnFormSubmit.addEventListener("click", async (e) => {
 		e.preventDefault();
 		enableButton(btnFormSubmit, true);
@@ -67,11 +67,19 @@ export const initFrameForm = () => {
 
 			const data = await response.json();
 			showAlert(data.message, "Éxito", "success")
-				.then(() => hideModal());
-			resetForm();
+				.then(() => {
+					hideModal();
+					resetForm();
+					await realoadPage()
+				});
+			
 		} catch (error) {
 			showAlert("Error al crear el armazon", "Error", "error");
 			enableButton(btnFormSubmit, false);
 		}
 	});
+}
+
+const realoadPage = async () => {
+	await fetch("/Catalog/Index");
 }

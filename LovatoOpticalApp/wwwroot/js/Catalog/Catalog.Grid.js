@@ -1,6 +1,6 @@
 import { getColorName } from "../Helper/ColorHelper.js";
 import { mapProductTypeToEnum, mapFrameMaterialToString, mapFrameTypeToString } from "../Helper/Mappers.js";
-
+import { formatToGuarani } from "../Helper/Helper.js";
 
 export const handlerGridModal = () => {
 	const viewDetailsButtons = document.querySelectorAll(".view-product-catalog");
@@ -110,8 +110,8 @@ const renderFrameDetails = (frameDetails) => {
 	frameType.textContent = mapFrameTypeToString[frameDetails.frameType];
 	frameColorLabel.textContent = getColorName(frameDetails.color);
 	colorSwatch.style = `width:18px;height:18px;border-radius:50%;display:inline-block;border:1px solid ${frameDetails.color};`
-	purchasePrice.textContent = `₲${frameDetails.purchasePrice}`;
-	salePrice.textContent = `₲${frameDetails.salePrice}`;
+	purchasePrice.textContent = `${formatToGuarani(frameDetails.purchasePrice)}`;
+	salePrice.textContent = `${formatToGuarani(frameDetails.salePrice)}`;
 	profitMargin.textContent = `${profitMarginPercentage.toFixed(2)}%`;
 	currentStock.textContent = frameDetails.quantity;
 	minimumStock.textContent = frameDetails.minimumQuantity;
