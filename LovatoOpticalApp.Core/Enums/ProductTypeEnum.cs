@@ -2,8 +2,8 @@
 {
     public enum ProductTypeEnum
     {
-        Frame,
-        Crystal,
-        Accessory
+        Frame = 1,
+        Crystal = 2,
+        Accessory = 3
     }
 }

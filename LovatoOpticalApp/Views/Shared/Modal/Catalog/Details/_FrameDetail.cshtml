@@ -1,0 +1,101 @@
+<div class="modal fade" id="viewFrameModal" tabindex="-1" aria-labelledby="viewFrameModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="viewFrameModalLabel">
+					<i class="bi bi-eye me-2"></i>Detalles del Armazón
+				</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+
+				<!-- Encabezado: nombre, código y estado de stock -->
+				<div class="d-flex justify-content-between align-items-start mb-4">
+					<div>
+						<h4 class="mb-1" id="viewFrameName">—</h4>
+						<span class="text-muted" id="viewFrameCode">—</span>
+					</div>
+					<span class="badge rounded-pill" id="viewFrameStockBadge">—</span>
+				</div>
+
+				<div class="row g-4">
+
+					<!-- Características -->
+					<div class="col-md-6">
+						<h6 class="text-uppercase text-muted small fw-bold mb-3">Características</h6>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item d-flex justify-content-between px-0">
+								<span class="text-muted">Material</span>
+								<span class="fw-medium" id="viewFrameMaterial">—</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between px-0">
+								<span class="text-muted">Tipo</span>
+								<span class="fw-medium" id="viewFrameType">—</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between align-items-center px-0">
+								<span class="text-muted">Color</span>
+								<span class="d-flex align-items-center gap-2">
+									<span id="viewFrameColorSwatch"
+										  style="width:18px;height:18px;border-radius:50%;display:inline-block;border:1px solid #dee2e6;"></span>
+									<span class="fw-medium" id="viewFrameColorLabel">—</span>
+								</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Precios -->
+					<div class="col-md-6">
+						<h6 class="text-uppercase text-muted small fw-bold mb-3">Precios</h6>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item d-flex justify-content-between px-0">
+								<span class="text-muted">Precio Compra</span>
+								<span class="fw-medium" id="viewFramePurchasePrice">₲ 0</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between px-0">
+								<span class="text-muted">Precio Venta</span>
+								<span class="fw-medium text-success" id="viewFrameSalePrice">₲ 0</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between px-0">
+								<span class="text-muted">Margen</span>
+								<span class="fw-medium" id="viewFrameMargin">—</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Stock -->
+					<div class="col-md-6">
+						<h6 class="text-uppercase text-muted small fw-bold mb-3">Inventario</h6>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item d-flex justify-content-between px-0">
+								<span class="text-muted">Stock actual</span>
+								<span class="fw-medium" id="viewFrameQuantity">0</span>
+							</li>
+							<li class="list-group-item d-flex justify-content-between px-0">
+								<span class="text-muted">Stock mínimo</span>
+								<span class="fw-medium" id="viewFrameMinimumQuantity">0</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Descripción -->
+					<div class="col-md-6">
+						<h6 class="text-uppercase text-muted small fw-bold mb-3">Descripción</h6>
+						<p class="mb-0" id="viewFrameDescription">
+							<span class="text-muted fst-italic">Sin descripción</span>
+						</p>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+					<i class="bi bi-x-lg me-1"></i>Cerrar
+				</button>
+				<button type="button" class="btn btn-primary" id="btnEditFromView" data-bs-dismiss="modal"
+						data-bs-toggle="modal" data-bs-target="#editFrameModal">
+					<i class="bi bi-pencil me-1"></i>Editar
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

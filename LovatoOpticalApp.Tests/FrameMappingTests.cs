@@ -61,9 +61,18 @@ public class FrameMappingTests
 
         var dto = mapper.Map<FrameResponseDto>(frame);
 
+        Assert.Equal(frame.Id, dto.Id);
         Assert.Equal(frame.Name, dto.Name);
+        Assert.Equal(100m, dto.PurchasePrice);
+        Assert.Equal(150m, dto.SalePrice);
         Assert.Equal(150m, dto.Price);
+        Assert.Equal(frame.Quantity, dto.Quantity);
+        Assert.Equal(frame.MinimumQuantity, dto.MinimumQuantity);
         Assert.Equal(frame.Color, dto.Color);
+        Assert.Equal(frame.Code, dto.Code);
+        Assert.Equal(frame.Material, dto.Material);
+        Assert.Equal(frame.FrameType, dto.FrameType);
         Assert.Equal(ProductTypeEnum.Frame, dto.Type);
+        Assert.Equal(string.Empty, dto.Description);
     }
 }

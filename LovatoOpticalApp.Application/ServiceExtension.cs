@@ -17,6 +17,7 @@ namespace LovatoOpticalApp.Application
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IFrameService, FrameService>();
 			services.AddScoped<IProductService, ProductService>();
+			services.AddScoped<IProductDetailStrategy, FrameProductStrategy>();
             services.AddAutoMapper(cfg => 
             {
                 cfg.AddProfile<CustomerProfile>();

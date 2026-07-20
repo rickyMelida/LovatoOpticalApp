@@ -1,14 +1,15 @@
+using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Core.Entities.Enums;
+using LovatoOpticalApp.Core.Enums;
 
 namespace LovatoOpticalApp.Application.DTOs
 {
-	public class FrameResponseDto
+	public class FrameResponseDto: ProductResponse
 	{
-		public Guid Id { get; set; }
-		public string Name { get; set; } = string.Empty;
-		public string Description { get; set; } = string.Empty;
-		public decimal Price { get; set; }
+		public string Code { get; set; } = string.Empty;
+		public FrameMaterialEnum Material { get; set; }
+		public FrameTypeEnum FrameType { get; set; }
 		public string Color { get; set; } = string.Empty;
-		public ProductTypeEnum Type { get; set; } = ProductTypeEnum.Frame;
+		public DateTime CreatedAt { get; private set; }
 	}
 }

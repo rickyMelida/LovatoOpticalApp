@@ -1,0 +1,81 @@
+@using LovatoOpticalApp.Application.DTOs;
+@using LovatoOpticalApp.Application.DTOs.Common
+@using LovatoOpticalApp.Helpers
+
+@{
+	var products = ViewData["Products"] as PagedResult<ProductResponse> ?? new PagedResult<ProductResponse>();
+	int index = 1;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio Compra</th>
+                        <th scope="col">Precio Venta</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Tipo Producto</th>
+                        <th scope="col" class="text-center">Detalles</th>
+                        <th scope="col" class="text-center">Editar</th>
+                        <th scope="col" class="text-center">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+					@foreach(var product in products.Items)
+					{
+						<tr>
+							<th scope="row">@index</th>
+							<td>@product.Name</td>
+							<td>@product.PurchasePrice</td>
+							<td>@product.SalePrice</td>
+							<td>@product.Quantity</td>
+							<td>@ProductHelper.GetProductTypeName(product.Type)</td>
+							<td class="text-center">
+								<a href="#" class="view-product-catalog" name="@product.Type" id="@product.Id">
+									<i class="bi bi-eye"></i>
+								</a>
+							</td>
+							<td class="text-center">
+								<a href="#" class="edit-product-catalog" name="@product.Type" id="@product.Id">
+									<i class="bi bi-pencil text-warning"></i>
+								</a>
+							</td>
+							<td class="text-center deleteProductCatalog" id="@product.Id">
+								<a href="#"><i class="bi bi-trash text-danger"></i></a>
+							</td>
+						</tr>
+
+						index++;
+					}
+                </tbody>
+            </table>
+        </div>
+    </div>
+	@if(products.Items.Count > 10)
+	{
+		<div class="col-md-12">
+			<nav aria-label="Page navigation">
+				<ul class="pagination justify-content-center">
+					<li class="page-item @(products.HasPreviousPage ? string.Empty : "disabled")">
+						<a class="page-link" href="@Url.Action("Index", "Catalog", new { pageNumber = products.PageNumber - 1, pageSize = products.PageSize })">Anterior</a>
+					</li>
+
+					@for (var pageNumber = 1; pageNumber <= products.TotalPages; pageNumber++)
+					{
+						<li class="page-item @(pageNumber == products.PageNumber ? "active" : string.Empty)">
+							<a class="page-link" href="@Url.Action("Index", "Catalog", new { pageNumber = pageNumber, pageSize = products.PageSize })">@pageNumber</a>
+						</li>
+					}
+
+					<li class="page-item @(products.HasNextPage ? string.Empty : "disabled")">
+						<a class="page-link" href="@Url.Action("Index", "Catalog", new { pageNumber = products.PageNumber + 1, pageSize = products.PageSize })">Siguiente</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	}
+</div>

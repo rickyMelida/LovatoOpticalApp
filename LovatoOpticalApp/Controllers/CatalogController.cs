@@ -1,6 +1,6 @@
 ﻿using LovatoOpticalApp.Application.DTOs;
-using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Application.Interfaces;
+using LovatoOpticalApp.Core.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LovatoOpticalApp.Controllers
@@ -9,7 +9,7 @@ namespace LovatoOpticalApp.Controllers
     {
         private readonly IFrameService _frameService;
 		private readonly IProductService _productService;
-		public PagedResult<ProductResponse> Products { get; set; } = new PagedResult<ProductResponse>();
+		
 
         public CatalogController(IFrameService frameService, IProductService productService)
         {
@@ -28,7 +28,7 @@ namespace LovatoOpticalApp.Controllers
 			var result = await _productService.GetProducts(paginationParams);
 			ViewData["Products"] = result;
 			
-            return View(Products);
+            return View();
         }
 
         [HttpPost]
@@ -43,22 +43,18 @@ namespace LovatoOpticalApp.Controllers
         }
 
 		[HttpGet]
-		public async Task<ActionResult<PagedResult<FrameResponseDto>>> GetProductCatalog(
-			[FromQuery] int pageNumber = 1,
-            [FromQuery] int pageSize = 10)
+		public async Task<ActionResult<FrameResponseDto>> GetProductDetails(string productId, ProductTypeEnum productType)
 		{
-			if (!ModelState.IsValid)
-				return BadRequest(ModelState);
+			if(String.IsNullOrEmpty(productId) || !Guid.TryParse(productId, out Guid parsedProductId))
+				return BadRequest("El ID del producto no es válido.");
 
-			var paginationParams = new PaginationParams
-			{
-				PageNumber = pageNumber,
-				PageSize = pageSize
-			};
+			if(!Enum.IsDefined(typeof(ProductTypeEnum), productType))
+				return BadRequest("El tipo de producto no es válido.");
 
-			var result = await _productService.GetProducts(paginationParams);
-			Products = result;
-			return Ok(result);
+
+			var frameDetails = await _productService.GetProductDetails(parsedProductId, productType);
+
+			return Ok(frameDetails);
 		}
     }
 }
