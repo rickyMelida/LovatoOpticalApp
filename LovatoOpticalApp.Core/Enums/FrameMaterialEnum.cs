@@ -2,10 +2,11 @@
 {
     public enum FrameMaterialEnum
     {
-        Metal,
         Acetato,
+        Metal,
         Titanio,
-        Plastico
+        Plastico,
+        Mixto
     }
 }
 

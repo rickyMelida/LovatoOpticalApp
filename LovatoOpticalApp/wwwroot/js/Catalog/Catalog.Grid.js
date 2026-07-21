@@ -1,6 +1,7 @@
 import { getColorName } from "../Helper/ColorHelper.js";
 import { mapProductTypeToEnum, mapFrameMaterialToString, mapFrameTypeToString } from "../Helper/Mappers.js";
 import { formatToGuarani } from "../Helper/Helper.js";
+import { getProductDetails, showEditProductModal } from "./Catalog.Rules.js"
 
 export const handlerGridModal = () => {
 	const viewDetailsButtons = document.querySelectorAll(".view-product-catalog");
@@ -17,16 +18,19 @@ export const handlerGridModal = () => {
 	});
 
 	editButtons.forEach(button => {
-		button.addEventListener("click", (event) => {
+		button.addEventListener("click", async (event) => {
 			const productId = event.currentTarget.id;
-			showEditModal(productId);
+			const productType = mapProductTypeToEnum[event.currentTarget.name];
+			await showEditProductModal(productId, productType);
 		});
 	});
 
 	deleteButtons.forEach(button => {
 		button.addEventListener("click", (event) => {
 			const productId = event.currentTarget.id;
-			showDeleteConfirmation(productId);
+			const productType = mapProductTypeToEnum[event.currentTarget.getAttribute("name")];
+
+			showDeleteConfirmation(productId, productType);
 		});
 	});
 }
@@ -45,28 +49,25 @@ const showViewDetailsModal = async (productId, productType) => {
 	modalInstance.show();
 }
 
-const showEditModal = (productId) => {
-	const modalElement = document.getElementById("newFrameModal");
-	if (!modalElement) {
-		console.warn("Modal element #newFrameModal not found.");
-		return;
-	}
-	const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
-	modalInstance.show();
+const renderProductToEdit = (productDetails) => {
+	const newFrameModalLabel = document.getElementById("newFrameModalLabel");
+	newFrameModalLabel.innerText = "Editar Armazón"
+
+	console.log({ productDetails })
 }
 
-const showDeleteConfirmation = (productId) => {
-	showDeleteConfirm("¿Estás seguro de que deseas eliminar este producto?", "Confirmación de eliminación", "warning")
-		.then((result) => {
-			if (result.isConfirmed) {
-				console.log(`Product with ID ${productId} deleted.`);
-			}
-		});
+const showDeleteConfirmation = (productId, productType) => {
+	showDeleteConfirmAsync(
+		"¿Estás seguro de que deseas eliminar este producto?",
+		"Confirmación de eliminación",
+		"warning",
+		() => deleteAction(productId, productType)
+	)
 }
 
-const getProductDetails = async (productId, productType) => {
+const deleteAction = async (productId, productType) => {
 	try {
-		const response = await fetch(`/Catalog/GetProductDetails?productId=${productId}&productType=${productType}`);
+		const response = await fetch(`/Catalog/DeleteProduct?productId=${productId}&productType=${productType}`);
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
@@ -77,6 +78,14 @@ const getProductDetails = async (productId, productType) => {
 		return null;
 	}
 }
+
+const actionExample = async () => {
+	const githubUrl = `https://api.github.com/users/danielblanco96`;
+	const response = await fetch(githubUrl);
+
+	return response.json();
+}
+
 
 const renderProductDetails = (productDetails) => {
 	switch (productDetails.type) {
@@ -101,6 +110,7 @@ const renderFrameDetails = (frameDetails) => {
 	const profitMargin = document.getElementById("viewFrameMargin");
 	const currentStock = document.getElementById("viewFrameQuantity");
 	const minimumStock = document.getElementById("viewFrameMinimumQuantity");
+	const description = document.getElementById("viewFrameDescription");
 	const profitMarginPercentage = (frameDetails.salePrice - frameDetails.purchasePrice) / frameDetails.purchasePrice * 100;
 
 	viewFrameName.textContent = frameDetails.name;
@@ -115,5 +125,6 @@ const renderFrameDetails = (frameDetails) => {
 	profitMargin.textContent = `${profitMarginPercentage.toFixed(2)}%`;
 	currentStock.textContent = frameDetails.quantity;
 	minimumStock.textContent = frameDetails.minimumQuantity;
+	description.innerHTML = !frameDetails.description ? `<span class="text-muted fst-italic">Sin descripción</span>` : `<span class="text-dark">${frameDetails.description} </span>`
 }
 

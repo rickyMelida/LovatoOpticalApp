@@ -1,0 +1,96 @@
+﻿@using LovatoOpticalApp.Application.DTOs;
+@using LovatoOpticalApp.Application.DTOs.Common
+@using LovatoOpticalApp.Helpers
+@using LovatoOpticalApp.Core.Enums;
+
+@{
+    var products = ViewData["Products"] as PagedResult<ProductResponse> ?? new PagedResult<ProductResponse>();
+    int index = 1;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 25px;">Seleccionar</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Tipo Producto</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in products.Items)
+                    {
+                        string currentState = product.Quantity switch
+                        {
+                            0 => "<span class='text-danger'>Sin Stock</span>",
+                            var q when q <= product.MinimumQuantity => "<span class='text-warning'>Bajo Stock</span>",
+                            _ => "<span class='text-success'>Con Stock</span>"
+                        };
+
+                        <tr>
+                            <th scope="row" class="text-center">
+                                <div class="form-check d-flex justify-content-center">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkChecked" >
+                                </div>
+                            </th>
+                            
+                            <td>@product.Name</td>
+                            <td>@ProductHelper.ConvertNumberToGuaraniCurrency(product.SalePrice)</td>
+                            <td>
+                                @product.Quantity
+                                @if(product.Quantity <= product.MinimumQuantity )
+                                {
+                                    <i class="bi bi-exclamation-triangle-fill text-danger"></i>                               
+                                }
+                            </td>
+                            <td>@ProductHelper.GetProductTypeName(product.Type)</td>
+                            <td>
+                                @Html.Raw(currentState)
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-primary btn-agregar-stock"
+                                        data-product-id="@product.Id"
+                                        data-product-name="@product.Name"
+                                        data-product-type="@((int)product.Type)">
+                                    <i class="bi bi-plus-circle me-1"></i>Agregar Stock
+                                </button>
+                            </td>
+                        </tr>
+
+                        index++;
+                    }
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @if (products.Items.Count > 10)
+    {
+        <div class="col-md-12">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(products.HasPreviousPage ? string.Empty : "disabled")">
+                        <a class="page-link" href="@Url.Action("Index", "Inventory", new { pageNumber = products.PageNumber - 1, pageSize = products.PageSize })">Anterior</a>
+                    </li>
+
+                    @for (var pageNumber = 1; pageNumber <= products.TotalPages; pageNumber++)
+                    {
+                        <li class="page-item @(pageNumber == products.PageNumber ? "active" : string.Empty)">
+                            <a class="page-link" href="@Url.Action("Index", "Inventory", new { pageNumber = pageNumber, pageSize = products.PageSize })">@pageNumber</a>
+                        </li>
+                    }
+
+                    <li class="page-item @(products.HasNextPage ? string.Empty : "disabled")">
+                        <a class="page-link" href="@Url.Action("Index", "Inventory", new { pageNumber = products.PageNumber + 1, pageSize = products.PageSize })">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    }
+</div>

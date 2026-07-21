@@ -8,5 +8,7 @@ namespace LovatoOpticalApp.Application.Interfaces
 	{
 		Task<PagedResult<ProductResponse>> GetProducts(PaginationParams paginationParams);
 		Task<ProductResponse> GetProductDetails(Guid productId, ProductTypeEnum productType);
+		Task<ApiServiceResponse> DeleteProduct(Guid productId, ProductTypeEnum productType);
+		Task<ApiServiceResponse> AddStock(Guid productId, ProductTypeEnum productType, int quantityToAdd);
 	}
 }

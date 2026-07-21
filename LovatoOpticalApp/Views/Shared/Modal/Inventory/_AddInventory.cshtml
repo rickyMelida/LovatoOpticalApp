@@ -1,0 +1,34 @@
+﻿<div class="modal fade" id="addInventoryModal" tabindex="-1" aria-labelledby="addInventoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="addInventoryModalLabel">
+                    <i class="bi bi-box-seam me-2"></i>Agregar Stock
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-controller="Inventory" asp-action="AddStock" method="post">
+                <div class="modal-body">
+                    <input type="hidden" id="modalProductId" name="productId" />
+                    <input type="hidden" id="modalProductType" name="productType" />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Producto</label>
+                        <input type="text" class="form-control" id="modalProductName" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalQuantityToAdd" class="form-label fw-semibold">Cantidad a agregar</label>
+                        <input type="number" class="form-control" id="modalQuantityToAdd" name="quantityToAdd"
+                               min="1" value="1" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-1"></i>Agregar Stock
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

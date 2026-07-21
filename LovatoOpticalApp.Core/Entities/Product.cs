@@ -4,13 +4,14 @@ namespace LovatoOpticalApp.Core.Entities
 {
     public abstract class Product : IProduct
     {
-        public Guid Id { get; protected set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; protected set; } = string.Empty;
         public decimal PurchasePrice { get; protected set; }
         public decimal SalePrice { get; protected set; }
         public int Quantity { get; protected set; }
         public int MinimumQuantity { get; protected set; } = 1;
         public ProductTypeEnum Type { get; protected set; }
+        public string Description { get; set; } = string.Empty;
 
         // Lógica común centralizada (evita duplicarla en Frame, Crystal, etc.)
         public bool HasStock() => Quantity > 0;

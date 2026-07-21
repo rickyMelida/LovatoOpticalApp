@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LovatoOpticalApp.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,13 +15,13 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "Accessories",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsOptional = table.Column<bool>(type: "boolean", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    PurchasePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    SalePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    MinimumQuantity = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsOptional = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    MinimumQuantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,10 +32,10 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "CashPayments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    AmountReceived = table.Column<decimal>(type: "numeric", nullable: false),
-                    PaidAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AmountReceived = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PaidAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,11 +46,11 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "CreditCardPayments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    Installments = table.Column<int>(type: "integer", nullable: false),
-                    CardBrand = table.Column<string>(type: "text", nullable: false),
-                    PaidAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Installments = table.Column<int>(type: "int", nullable: false),
+                    CardBrand = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaidAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,17 +61,17 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "Crystals",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    TechnicalCharacteristics = table.Column<string>(type: "text", nullable: false),
-                    PurchasePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    SalePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    MinimumQuantity = table.Column<int>(type: "integer", nullable: false),
-                    Prescription_Sphere = table.Column<decimal>(type: "numeric", nullable: true),
-                    Prescription_Cylinder = table.Column<decimal>(type: "numeric", nullable: true),
-                    Prescription_Axis = table.Column<int>(type: "integer", nullable: true),
-                    Prescription_Addition = table.Column<decimal>(type: "numeric", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TechnicalCharacteristics = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    MinimumQuantity = table.Column<int>(type: "int", nullable: false),
+                    Prescription_Sphere = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Prescription_Cylinder = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Prescription_Axis = table.Column<int>(type: "int", nullable: true),
+                    Prescription_Addition = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,13 +82,13 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    CiRuc = table.Column<string>(type: "text", nullable: false),
-                    BirthDay = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Address = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CiRuc = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BirthDay = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,11 +99,11 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "DebitCardPayments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    Bank = table.Column<string>(type: "text", nullable: false),
-                    LastFourDigits = table.Column<string>(type: "text", nullable: false),
-                    PaidAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Bank = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastFourDigits = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PaidAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,9 +114,9 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "DiscountByFixedAmounts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    FixedAmount = table.Column<decimal>(type: "numeric", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FixedAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,9 +127,9 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "DiscountByPercentages",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    Percentage = table.Column<decimal>(type: "numeric", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Percentage = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,18 +140,19 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "Frames",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Code = table.Column<string>(type: "text", nullable: false),
-                    Material = table.Column<int>(type: "integer", nullable: false),
-                    FrameType = table.Column<int>(type: "integer", nullable: false),
-                    Color = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    PurchasePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    SalePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    MinimumQuantity = table.Column<int>(type: "integer", nullable: false),
-                    Type = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Material = table.Column<int>(type: "int", nullable: false),
+                    FrameType = table.Column<int>(type: "int", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    MinimumQuantity = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -162,13 +163,13 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "GlassesCases",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsOptional = table.Column<bool>(type: "boolean", nullable: false),
-                    MinimumQuantity = table.Column<int>(type: "integer", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    PurchasePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    SalePrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsOptional = table.Column<bool>(type: "bit", nullable: false),
+                    MinimumQuantity = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -179,11 +180,11 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "PaymentProofs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FileName = table.Column<string>(type: "text", nullable: false),
-                    FileUrl = table.Column<string>(type: "text", nullable: false),
-                    ReceivedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    IsVerified = table.Column<bool>(type: "boolean", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReceivedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsVerified = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -194,11 +195,11 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "CrystalTreatment",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CrystalId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Type = table.Column<int>(type: "integer", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CrystalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,14 +216,14 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    State = table.Column<int>(type: "integer", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FrameId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CrystalLeftId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CrystalRightId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Observations = table.Column<string>(type: "text", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreateAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    State = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FrameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CrystalLeftId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CrystalRightId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Observations = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -257,10 +258,10 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "TransferPayments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    ProofId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PaidAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ProofId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PaidAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -277,10 +278,10 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 name: "Invoices",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uuid", nullable: false),
-                    State = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    State = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

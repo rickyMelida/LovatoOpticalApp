@@ -7,5 +7,7 @@ namespace LovatoOpticalApp.Application.Interfaces
 	{
 		ProductTypeEnum Type { get; }
 		Task<ProductResponse> GetProductDetails(Guid productId);
+		Task<ApiServiceResponse> DeleteProduct(Guid productId);
+		Task<ApiServiceResponse> AddStock(Guid productId, int quantityToAdd);
 	}
 }

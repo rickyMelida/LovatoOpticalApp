@@ -14,5 +14,6 @@ namespace LovatoOpticalApp.Application.DTOs.Common
 		public int Quantity { get; set; }
 		public int MinimumQuantity { get; set; }
 		public ProductTypeEnum Type { get; set; }
-	}
+        public string Description { get; set; }
+    }
 }

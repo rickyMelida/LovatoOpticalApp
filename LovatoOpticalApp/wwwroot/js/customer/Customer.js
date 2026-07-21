@@ -1,13 +1,9 @@
-﻿import { handleSaveCustomer } from './Customer.Rule.js'
+﻿import { initForm } from './Customer.Form.js'
+import { enableButton } from '../Common/ButtonEvents.js'
 
 const deleteCustomerElement = document.querySelectorAll('.deleteCustomer');
-const btnSaveButton = document.getElementById("btnSaveCustomer");
 
-btnSaveButton.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    handleSaveCustomer();
-})
+initForm();
 
 
 deleteCustomerElement.forEach(element => {

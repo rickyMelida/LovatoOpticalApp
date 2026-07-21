@@ -1,20 +1,30 @@
-﻿@{
-    ViewData["Title"] = "Catalog";
+﻿@using LovatoOpticalApp.Application.DTOs
+@using LovatoOpticalApp.Application.DTOs.Common
+@using LovatoOpticalApp.Core.Entities.Enums
+@{
+    ViewData["Title"] = "Inventory";
+    var products = ViewData["Products"] as PagedResult<ProductResponse>
+        ?? new PagedResult<ProductResponse>();
+
+    int numberOfFramesAvailable = products.Items.Where(e => e.Type == ProductTypeEnum.Frame).Sum(p => p.Quantity);
+    int numberOfCrystalsAvailable = products.Items.Where(e => e.Type == ProductTypeEnum.Crystal).Sum(p => p.Quantity);
+    int numberOfAccessoriesAvailable = products.Items.Where(e => e.Type == ProductTypeEnum.Accessory).Sum(p => p.Quantity);
+
 }
 <div class="row my-3">
     <div class="col-md-4 text-center">
         <button type="button" class="btn btn-ligth border border-3">
-            Armazones <span class="badge text-bg-primary">40</span>
+            Armazones <span class="badge text-bg-primary">@numberOfFramesAvailable</span>
         </button>
     </div>
     <div class="col-md-4 text-center">
         <button type="button" class="btn btn-ligth border border-3">
-            Cristales <span class="badge text-bg-primary">4</span>
+            Cristales <span class="badge text-bg-primary">@numberOfCrystalsAvailable</span>
         </button>
     </div>
     <div class="col-md-4 text-center">
         <button type="button" class="btn btn-ligth border border-3">
-            Accesorios <span class="badge text-bg-primary">4</span>
+            Accesorios <span class="badge text-bg-primary">@numberOfAccessoriesAvailable</span>
         </button>
     </div>
 </div>
@@ -36,77 +46,34 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <button type="button" class="btn btn-primary float-end " data-bs-toggle="modal" data-bs-target="#newProductModal">
-            <i class="bi bi-plus-circle me-2"></i>Agregar
-        </button>
-    </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <hr />
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Accion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Ray-Ban RB5154</td>
-                        <td>$120.00</td>
-                        <td>🟢 8</td>
-                        <td>Activo</td>
-                        <td>✏️🔢🗑️</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Ray-Ban RB5154</td>
-                        <td>$120.00</td>
-                        <td>🟢 8</td>
-                        <td>Activo</td>
-                        <td>✏️🔢🗑️</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Ray-Ban RB5154</td>
-                        <td>$120.00</td>
-                        <td>🟢 8</td>
-                        <td>Activo</td>
-                        <td>✏️🔢🗑️</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-    </div>
-</div>
-<div class="row mt-5">
-    <div class="col-md-12">🟢 Stock OK  🟡 Stock bajo  🔴 Sin stock  </div>
+
+
+
+<div class="row mt-3 mb-2">
+    <h6>Cantidad de Productos <span class="badge text-bg-primary">@products.Items.Count</span></h6>
 </div>
 
-@await Html.PartialAsync("Modal/_NewProduct")
-@await Html.PartialAsync("Modal/_NewAccessory")
-@await Html.PartialAsync("Modal/_NewCrystal")
-@await Html.PartialAsync("Modal/_NewFrame")
+@if (products.Items.Count == 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-ligth text-center" role="alert">
+                No se encontraron productos.
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    @await Html.PartialAsync("Grid/_InventoryGrid")
+}
+
+@await Html.PartialAsync("Modal/Inventory/_AddInventory")
+
+<script src="~/js/Inventory/Inventory.js" type="module"></script>

@@ -1,5 +1,7 @@
-﻿@{
+﻿@using LovatoOpticalApp.Application.DTOs
+@{
     ViewData["Title"] = "Clientes";
+    var customers = ViewData["Customers"] as PagedResult<CustomerResponseDto> ?? new PagedResult<CustomerResponseDto>();
 }
 <div class="row">
     <div class="col-md-12">
@@ -33,83 +35,25 @@
         <hr />
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">RUC/CI</th>
-                        <th scope="col">Dirección</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col" class="text-center">Editar</th>
-                        <th scope="col" class="text-center">Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Juan Pérez</td>
-                        <td>80012345-6</td>
-                        <td>Avda. Fernando de la Mora 1234</td>
-                        <td>0991 123 456</td>
-                        <td class="text-center">
-                            <a href="#" class="edit-customer" data-bs-toggle="modal" data-bs-target="#newCustomerModal">
-                                <i class="bi bi-pencil text-warning"></i>
-                            </a>
-                        </td>
-                        <td class="text-center deleteCustomer">
-                            <a href="#"><i class="bi bi-trash text-danger"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Juan Pérez</td>
-                        <td>80012345-6</td>
-                        <td>Avda. Fernando de la Mora 1234</td>
-                        <td>0991 123 456</td>
-                        <td class="text-center">
-                            <a href="#" class="edit-customer" data-bs-toggle="modal" data-bs-target="#newCustomerModal">
-                                <i class="bi bi-pencil text-warning"></i>
-                            </a>
-                        </td>
-                        <td class="text-center deleteCustomer">
-                            <a href="#"><i class="bi bi-trash text-danger"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Juan Pérez</td>
-                        <td>80012345-6</td>
-                        <td>Avda. Fernando de la Mora 1234</td>
-                        <td>0991 123 456</td>
-                        <td class="text-center">
-                            <a href="#" class="edit-customer" data-bs-toggle="modal" data-bs-target="#newCustomerModal">
-                                <i class="bi bi-pencil text-warning"></i>
-                            </a>
-                        </td>
-                        <td class="text-center deleteCustomer">
-                            <a href="#"><i class="bi bi-trash text-danger"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-        </nav>
-    </div>
+
+<div class="row mt-3 mb-2">
+    <h6>Cantidad de Clientes <span class="badge text-bg-primary">@customers?.Items.Count</span></h6>
 </div>
 
+@if (customers?.Items.Count == 0)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-ligth text-center" role="alert">
+                No se encontraron clientes.
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    @await Html.PartialAsync("Grid/_CustomerGrid")
+}
+
 @await Html.PartialAsync("Modal/Customer/_NewCustomer")
-<script src="~/js/customer/Customer.js" type="module"></script>
+<script src="~/js/Customer/Customer.js" type="module"></script>

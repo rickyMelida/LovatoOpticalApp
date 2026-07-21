@@ -7,6 +7,9 @@ namespace LovatoOpticalApp.Application.Interfaces
 	{
 		Task<FrameResponseDto> GetFrameById(Guid frameId);
 		Task<ApiServiceResponse> CreateFrame(FrameRequestDto frame);
+		Task<ApiServiceResponse> UpdateFrame(FrameRequestDto frame);
+		Task<ApiServiceResponse> DeleteFrame(Guid frameId);
 		Task<List<FrameResponseDto>> GetFrames();
+		Task<ApiServiceResponse> AddStock(Guid frameId, int quantityToAdd);
 	}
 }

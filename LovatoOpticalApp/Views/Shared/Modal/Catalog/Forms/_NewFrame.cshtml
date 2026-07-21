@@ -28,11 +28,11 @@
 									class="text-danger">*</span></label>
 									<select class="form-select" id="frameMaterial" name="Material" required>
 										<option value="" disabled selected>Seleccionar…</option>
-										<option>Acetato</option>
-										<option>Metal</option>
-										<option>Titanio</option>
-										<option>Mixto</option>
-										<option>Plástico</option>
+										<option value="0">Acetato</option>
+										<option value="1">Metal</option>
+										<option value="2">Titanio</option>
+										<option value="3">Plástico</option>
+										<option value="4">Mixto</option>
 									</select>
 								</div>
 
@@ -40,9 +40,9 @@
 									<label for="frameType" class="form-label">Tipo <span class="text-danger">*</span></label>
 									<select class="form-select" id="frameType" name="FrameType" required>
 										<option value="" disabled selected>Seleccionar…</option>
-										<option>Hilo</option>
-										<option>Al Tornillo</option>
-										<option>Aro Completo</option>
+										<option value="0">Hilo</option>
+										<option value="1">Al Tornillo</option>
+										<option value="2">Aro Completo</option>
 									</select>
 								</div>
 
@@ -104,7 +104,7 @@
 										<i class="bi bi-x-lg me-1"></i>Cancelar
 									</button>
 									<button type="submit" form="newFrameForm" class="btn btn-primary" id="btnFormSubmit">
-										<i class="bi bi-floppy me-1"></i>Guardar
+										<i class="bi bi-floppy me-1 create-product"></i>Guardar
 									</button>
 								</div>
 							</div>

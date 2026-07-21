@@ -14,5 +14,10 @@ namespace LovatoOpticalApp.Helpers
 				_ => "Desconocido"
 			};
 		}
+
+		public static string ConvertNumberToGuaraniCurrency(decimal value)
+		{
+            return value.ToString("C0", new System.Globalization.CultureInfo("es-PY"));
+        }
 	}
 }

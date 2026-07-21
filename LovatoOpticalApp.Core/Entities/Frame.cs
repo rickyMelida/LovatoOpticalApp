@@ -22,7 +22,8 @@ namespace LovatoOpticalApp.Core.Entities
             decimal purchasePrice,
             decimal salePrice,
             int quantity,
-            int minimumQuantity = 1)
+            int minimumQuantity = 1,
+            string description = "")
         {
             Type = ProductTypeEnum.Frame;  // se asigna aquí
             Name = name;
@@ -34,6 +35,31 @@ namespace LovatoOpticalApp.Core.Entities
             SalePrice = salePrice;
             Quantity = quantity;
             MinimumQuantity = minimumQuantity;
+            Description = description;
+        }
+
+        public void Update(
+            string name,
+            string code,
+            FrameMaterialEnum material,
+            FrameTypeEnum frameType,
+            string color,
+            decimal purchasePrice,
+            decimal salePrice,
+            int quantity,
+            int minimumQuantity,
+            string description)
+        {
+            Name = name;
+            Code = code;
+            Material = material;
+            FrameType = frameType;
+            Color = color;
+            PurchasePrice = purchasePrice;
+            SalePrice = salePrice;
+            Quantity = quantity;
+            MinimumQuantity = minimumQuantity;
+            Description = description;
         }
     }
 }

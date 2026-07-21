@@ -19,7 +19,17 @@ namespace LovatoOpticalApp.Application.Services
 
 		public ProductTypeEnum Type => ProductTypeEnum.Frame;
 
-		public async Task<ProductResponse> GetProductDetails(Guid productId)
+        public async Task<ApiServiceResponse> DeleteProduct(Guid productId)
+        {
+            return await _frameService.DeleteFrame(productId);
+        }
+
+        public async Task<ApiServiceResponse> AddStock(Guid productId, int quantityToAdd)
+        {
+            return await _frameService.AddStock(productId, quantityToAdd);
+        }
+
+        public async Task<ProductResponse> GetProductDetails(Guid productId)
 		{
 			var frame = await _frameService.GetFrameById(productId);
 

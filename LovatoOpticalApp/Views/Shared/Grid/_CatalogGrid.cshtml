@@ -30,8 +30,8 @@
 						<tr>
 							<th scope="row">@index</th>
 							<td>@product.Name</td>
-							<td>@product.PurchasePrice</td>
-							<td>@product.SalePrice</td>
+							<td>@ProductHelper.ConvertNumberToGuaraniCurrency(product.PurchasePrice)</td>
+							<td>@ProductHelper.ConvertNumberToGuaraniCurrency(product.SalePrice)</td>
 							<td>@product.Quantity</td>
 							<td>@ProductHelper.GetProductTypeName(product.Type)</td>
 							<td class="text-center">
@@ -44,7 +44,7 @@
 									<i class="bi bi-pencil text-warning"></i>
 								</a>
 							</td>
-							<td class="text-center deleteProductCatalog" id="@product.Id">
+							<td class="text-center deleteProductCatalog" name="@product.Type" id="@product.Id">
 								<a href="#"><i class="bi bi-trash text-danger"></i></a>
 							</td>
 						</tr>

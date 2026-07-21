@@ -12,8 +12,13 @@ namespace LovatoOpticalApp.Controllers
             _customerService = customerService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var parameters = new PaginationParams { PageNumber = 1, PageSize = 10 };
+
+            var customers = await _customerService.GetCustomers(parameters);
+            ViewData["customers"] = customers;
+
             return View();
         }
 

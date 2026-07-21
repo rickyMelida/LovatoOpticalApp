@@ -22,3 +22,9 @@ export const mapFrameMaterialToString = {
 	2: "Titanio",
 	3: "Plástico"
 };
+
+export const mapProductModal = {
+	1: "newFrameModal",
+	2: "newCrystalModal",
+	3: "newAccessoryModal"
+};

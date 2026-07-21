@@ -1,3 +1,5 @@
+import { hideModal, showModal } from "../Common/ModalEvents.js"
+
 const form = document.getElementById("newFrameForm");
 const btnFormSubmit = document.getElementById("btnFormSubmit");
 
@@ -37,15 +39,10 @@ const resetForm = () => {
 	enableButton(btnFormSubmit, false);
 }
 
-const hideModal = () => {
-	const modalElement = document.getElementById("newFrameModal");
-	const modalInstance = bootstrap.Modal.getInstance(modalElement);
-	modalInstance.hide();
-}
-
-export const initFrameForm = async () => {
+const handleSubmitButton = async () => {
 	btnFormSubmit.addEventListener("click", async (e) => {
 		e.preventDefault();
+		const isEditForm = btnFormSubmit.querySelector('.edit-product');
 		enableButton(btnFormSubmit, true);
 
 		if (!form.checkValidity()) {
@@ -55,31 +52,69 @@ export const initFrameForm = async () => {
 		}
 
 		const framePayload = buildFramePayload();
+		const newFrameModalLabel = document.getElementById("newFrameModalLabel");
+		const id = newFrameModalLabel.getAttribute("data-product-id");
 
 		try {
-			const response = await fetch("/Catalog/CreateFrame", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify(framePayload)
-			});
+			const data = isEditForm ? await updateFrameAsync(framePayload, id) : await createFrameAsync(framePayload);
 
-			const data = await response.json();
-			showAlert(data.message, "Éxito", "success")
+			showAlert(data.message, data.status == 200 ? "Éxito" : "Advertencia", data.status == 200 ? "success" : "warning")
 				.then(() => {
-					hideModal();
+					hideModal("newFrameModal");
 					resetForm();
-					await realoadPage()
+					reloadCurrentPage()
 				});
-			
+
 		} catch (error) {
 			showAlert("Error al crear el armazon", "Error", "error");
 			enableButton(btnFormSubmit, false);
+
 		}
+
 	});
 }
 
-const realoadPage = async () => {
-	await fetch("/Catalog/Index");
+const handleNewFrameForm = () => {
+	const btnNewModalFrameModal = document.getElementById("btnNewFrameModal");
+	const btnFormSubmit = document.getElementById("btnFormSubmit");
+
+	btnNewModalFrameModal.addEventListener("click", () => {
+		const newFrameModalLabel = document.getElementById("newFrameModalLabel");
+		newFrameModalLabel.innerHTML = `<i class="bi bi-plus-circle me-2"></i>Nuevo Armazón`;
+		btnFormSubmit.innerHTML = `<i class="bi bi-floppy me-1 create-product"></i>Guardar`;
+
+		resetForm()
+		showModal("newFrameModal");
+	})
+}
+
+export const initFrameForm = async () => {
+	await handleSubmitButton();
+	handleNewFrameForm();
+}
+
+const createFrameAsync = async (framePayload) => {
+	const response = await fetch("/Catalog/CreateFrame", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(framePayload)
+	});
+
+	return await response.json();
+}
+
+const updateFrameAsync = async (frame, id) => {
+	const request = { ...frame, id };
+
+	const response = await fetch("/Catalog/UpdateFrame", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify(request)
+	});
+
+	return await response.json();
 }

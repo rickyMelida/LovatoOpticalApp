@@ -2,7 +2,8 @@
 using LovatoOpticalApp.Application.Mappings;
 using LovatoOpticalApp.Application.Services;
 using LovatoOpticalApp.Persistence;
-using Microsoft.EntityFrameworkCore;
+using LovatoOpticalApp.Persistence.Interfaces;
+using LovatoOpticalApp.Persistence.Repository;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LovatoOpticalApp.Application
@@ -13,6 +14,7 @@ namespace LovatoOpticalApp.Application
         {
             services.AddDbContext<AppDbContext>();
             services.AddScoped(typeof(IProductRepository<>), typeof(ProductRepository<>));
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IFrameService, FrameService>();
