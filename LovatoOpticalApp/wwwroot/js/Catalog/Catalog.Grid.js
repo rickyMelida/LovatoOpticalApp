@@ -2,12 +2,12 @@ import { getColorName } from "../Helper/ColorHelper.js";
 import { mapProductTypeToEnum, mapFrameMaterialToString, mapFrameTypeToString } from "../Helper/Mappers.js";
 import { formatToGuarani } from "../Helper/Helper.js";
 import { getProductDetails, showEditProductModal } from "./Catalog.Rules.js"
+import { showModal } from "../Common/ModalEvents.js"
 
 export const handlerGridModal = () => {
 	const viewDetailsButtons = document.querySelectorAll(".view-product-catalog");
 	const editButtons = document.querySelectorAll(".edit-product-catalog");
 	const deleteButtons = document.querySelectorAll(".deleteProductCatalog");
-
 
 	viewDetailsButtons.forEach(button => {
 		button.addEventListener("click", async (event) => {
@@ -36,17 +36,11 @@ export const handlerGridModal = () => {
 }
 
 const showViewDetailsModal = async (productId, productType) => {
-	const modalElement = document.getElementById("viewFrameModal");
-	if (!modalElement) {
-		console.warn("Modal element #viewFrameModal not found.");
-		return;
-	}
-	const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
 	const productDetails = await getProductDetails(productId, productType);
 
 	renderProductDetails(productDetails);
 
-	modalInstance.show();
+	showModal("viewFrameModal")
 }
 
 const renderProductToEdit = (productDetails) => {
@@ -78,14 +72,6 @@ const deleteAction = async (productId, productType) => {
 		return null;
 	}
 }
-
-const actionExample = async () => {
-	const githubUrl = `https://api.github.com/users/danielblanco96`;
-	const response = await fetch(githubUrl);
-
-	return response.json();
-}
-
 
 const renderProductDetails = (productDetails) => {
 	switch (productDetails.type) {

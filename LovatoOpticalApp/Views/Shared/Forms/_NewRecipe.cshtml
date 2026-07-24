@@ -1,0 +1,67 @@
+﻿<div class="row g-4">
+    <h5>Datos de la Receta</h5>
+
+    <div class="col-md-6">
+        <label class="form-label">Fecha de la receta</label>
+        <input type="date" class="form-control" id="prescriptionIssueDate" name="PrescriptionIssueDate">
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Optometrista</label>
+        <input type="text" class="form-control" id="optometrist" name="Optometrist" placeholder="Dr(a). ...">
+    </div>
+
+    <!-- VL -->
+    <div class="col-6">
+        <h6 class="text-muted text-uppercase small mb-3">Visión Lejana (VL)</h6>
+        <table class="table table-bordered table-sm align-middle">
+            <thead class="table-light">
+                <tr><th>Ojo</th><th>ESF</th><th>CIL</th><th>EJE</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge bg-primary">OD</span></td>
+                    <td><input class="form-control form-control-sm" id="vl-od-esf" name="VL_OD_ESF" placeholder="0.00"></td>
+                    <td><input class="form-control form-control-sm" id="vl-od-cil" name="VL_OD_CIL" placeholder="0.00"></td>
+                    <td><input class="form-control form-control-sm" id="vl-od-eje" name="VL_OD_EJE" placeholder="0°"></td>
+                </tr>
+                <tr>
+                    <td><span class="badge bg-info text-dark">OI</span></td>
+                    <td><input class="form-control form-control-sm" id="vl-oi-esf" name="VL_OI_ESF" placeholder="0.00"></td>
+                    <td><input class="form-control form-control-sm" id="vl-oi-cil" name="VL_OI_CIL" placeholder="0.00"></td>
+                    <td><input class="form-control form-control-sm" id="vl-oi-eje" name="VL_OI_EJE" placeholder="0°"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row g-1">
+            <div class="col-12">
+                <label class="form-label">Adición</label>
+                <input class="form-control" id="f-adicion" name="Adicion" placeholder="+0.00">
+            </div>
+        </div>
+    </div>
+
+    <!-- VC -->
+    <div class="col-lg-6">
+        <h6 class="text-muted text-uppercase small mb-3">Visión Cercana (VC)</h6>
+        <table class="table table-bordered table-sm align-middle">
+            <thead class="table-light">
+                <tr><th>Ojo</th><th>ESF</th><th>CIL</th><th>EJE</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="badge bg-primary">OD</span></td>
+                    <td><input class="form-control form-control-sm" id="vc-od-esf" name="VC_OD_ESF" placeholder="0.00"></td>
+                    <td><input class="form-control form-control-sm" id="vc-od-cil" name="VC_OD_CIL" placeholder="0.00"></td>
+                    <td><input class="form-control form-control-sm" id="vc-od-eje" name="VC_OD_EJE" placeholder="0°"></td>
+                </tr>
+                <tr>
+                    <td><span class="badge bg-info text-dark">OI</span></td>
+                    <td><input class="form-control form-control-sm" id="vc-oi-esf" name="VC_OI_ESF" placeholder="0.00"></td>
+                    <td><input class="form-control form-control-sm" id="vc-oi-cil" name="VC_OI_CIL" placeholder="0.00"></td>
+                    <td><input class="form-control form-control-sm" id="vc-oi-eje" name="VC_OI_EJE" placeholder="0°"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,5 +1,1223 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Pedido";
 }
+
+
+<main class="container py-4">
+
+    <!-- HEADER -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-9">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2">
+                <div>
+                    <h1 class="h4 mb-1">Crear orden de trabajo</h1>
+                    <p class="text-muted mb-0">
+                        Completa los datos del cliente, receta, armazón, cristal y pago del anticipo.
+                    </p>
+                </div>
+
+                <span class="badge text-bg-light border">
+                    Datos simulados en navegador
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEPPER -->
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-9">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between text-center overflow-auto gap-3" id="stepper">
+                        <div class="step-item" data-step="1">
+                            <span class="badge rounded-circle text-bg-primary step-badge mb-2">1</span>
+                            <div class="small fw-semibold">Cliente</div>
+                        </div>
+
+                        <div class="step-item" data-step="2">
+                            <span class="badge rounded-circle text-bg-secondary step-badge mb-2">2</span>
+                            <div class="small fw-semibold text-muted">Receta</div>
+                        </div>
+
+                        <div class="step-item" data-step="3">
+                            <span class="badge rounded-circle text-bg-secondary step-badge mb-2">3</span>
+                            <div class="small fw-semibold text-muted">Armazón</div>
+                        </div>
+
+                        <div class="step-item" data-step="4">
+                            <span class="badge rounded-circle text-bg-secondary step-badge mb-2">4</span>
+                            <div class="small fw-semibold text-muted">Cristal</div>
+                        </div>
+
+                        <div class="step-item" data-step="5">
+                            <span class="badge rounded-circle text-bg-secondary step-badge mb-2">5</span>
+                            <div class="small fw-semibold text-muted">Confirmar</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEEDBACK GLOBAL -->
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="alert alert-warning d-none" id="feedbackGlobal" role="alert"></div>
+        </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <section class="row justify-content-center panel active" id="panel-1">  
+        <div class="col-lg-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h2 class="h5 mb-1">Buscar cliente</h2>
+                    <p class="text-muted small mb-0">
+                        Ingresa el documento del paciente para verificar si ya existe en el sistema.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <div class="row g-2">
+                        <div class="col-md-8">
+                            <label class="form-label">Documento</label>
+                            <input type="text" class="form-control" id="docInput" placeholder="Ej. 12345678">
+                        </div>
+
+                        <div class="col-md-4 d-grid align-items-end">
+                            <button class="btn btn-outline-primary mt-md-4" onclick="buscarPaciente()">
+                                <i class="bi bi-search me-1"></i>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success mt-3 d-none" id="pacienteEncontrado">
+                        <div class="d-flex justify-content-between align-items-start gap-3">
+                            <div>
+                                <strong id="pacNombre"></strong><br>
+                                <span class="small">Documento: <span id="pacDoc"></span></span>
+                            </div>
+                            <span class="badge text-bg-success">Cliente existente</span>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger mt-3 d-none" id="pacienteNoEncontrado">
+                        <strong>No se encontró ningún cliente con ese documento.</strong>
+                        <div class="small">Completa los datos para registrarlo.</div>
+                    </div>
+
+                    <div id="formNuevoPaciente" class="mt-3 d-none">
+                        <hr>
+
+                        <h3 class="h6 mb-3">Registrar nuevo cliente</h3>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nombre completo</label>
+                                <input type="text" class="form-control" id="nuevoNombre"
+                                       placeholder="Nombre y apellido">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="nuevoTelefono"
+                                       placeholder="09xx xxx xxx">
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="nuevoEmail"
+                                       placeholder="correo@ejemplo.com">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary mt-3" onclick="crearPaciente()">
+                            <i class="bi bi-person-plus me-1"></i>
+                            Crear cliente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="row justify-content-center panel" id="panel-2">
+        <div class="col-lg-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h2 class="h5 mb-1">Receta óptica</h2>
+                    <p class="text-muted small mb-0">
+                        Usa una receta vigente o registra una nueva para esta orden.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card choice-card h-100" id="cardRecetaExistente"
+                                 onclick="setModoReceta('existente')">
+                                <div class="card-body">
+                                    <i class="bi bi-clipboard2-pulse text-primary mb-2"></i>
+                                    <h3 class="h6">Usar receta vigente</h3>
+                                    <p class="text-muted small mb-0">
+                                        Buscar la última receta registrada del paciente.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card choice-card h-100" id="cardRecetaNueva"
+                                 onclick="setModoReceta('nueva')">
+                                <div class="card-body">
+                                    <i class="bi bi-pencil-square text-primary mb-2"></i>
+                                    <h3 class="h6">Cargar receta nueva</h3>
+                                    <p class="text-muted small mb-0">
+                                        Ingresar valores OD / OI manualmente.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bloqueRecetaExistente" class="mt-3 d-none">
+                        <button class="btn btn-outline-primary btn-sm" onclick="obtenerRecetaVigente()">
+                            <i class="bi bi-arrow-repeat me-1"></i>
+                            Obtener receta vigente
+                        </button>
+
+                        <div class="alert mt-3 d-none" id="recetaVigenteCard"></div>
+                    </div>
+
+                    <div id="bloqueRecetaNueva" class="mt-3 d-none">
+                        <hr>
+
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th></th>
+                                        <th>Esfera</th>
+                                        <th>Cilindro</th>
+                                        <th>Eje</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-semibold">OD</td>
+                                        <td>
+                                            <input class="form-control form-control-sm" id="odEsfera"
+                                                   placeholder="-2.00">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" id="odCilindro"
+                                                   placeholder="-0.50">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" id="odEje"
+                                                   placeholder="90°">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="fw-semibold">OI</td>
+                                        <td>
+                                            <input class="form-control form-control-sm" id="oiEsfera"
+                                                   placeholder="-1.75">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" id="oiCilindro"
+                                                   placeholder="-0.25">
+                                        </td>
+                                        <td>
+                                            <input class="form-control form-control-sm" id="oiEje"
+                                                   placeholder="85°">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Fecha de la receta</label>
+                                <input type="date" class="form-control" id="fechaReceta">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Optometrista</label>
+                                <input type="text" class="form-control" id="optometrista" placeholder="Dr(a). ...">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary mt-3" onclick="crearReceta()">
+                            <i class="bi bi-check-lg me-1"></i>
+                            Guardar receta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="row justify-content-center panel" id="panel-3">
+        <div class="col-lg-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h2 class="h5 mb-1">Selección de armazón</h2>
+                    <p class="text-muted small mb-0">
+                        Elige un armazón del inventario o registra que el cliente trae el suyo propio.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="card choice-card h-100" id="cardArmazonInventario"
+                                 onclick="setModoArmazon('inventario')">
+                                <div class="card-body">
+                                    <i class="bi bi-boxes text-primary mb-2"></i>
+                                    <h3 class="h6">Armazón de inventario</h3>
+                                    <p class="text-muted small mb-0">
+                                        Seleccionar desde el catálogo disponible.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card choice-card h-100" id="cardArmazonPropio"
+                                 onclick="setModoArmazon('propio')">
+                                <div class="card-body">
+                                    <i class="bi bi-eyeglasses text-primary mb-2"></i>
+                                    <h3 class="h6">Armazón propio del cliente</h3>
+                                    <p class="text-muted small mb-0">
+                                        El cliente ya trae su montura.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bloqueArmazonInventario" class="mt-3 d-none">
+                        <label class="form-label">Armazón</label>
+                        <select class="form-select" id="armazonSelect" onchange="seleccionarArmazon()">
+                            <option value="">Selecciona un armazón…</option>
+                        </select>
+
+                        <div class="alert mt-3 d-none" id="armazonInfoCard"></div>
+                    </div>
+
+                    <div id="bloqueArmazonPropio" class="alert alert-success mt-3 d-none">
+                        <i class="bi bi-check-circle me-1"></i>
+                        Se registrará como <strong>armazón propio del cliente</strong>, sin descuento de stock.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="row justify-content-center panel" id="panel-4">
+        <div class="col-lg-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h2 class="h5 mb-1">Cristal y accesorios</h2>
+                    <p class="text-muted small mb-0">
+                        Selecciona el tipo de cristal, accesorios opcionales y anticipo.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <h3 class="h6">Cristal</h3>
+                    <div class="list-group mb-4" id="listaCristales"></div>
+
+                    <h3 class="h6">Accesorios opcionales</h3>
+                    <div class="border rounded p-3 mb-4" id="listaAccesorios"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Monto de anticipo USD</label>
+                            <input type="number" class="form-control" id="anticipoInput" placeholder="0.00" min="0"
+                                   step="0.01" oninput="actualizarResumen()">
+                            <div class="form-text">
+                                Si no se registra anticipo, el estado de pago quedará pendiente.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="row justify-content-center panel" id="panel-5">
+        <div class="col-lg-9">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white">
+                    <h2 class="h5 mb-1">Confirmar orden de trabajo</h2>
+                    <p class="text-muted small mb-0">
+                        Revisa el resumen, registra el método de pago y confirma la orden.
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <div id="resumenOrden" class="mb-4"></div>
+
+                    <div class="card bg-light border mb-4">
+                        <div class="card-body">
+                            <h3 class="h6 mb-2">
+                                <i class="bi bi-credit-card me-1"></i>
+                                Pago del anticipo
+                            </h3>
+
+                            <p class="text-muted small">
+                                Si el anticipo es mayor a $0.00, debes seleccionar un método de pago.
+                            </p>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Método de pago</label>
+                                    <select class="form-select" id="metodoPagoSelect"
+                                            onchange="actualizarMetodoPago()">
+                                        <option value="">Selecciona un método…</option>
+                                        <option value="efectivo">Efectivo</option>
+                                        <option value="tarjeta_debito">Tarjeta de débito</option>
+                                        <option value="tarjeta_credito">Tarjeta de crédito</option>
+                                        <option value="transferencia">Transferencia bancaria</option>
+                                        <option value="sin_anticipo">Sin anticipo</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 d-none" id="referenciaPagoBox">
+                                    <label class="form-label">Referencia / comprobante</label>
+                                    <input type="text" class="form-control" id="referenciaPagoInput"
+                                           placeholder="Ej. voucher, comprobante, transacción"
+                                           oninput="actualizarMetodoPago()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger d-none" id="errorOrden" role="alert">
+                        <i class="bi bi-exclamation-triangle me-1"></i>
+                        <span id="errorOrdenTexto"></span>
+                    </div>
+
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" id="simularError">
+                        <label class="form-check-label small text-muted" for="simularError">
+                            Simular falla de stock / base de datos demo
+                        </label>
+                    </div>
+
+                    <button class="btn btn-success w-100" onclick="confirmarOrden()">
+                        <i class="bi bi-send me-1"></i>
+                        Confirmar orden
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NAV ACTIONS -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-outline-secondary" id="btnAtras" onclick="cambiarPaso(-1)" disabled>
+                    <i class="bi bi-arrow-left me-1"></i>
+                    Atrás
+                </button>
+
+                <button class="btn btn-primary" id="btnSiguiente" onclick="cambiarPaso(1)">
+                    Siguiente
+                    <i class="bi bi-arrow-right ms-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+</main>
+<div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="ticketModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ticketModalLabel">Orden creada</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <div class="modal-body bg-light">
+                <div class="ticket shadow-sm" id="ticketBody"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button class="btn btn-primary" onclick="location.reload()">Nueva orden</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+      /* ---------- DATOS SIMULADOS ---------- */
+      const DB_PACIENTES = [
+          {
+              id: 1,
+              doc: '12345678',
+              nombre: 'Juan Pérez',
+              telefono: '0991 234 567',
+              email: 'juan.perez@mail.com'
+          }
+      ];
+
+      const DB_RECETAS = {
+          1: {
+              od: '-2.00 / -0.50 / 90°',
+              oi: '-1.75 / -0.25 / 85°',
+              fecha: '2026-05-10',
+              optometrista: 'Dra. Salazar'
+          }
+      };
+
+      const DB_ARMAZONES = [
+          {
+              id: 'a1',
+              nombre: 'Ray-Ban Aviator RB3025',
+              stock: 4,
+              precio: 89.0
+          },
+          {
+              id: 'a2',
+              nombre: 'Vogue VO5051',
+              stock: 0,
+              precio: 54.0
+          },
+          {
+              id: 'a3',
+              nombre: 'Oakley Holbrook',
+              stock: 2,
+              precio: 97.5
+          }
+      ];
+
+      const DB_CRISTALES = [
+          {
+              id: 'c1',
+              nombre: 'Monofocal antirreflejo',
+              precio: 35.0
+          },
+          {
+              id: 'c2',
+              nombre: 'Bifocal',
+              precio: 58.0
+          },
+          {
+              id: 'c3',
+              nombre: 'Progresivo premium',
+              precio: 120.0
+          }
+      ];
+
+      const DB_ACCESORIOS = [
+          {
+              id: 'x1',
+              nombre: 'Estuche rígido',
+              precio: 6.0
+          },
+          {
+              id: 'x2',
+              nombre: 'Paño de limpieza',
+              precio: 2.0
+          },
+          {
+              id: 'x3',
+              nombre: 'Cordón deportivo',
+              precio: 5.5
+          }
+      ];
+
+      /* ---------- ESTADO ---------- */
+      let orden = {
+          paciente: null,
+          receta: null,
+          esArmazonPropio: false,
+          armazon: null,
+          cristal: null,
+          accesorios: [],
+          anticipo: 0,
+          metodoPago: '',
+          referenciaPago: ''
+      };
+
+      let pasoActual = 1;
+
+      /* ---------- UTILIDADES UI ---------- */
+      function mostrarFeedback(mensaje, tipo = 'warning') {
+          const feedback = document.getElementById('feedbackGlobal');
+
+          feedback.className = `alert alert-${tipo}`;
+          feedback.textContent = mensaje;
+          feedback.classList.remove('d-none');
+
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+      }
+
+      function ocultarFeedback() {
+          document.getElementById('feedbackGlobal').classList.add('d-none');
+      }
+
+      function actualizarStepper() {
+          document.querySelectorAll('.step-item').forEach(item => {
+              const step = Number(item.dataset.step);
+              const badge = item.querySelector('.step-badge');
+              const label = item.querySelector('.small');
+
+              badge.className = 'badge rounded-circle step-badge mb-2';
+              label.className = 'small fw-semibold';
+
+              if (step < pasoActual) {
+                  badge.classList.add('text-bg-success');
+                  badge.innerHTML = '<i class="bi bi-check-lg"></i>';
+                  label.classList.add('text-success');
+              } else if (step === pasoActual) {
+                  badge.classList.add('text-bg-primary');
+                  badge.textContent = step;
+                  label.classList.add('text-primary');
+              } else {
+                  badge.classList.add('text-bg-secondary');
+                  badge.textContent = step;
+                  label.classList.add('text-muted');
+              }
+          });
+      }
+
+      /* ---------- NAVEGACIÓN ---------- */
+      function cambiarPaso(dir) {
+          const destino = pasoActual + dir;
+
+          ocultarFeedback();
+
+          if (dir === 1 && !validarPaso(pasoActual)) return;
+          if (destino < 1 || destino > 5) return;
+
+          document.getElementById(`panel-${pasoActual}`).classList.remove('active');
+
+          pasoActual = destino;
+
+          document.getElementById(`panel-${pasoActual}`).classList.add('active');
+
+          document.getElementById('btnAtras').disabled = pasoActual === 1;
+          document.getElementById('btnSiguiente').classList.toggle('d-none', pasoActual === 5);
+
+          actualizarStepper();
+
+          if (pasoActual === 4) construirListasPaso4();
+          if (pasoActual === 5) construirResumen();
+      }
+
+      function validarPaso(n) {
+          if (n === 1 && !orden.paciente) {
+              mostrarFeedback('Busca o registra al cliente antes de continuar.');
+              return false;
+          }
+
+          if (n === 2 && !orden.receta) {
+              mostrarFeedback('Selecciona u obtén una receta antes de continuar.');
+              return false;
+          }
+
+          if (n === 3 && !orden.esArmazonPropio && !orden.armazon) {
+              mostrarFeedback('Selecciona un armazón antes de continuar.');
+              return false;
+          }
+
+          if (n === 4 && !orden.cristal) {
+              mostrarFeedback('Selecciona un cristal antes de continuar.');
+              return false;
+          }
+
+          return true;
+      }
+
+      /* ---------- PASO 1: CLIENTE ---------- */
+      function buscarPaciente() {
+          ocultarFeedback();
+
+          const doc = document.getElementById('docInput').value.trim();
+          const encontrado = document.getElementById('pacienteEncontrado');
+          const noEncontrado = document.getElementById('pacienteNoEncontrado');
+          const formNuevo = document.getElementById('formNuevoPaciente');
+
+          encontrado.classList.add('d-none');
+          noEncontrado.classList.add('d-none');
+          formNuevo.classList.add('d-none');
+
+          if (!doc) {
+              mostrarFeedback('Ingresa un documento para buscar al cliente.');
+              return;
+          }
+
+          const paciente = DB_PACIENTES.find(x => x.doc === doc);
+
+          if (paciente) {
+              orden.paciente = paciente;
+
+              document.getElementById('pacNombre').textContent = paciente.nombre;
+              document.getElementById('pacDoc').textContent = paciente.doc;
+
+              encontrado.classList.remove('d-none');
+          } else {
+              orden.paciente = null;
+              noEncontrado.classList.remove('d-none');
+              formNuevo.classList.remove('d-none');
+          }
+      }
+
+      function crearPaciente() {
+          ocultarFeedback();
+
+          const doc = document.getElementById('docInput').value.trim();
+          const nombre = document.getElementById('nuevoNombre').value.trim();
+
+          if (!doc) {
+              mostrarFeedback('Ingresa el documento del cliente.');
+              return;
+          }
+
+          if (!nombre) {
+              mostrarFeedback('Ingresa el nombre completo del cliente.');
+              return;
+          }
+
+          const nuevo = {
+              id: DB_PACIENTES.length + 100,
+              doc,
+              nombre,
+              telefono: document.getElementById('nuevoTelefono').value.trim(),
+              email: document.getElementById('nuevoEmail').value.trim()
+          };
+
+          DB_PACIENTES.push(nuevo);
+          orden.paciente = nuevo;
+
+          document.getElementById('formNuevoPaciente').classList.add('d-none');
+          document.getElementById('pacienteNoEncontrado').classList.add('d-none');
+
+          document.getElementById('pacNombre').textContent = nuevo.nombre;
+          document.getElementById('pacDoc').textContent = nuevo.doc;
+
+          document.getElementById('pacienteEncontrado').classList.remove('d-none');
+      }
+
+      /* ---------- PASO 2: RECETA ---------- */
+      function setModoReceta(modo) {
+          ocultarFeedback();
+
+          document.getElementById('cardRecetaExistente').classList.toggle('selected', modo === 'existente');
+          document.getElementById('cardRecetaNueva').classList.toggle('selected', modo === 'nueva');
+
+          document.getElementById('bloqueRecetaExistente').classList.toggle('d-none', modo !== 'existente');
+          document.getElementById('bloqueRecetaNueva').classList.toggle('d-none', modo !== 'nueva');
+
+          orden.receta = null;
+      }
+
+      function obtenerRecetaVigente() {
+          const card = document.getElementById('recetaVigenteCard');
+          const receta = orden.paciente ? DB_RECETAS[orden.paciente.id] : null;
+
+          card.classList.remove('d-none', 'alert-success', 'alert-danger');
+
+          if (receta) {
+              orden.receta = receta;
+
+              card.classList.add('alert-success');
+              card.innerHTML = `
+        <strong>Receta vigente encontrada</strong><br>
+        <span class="small">OD: ${receta.od} · OI: ${receta.oi}</span><br>
+        <span class="small">Fecha: ${receta.fecha} · ${receta.optometrista}</span>
+      `;
+          } else {
+              card.classList.add('alert-danger');
+              card.innerHTML = `
+        <strong>Este paciente no tiene receta vigente.</strong>
+        <span class="small">Carga una nueva receta para continuar.</span>
+      `;
+          }
+      }
+
+      function crearReceta() {
+          ocultarFeedback();
+
+          const fecha = document.getElementById('fechaReceta').value;
+          const optometrista = document.getElementById('optometrista').value.trim();
+
+          if (!fecha || !optometrista) {
+              mostrarFeedback('Completa la fecha de la receta y el nombre del optometrista.');
+              return;
+          }
+
+          const odEsfera = document.getElementById('odEsfera').value.trim() || 'sin dato';
+          const odCilindro = document.getElementById('odCilindro').value.trim() || 'sin dato';
+          const odEje = document.getElementById('odEje').value.trim() || 'sin dato';
+
+          const oiEsfera = document.getElementById('oiEsfera').value.trim() || 'sin dato';
+          const oiCilindro = document.getElementById('oiCilindro').value.trim() || 'sin dato';
+          const oiEje = document.getElementById('oiEje').value.trim() || 'sin dato';
+
+          orden.receta = {
+              od: `${odEsfera} / ${odCilindro} / ${odEje}`,
+              oi: `${oiEsfera} / ${oiCilindro} / ${oiEje}`,
+              fecha,
+              optometrista
+          };
+
+          mostrarFeedback('Receta guardada correctamente. Puedes continuar.', 'success');
+      }
+
+      /* ---------- PASO 3: ARMAZÓN ---------- */
+      function setModoArmazon(modo) {
+          ocultarFeedback();
+
+          document.getElementById('cardArmazonInventario').classList.toggle('selected', modo === 'inventario');
+          document.getElementById('cardArmazonPropio').classList.toggle('selected', modo === 'propio');
+
+          document.getElementById('bloqueArmazonInventario').classList.toggle('d-none', modo !== 'inventario');
+          document.getElementById('bloqueArmazonPropio').classList.toggle('d-none', modo !== 'propio');
+
+          orden.esArmazonPropio = modo === 'propio';
+          orden.armazon = null;
+
+          if (modo === 'inventario') {
+              cargarArmazones();
+          }
+      }
+
+      function cargarArmazones() {
+          const select = document.getElementById('armazonSelect');
+
+          if (select.options.length > 1) return;
+
+          DB_ARMAZONES.forEach(armazon => {
+              const option = document.createElement('option');
+
+              option.value = armazon.id;
+              option.textContent = `${armazon.nombre} — $${armazon.precio.toFixed(2)}`;
+
+              select.appendChild(option);
+          });
+      }
+
+      function seleccionarArmazon() {
+          ocultarFeedback();
+
+          const id = document.getElementById('armazonSelect').value;
+          const card = document.getElementById('armazonInfoCard');
+
+          card.classList.add('d-none');
+          card.classList.remove('alert-success', 'alert-danger');
+
+          if (!id) {
+              orden.armazon = null;
+              return;
+          }
+
+          const armazon = DB_ARMAZONES.find(x => x.id === id);
+
+          if (armazon.stock <= 0) {
+              orden.armazon = null;
+
+              card.classList.add('alert-danger');
+              card.classList.remove('d-none');
+              card.innerHTML = `
+        <strong>${armazon.nombre}</strong><br>
+        <span class="small">Sin stock disponible. Selecciona otro armazón.</span>
+      `;
+
+              return;
+          }
+
+          orden.armazon = armazon;
+
+          card.classList.add('alert-success');
+          card.classList.remove('d-none');
+          card.innerHTML = `
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <strong>${armazon.nombre}</strong><br>
+          <span class="small">$${armazon.precio.toFixed(2)}</span>
+        </div>
+        <span class="badge text-bg-success">${armazon.stock} en stock</span>
+      </div>
+    `;
+      }
+
+      /* ---------- PASO 4: CRISTAL Y ACCESORIOS ---------- */
+      function construirListasPaso4() {
+          const cristales = document.getElementById('listaCristales');
+          const accesorios = document.getElementById('listaAccesorios');
+
+          cristales.innerHTML = '';
+          accesorios.innerHTML = '';
+
+          DB_CRISTALES.forEach(cristal => {
+              const selected = orden.cristal && orden.cristal.id === cristal.id;
+
+              cristales.innerHTML += `
+        <button
+          type="button"
+          class="list-group-item list-group-item-action item-selectable ${selected ? 'selected' : ''}"
+          id="cristal-${cristal.id}"
+          onclick="elegirCristal('${cristal.id}')">
+          <div class="d-flex justify-content-between align-items-center">
+            <span>${cristal.nombre}</span>
+            <strong>$${cristal.precio.toFixed(2)}</strong>
+          </div>
+        </button>
+      `;
+          });
+
+          DB_ACCESORIOS.forEach(accesorio => {
+              const checked = orden.accesorios.some(x => x.id === accesorio.id) ? 'checked' : '';
+
+              accesorios.innerHTML += `
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="acc-${accesorio.id}"
+            onchange="toggleAccesorio('${accesorio.id}')"
+            ${checked}>
+          <label class="form-check-label" for="acc-${accesorio.id}">
+            ${accesorio.nombre} — $${accesorio.precio.toFixed(2)}
+          </label>
+        </div>
+      `;
+          });
+      }
+
+      function elegirCristal(id) {
+          orden.cristal = DB_CRISTALES.find(x => x.id === id);
+
+          document.querySelectorAll('#listaCristales .item-selectable').forEach(item => {
+              item.classList.toggle('selected', item.id === `cristal-${id}`);
+          });
+      }
+
+      function toggleAccesorio(id) {
+          const accesorio = DB_ACCESORIOS.find(x => x.id === id);
+          const checked = document.getElementById(`acc-${id}`).checked;
+
+          if (checked) {
+              const existe = orden.accesorios.some(x => x.id === id);
+
+              if (!existe) {
+                  orden.accesorios.push(accesorio);
+              }
+          } else {
+              orden.accesorios = orden.accesorios.filter(x => x.id !== id);
+          }
+      }
+
+      function actualizarResumen() {
+          const input = document.getElementById('anticipoInput');
+
+          if (!input) return;
+
+          orden.anticipo = parseFloat(input.value) || 0;
+      }
+
+      /* ---------- PAGO ---------- */
+      function actualizarMetodoPago() {
+          const metodoSelect = document.getElementById('metodoPagoSelect');
+          const referenciaInput = document.getElementById('referenciaPagoInput');
+          const referenciaBox = document.getElementById('referenciaPagoBox');
+
+          if (!metodoSelect) return;
+
+          orden.metodoPago = metodoSelect.value;
+          orden.referenciaPago = referenciaInput ? referenciaInput.value.trim() : '';
+
+          const requiereReferencia = ['tarjeta_debito', 'tarjeta_credito', 'transferencia'].includes(orden.metodoPago);
+
+          referenciaBox.classList.toggle('d-none', !requiereReferencia);
+
+          if (!requiereReferencia && referenciaInput) {
+              referenciaInput.value = '';
+              orden.referenciaPago = '';
+          }
+      }
+
+      function obtenerTextoMetodoPago() {
+          const metodos = {
+              efectivo: 'Efectivo',
+              tarjeta_debito: 'Tarjeta de débito',
+              tarjeta_credito: 'Tarjeta de crédito',
+              transferencia: 'Transferencia bancaria',
+              sin_anticipo: 'Sin anticipo'
+          };
+
+          return metodos[orden.metodoPago] || 'No seleccionado';
+      }
+
+      function validarPago() {
+          actualizarResumen();
+          actualizarMetodoPago();
+
+          const total = calcularTotal();
+
+          if (orden.anticipo <= 0) {
+              orden.metodoPago = 'sin_anticipo';
+              orden.referenciaPago = '';
+              return {
+                  valido: true
+              };
+          }
+
+          if (orden.anticipo > total) {
+              return {
+                  valido: false,
+                  mensaje: 'El anticipo no puede ser mayor al total de la orden.'
+              };
+          }
+
+          if (!orden.metodoPago || orden.metodoPago === 'sin_anticipo') {
+              return {
+                  valido: false,
+                  mensaje: 'Selecciona un método de pago para registrar el anticipo.'
+              };
+          }
+
+          const requiereReferencia = ['tarjeta_debito', 'tarjeta_credito', 'transferencia'].includes(orden.metodoPago);
+
+          if (requiereReferencia && !orden.referenciaPago) {
+              return {
+                  valido: false,
+                  mensaje: 'Ingresa la referencia o número de comprobante del pago.'
+              };
+          }
+
+          return {
+              valido: true
+          };
+      }
+
+      function obtenerEstadoPago(total, anticipo) {
+          if (anticipo <= 0) return 'Pendiente';
+          if (anticipo >= total) return 'Pagado';
+          return 'Parcial';
+      }
+
+      /* ---------- RESUMEN Y CONFIRMACIÓN ---------- */
+      function calcularTotal() {
+          let total = orden.cristal ? orden.cristal.precio : 0;
+
+          if (orden.armazon) {
+              total += orden.armazon.precio;
+          }
+
+          orden.accesorios.forEach(accesorio => {
+              total += accesorio.precio;
+          });
+
+          return total;
+      }
+
+      function construirResumen() {
+          actualizarResumen();
+
+          const total = calcularTotal();
+          const saldo = Math.max(total - orden.anticipo, 0);
+          const estadoPago = obtenerEstadoPago(total, orden.anticipo);
+          const armazonTexto = orden.esArmazonPropio ? 'Propio del cliente' : orden.armazon.nombre;
+          const accesoriosTexto = orden.accesorios.length
+              ? orden.accesorios.map(x => x.nombre).join(', ')
+              : 'Ninguno';
+
+          document.getElementById('resumenOrden').innerHTML = `
+      <div class="card border">
+        <div class="card-body">
+          <h3 class="h6 mb-3">Resumen de la orden</h3>
+
+          <div class="row g-3 small">
+            <div class="col-md-6">
+              <div class="text-muted">Cliente</div>
+              <strong>${orden.paciente.nombre}</strong>
+            </div>
+
+            <div class="col-md-6">
+              <div class="text-muted">Documento</div>
+              <strong>${orden.paciente.doc}</strong>
+            </div>
+
+            <div class="col-md-6">
+              <div class="text-muted">Receta</div>
+              <strong>${orden.receta.fecha}</strong>
+            </div>
+
+            <div class="col-md-6">
+              <div class="text-muted">Armazón</div>
+              <strong>${armazonTexto}</strong>
+            </div>
+
+            <div class="col-md-6">
+              <div class="text-muted">Cristal</div>
+              <strong>${orden.cristal.nombre}</strong>
+            </div>
+
+            <div class="col-md-6">
+              <div class="text-muted">Accesorios</div>
+              <strong>${accesoriosTexto}</strong>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between">
+            <span>Total</span>
+            <strong>$${total.toFixed(2)}</strong>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <span>Anticipo</span>
+            <strong>$${orden.anticipo.toFixed(2)}</strong>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <span>Saldo pendiente</span>
+            <strong class="text-danger">$${saldo.toFixed(2)}</strong>
+          </div>
+
+          <div class="d-flex justify-content-between mt-2">
+            <span>Estado de pago</span>
+            <span class="badge ${estadoPago === 'Pagado' ? 'text-bg-success' : estadoPago === 'Parcial' ? 'text-bg-warning' : 'text-bg-secondary'}">
+              ${estadoPago}
+            </span>
+          </div>
+        </div>
+      </div>
+    `;
+
+          const metodoSelect = document.getElementById('metodoPagoSelect');
+          const referenciaInput = document.getElementById('referenciaPagoInput');
+
+          document.getElementById('errorOrden').classList.add('d-none');
+
+          if (orden.anticipo <= 0) {
+              metodoSelect.value = 'sin_anticipo';
+              metodoSelect.disabled = true;
+              orden.metodoPago = 'sin_anticipo';
+
+              referenciaInput.value = '';
+              orden.referenciaPago = '';
+          } else {
+              metodoSelect.disabled = false;
+
+              if (orden.metodoPago && orden.metodoPago !== 'sin_anticipo') {
+                  metodoSelect.value = orden.metodoPago;
+              } else {
+                  metodoSelect.value = '';
+                  orden.metodoPago = '';
+              }
+          }
+
+          actualizarMetodoPago();
+      }
+
+      function confirmarOrden() {
+          const errorBox = document.getElementById('errorOrden');
+          const errorTexto = document.getElementById('errorOrdenTexto');
+          const simular = document.getElementById('simularError').checked;
+
+          errorBox.classList.add('d-none');
+
+          const validacionPago = validarPago();
+
+          if (!validacionPago.valido) {
+              errorTexto.textContent = validacionPago.mensaje;
+              errorBox.classList.remove('d-none');
+              return;
+          }
+
+          if (simular || (orden.armazon && orden.armazon.stock <= 0)) {
+              errorTexto.textContent =
+                  'No fue posible completar la orden: stock insuficiente o fallo al guardar en base de datos. Se realizó rollback de la transacción.';
+              errorBox.classList.remove('d-none');
+              return;
+          }
+
+          const total = calcularTotal();
+          const saldo = Math.max(total - orden.anticipo, 0);
+          const estadoPago = obtenerEstadoPago(total, orden.anticipo);
+          const metodoPagoTexto = obtenerTextoMetodoPago();
+          const numeroOrden = 'OT-' + Math.floor(100000 + Math.random() * 899999);
+          const fecha = new Date().toLocaleString('es-EC', {
+              dateStyle: 'medium',
+              timeStyle: 'short'
+          });
+
+          const armazonTexto = orden.esArmazonPropio ? 'Propio' : orden.armazon.nombre;
+
+          document.getElementById('ticketBody').innerHTML = `
+      <div class="text-center">
+        <div class="fw-bold fs-6">ÓPTICA VISIÓN+</div>
+        <div class="text-muted small">Comprobante de orden</div>
+      </div>
+
+      <hr>
+
+      <div>N° Orden: <strong>${numeroOrden}</strong></div>
+      <div>Fecha: ${fecha}</div>
+      <div>Estado: Creada</div>
+
+      <hr>
+
+      <div>Cliente: ${orden.paciente.nombre}</div>
+      <div>Documento: ${orden.paciente.doc}</div>
+      <div>Armazón: ${armazonTexto}</div>
+      <div>Cristal: ${orden.cristal.nombre}</div>
+      ${orden.accesorios.map(x => `<div>Accesorio: ${x.nombre}</div>`).join('')}
+
+      <hr>
+
+      <div class="d-flex justify-content-between">
+        <strong>Total</strong>
+        <strong>$${total.toFixed(2)}</strong>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <span>Anticipo</span>
+        <span>$${orden.anticipo.toFixed(2)}</span>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <span>Saldo</span>
+        <span>$${saldo.toFixed(2)}</span>
+      </div>
+
+      <hr>
+
+      <div>Método pago: ${metodoPagoTexto}</div>
+      ${orden.referenciaPago ? `<div>Referencia: ${orden.referenciaPago}</div>` : ''}
+      <div>Estado pago: ${estadoPago}</div>
+
+      <hr>
+
+      <div class="text-center text-muted small">
+        Gracias por confiar en Óptica Visión+
+      </div>
+    `;
+
+          const modal = new bootstrap.Modal(document.getElementById('ticketModal'));
+          modal.show();
+      }
+
+      actualizarStepper();
+</script>

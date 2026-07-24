@@ -15,6 +15,7 @@ namespace LovatoOpticalApp.Persistence
 
         // Customers & Orders
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
 
@@ -38,6 +39,14 @@ namespace LovatoOpticalApp.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.HasMany(c => c.Recipes)
+                      .WithOne(r => r.Customer)
+                      .HasForeignKey(r => r.CustomerId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
             modelBuilder.Entity<Crystal>(entity =>
             {
                 entity.OwnsOne(c => c.Prescription);

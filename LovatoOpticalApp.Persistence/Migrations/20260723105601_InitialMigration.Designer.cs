@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LovatoOpticalApp.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260721111926_InitialMigration")]
+    [Migration("20260723105601_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -106,6 +106,10 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -114,7 +118,12 @@ namespace LovatoOpticalApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("RecipeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("Customers");
                 });
@@ -415,6 +424,69 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.ToTable("TransferPayments");
                 });
 
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Recipe", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Adicion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VC_OD_CIL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VC_OD_EJE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VC_OD_ESF")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VC_OI_CIL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VC_OI_EJE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VC_OI_ESF")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VL_OD_CIL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VL_OD_EJE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VL_OD_ESF")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VL_OI_CIL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VL_OI_EJE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VL_OI_ESF")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Recipes");
+                });
+
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Crystal", b =>
                 {
                     b.OwnsMany("LovatoOpticalApp.Core.ValueObjects.CrystalTreatment", "Treatments", b1 =>
@@ -472,6 +544,17 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.Navigation("Prescription");
 
                     b.Navigation("Treatments");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Customer", b =>
+                {
+                    b.HasOne("LovatoOpticalApp.Core.Entities.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Invoice", b =>

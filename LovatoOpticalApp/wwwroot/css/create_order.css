@@ -1,0 +1,78 @@
+﻿.app-brand-icon {
+    width: 28px;
+    height: 28px;
+    border: 3px solid #ffc107;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+}
+
+.app-brand-icon::after {
+    content: "";
+    width: 10px;
+    height: 3px;
+    background-color: #ffc107;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+}
+
+.step-item {
+    min-width: 120px;
+}
+
+.step-badge {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel {
+    display: none;
+}
+
+.panel.active {
+    display: flex;
+}
+
+.choice-card {
+    cursor: pointer;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.choice-card:hover {
+    border-color: var(--bs-primary);
+}
+
+.choice-card.selected {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 .2rem rgba(13, 110, 253, .15);
+    background-color: #f8fbff;
+}
+
+.item-selectable {
+    cursor: pointer;
+}
+
+.item-selectable.selected {
+    border-color: var(--bs-primary);
+    background-color: #f8fbff;
+}
+
+.ticket {
+    max-width: 390px;
+    margin: 0 auto;
+    background-color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .85rem;
+    border-radius: .5rem;
+    padding: 1.5rem;
+}
+
+.ticket hr {
+    border-top: 1px dashed #adb5bd;
+    opacity: 1;
+}

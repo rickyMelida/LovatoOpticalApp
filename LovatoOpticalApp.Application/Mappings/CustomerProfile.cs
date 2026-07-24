@@ -10,6 +10,11 @@ namespace LovatoOpticalApp.Application.Mappings
         {
             CreateMap<Customer, CustomerResquestDto>();
             CreateMap<CustomerResquestDto, Customer>();
+            CreateMap<CustomerResponseDto, Customer>();
+            CreateMap<Customer, CustomerResponseDto>();
+            CreateMap<Recipe, RecipeRequestDto>();
+            CreateMap<RecipeRequestDto, Recipe>();
+            CreateMap<Recipe, RecipeResponseDto>();
         }
     }
 }

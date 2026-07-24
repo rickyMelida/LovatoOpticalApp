@@ -1,42 +1,8 @@
 ﻿import { initForm } from './Customer.Form.js'
 import { enableButton } from '../Common/ButtonEvents.js'
-
-const deleteCustomerElement = document.querySelectorAll('.deleteCustomer');
+import { handleGridModal } from './Customer.Grid.js'
+import { handlerCustomer } from './Customer.Recipe.js'
 
 initForm();
-
-
-deleteCustomerElement.forEach(element => {
-
-    element.addEventListener('click', () => {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger"
-            },
-            buttonsStyling: false
-        });
-        swalWithBootstrapButtons.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) swalWithBootstrapButtons.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-            });
-            else if (result.dismiss === Swal.DismissReason.cancel)
-                /* Read more about handling dismissals below */
-                swalWithBootstrapButtons.fire({
-                    title: "Cancelled",
-                    text: "Your imaginary file is safe :)",
-                    icon: "error"
-                });
-        });
-    })
-})
+handleGridModal();
+handlerCustomer();

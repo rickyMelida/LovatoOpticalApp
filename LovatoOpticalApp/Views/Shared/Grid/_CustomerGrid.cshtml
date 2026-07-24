@@ -13,8 +13,11 @@
                         <th scope="col">#</th>
                         <th scope="col">Nombre</th>
                         <th scope="col">RUC/CI</th>
+                        <th scope="col">Correo</th>
                         <th scope="col">Dirección</th>
                         <th scope="col">Teléfono</th>
+                        <th scope="col" class="text-center">Agregar Receta</th>
+                        <th scope="col" class="text-center">Detalles</th>
                         <th scope="col" class="text-center">Editar</th>
                         <th scope="col" class="text-center">Eliminar</th>
                     </tr>
@@ -22,18 +25,29 @@
                 <tbody>
                     @foreach (var customer in customers.Items)
                     {
+                        var address = String.IsNullOrEmpty(customer.Address) ? "N/A" : customer.Address;
+
                         <tr>
                             <th scope="row">@index</th>
                             <td>@customer.Name</td>
                             <td>@customer.CiRuc</td>
-                            <td>@customer.Address</td>
+                            <td>@customer.Email</td>
+                            <td>@address</td>
                             <td>@customer.Phone</td>
+                            <td class="text-center">
+                                <a href="#" class="add-recipe" id="@customer.Id"><i class="bi bi-plus-circle text-primary w-100"></i></a>
+                            </td>
+                            <td class="text-center">
+                                <a href="#" class="view-customer-details" data-bs-toggle="modal" data-bs-target="#viewCustomerModal" id="@customer.Id">
+                                    <i class="bi bi-eye text-primary"></i>
+                                </a>
+                            </td>
                             <td class="text-center">
                                 <a href="#" class="edit-customer" data-bs-toggle="modal" data-bs-target="#newCustomerModal" id="@customer.Id">
                                     <i class="bi bi-pencil text-warning"></i>
                                 </a>
                             </td>
-                            <td class="text-center deleteCustomer">
+                            <td class="text-center delete-customer">
                                 <a href="#" class="delete-customer" id="@customer.Id"><i class="bi bi-trash text-danger"></i></a>
                             </td>
                         </tr>

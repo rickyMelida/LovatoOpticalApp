@@ -1,0 +1,147 @@
+﻿<div class="modal fade" id="viewCustomerModal" tabindex="-1" aria-labelledby="viewCustomerModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="viewCustomerModalLabel">
+					<i class="bi bi-eye me-2"></i>Detalles del Cliente
+				</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+
+				<!-- Encabezado: nombre y CI/RUC -->
+				<div class="d-flex justify-content-between align-items-start mb-4">
+					<div>
+						<h4 class="mb-1" id="viewCustomerName">—</h4>
+						<span class="text-muted" id="viewCustomerCiRuc">—</span>
+					</div>
+				</div>
+
+				<div class="row g-4">
+                    <div class="row">
+
+						<!-- Datos del Paciente -->
+						<div class="col-md-9">
+							<h6 class="text-uppercase text-muted small fw-bold mt-5 mb-3">Datos del Paciente</h6>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item d-flex justify-content-between px-0">
+									<span class="text-muted">Teléfono/Celular</span>
+									<span class="fw-medium" id="viewCustomerPhone">—</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between px-0">
+									<span class="text-muted">Correo</span>
+									<span class="fw-medium" id="viewCustomerEmail">—</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between px-0">
+									<span class="text-muted">Fecha Nacimiento</span>
+									<span class="fw-medium" id="viewCustomerBirthday">—</span>
+								</li>
+								<li class="list-group-item d-flex justify-content-between px-0">
+									<span class="text-muted">Dirección</span>
+									<span class="fw-medium" id="viewCustomerAddress">—</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+
+					<!-- Navegación de Recetas -->
+						<div class="row">
+							<div class="d-flex align-items-center justify-content-between">
+								<h6 class="text-uppercase text-muted small fw-bold mt-3 mb-0">Receta</h6>
+								<div class="d-flex align-items-center gap-2 mt-3" id="recipeNavContainer">
+									<button type="button" class="btn btn-outline-secondary btn-sm" id="btnPrevRecipe" title="Receta anterior">
+										<i class="bi bi-chevron-left"></i>
+									</button>
+									<span class="text-muted small" id="recipeNavLabel">1 de 1</span>
+									<button type="button" class="btn btn-outline-secondary btn-sm" id="btnNextRecipe" title="Receta siguiente">
+										<i class="bi bi-chevron-right"></i>
+									</button>
+								</div>
+							</div>
+							<div class="text-muted small mt-1" id="viewRecipeDateLabel">
+								<i class="bi bi-calendar2-check me-1"></i><span id="viewRecipeDate">—</span>
+							</div>
+						</div>
+
+					<div class="col-md-6">
+						<h6 class="text-uppercase text-muted small fw-bold mb-3">Visión Lejana (VL)</h6>
+						<table class="table table-bordered table-sm align-middle">
+							<thead class="table-light">
+								<tr><th>Ojo</th><th>ESF</th><th>CIL</th><th>EJE</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="badge bg-primary">OD</span></td>
+									<td id="viewVlOdEsf">—</td>
+									<td id="viewVlOdCil">—</td>
+									<td id="viewVlOdEje">—</td>
+								</tr>
+								<tr>
+									<td><span class="badge bg-info text-dark">OI</span></td>
+									<td id="viewVlOiEsf">—</td>
+									<td id="viewVlOiCil">—</td>
+									<td id="viewVlOiEje">—</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- Visión Cercana (VC) -->
+					<div class="col-md-6">
+						<h6 class="text-uppercase text-muted small fw-bold mb-3">Visión Cercana (VC)</h6>
+						<table class="table table-bordered table-sm align-middle">
+							<thead class="table-light">
+								<tr><th>Ojo</th><th>ESF</th><th>CIL</th><th>EJE</th></tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><span class="badge bg-primary">OD</span></td>
+									<td id="viewVcOdEsf">—</td>
+									<td id="viewVcOdCil">—</td>
+									<td id="viewVcOdEje">—</td>
+								</tr>
+								<tr>
+									<td><span class="badge bg-info text-dark">OI</span></td>
+									<td id="viewVcOiEsf">—</td>
+									<td id="viewVcOiCil">—</td>
+									<td id="viewVcOiEje">—</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- Adición -->
+					<div class="col-md-6">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item px-0">
+								<span class="text-muted">Adición</span>
+								<span class="fw-medium" id="viewCustomerAdicion">—</span>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Optometrista -->
+					<div class="col-md-6">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item px-0">
+								<span class="text-muted">Optometrista</span>
+								<span class="fw-medium" id="viewCustomerOptometrist">—</span>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+					<i class="bi bi-x-lg me-1"></i>Cerrar
+				</button>
+				<button type="button" class="btn btn-primary" id="btnEditFromView" data-bs-dismiss="modal"
+						data-bs-toggle="modal" data-bs-target="#editCustomerModal">
+					<i class="bi bi-pencil me-1"></i>Editar
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

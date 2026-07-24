@@ -11,15 +11,37 @@ namespace LovatoOpticalApp.Persistence.Repository
         {
             _context = context;
         }
-        public async Task CreateCustomer(Customer customer)
+        public async Task<Customer> CreateCustomer(Customer customer)
         {
+            if(customer.Id != Guid.Empty)
+                return customer;
+            
+
             await _context.Customers.AddAsync(customer);
-            await _context.SaveChangesAsync();
+
+            return customer;
+        }
+
+        public async Task<Customer> GetCustomerDetails(Guid customerId)
+        {
+            // Obtener un cliente CON todas sus recetas cargadas
+            var customer = await _context.Customers
+                .Include(c => c.Recipes)  // ← aquí sí se aprovecha la colección
+                .FirstOrDefaultAsync(c => c.Id == customerId);
+
+            return customer;
         }
 
         public async Task<List<Customer>> GetCustomers()
         {
             return await _context.Customers.ToListAsync();
+        }
+
+        public async Task<Customer> UpdateCustomer(Customer customerDto)
+        {
+            _context.Customers.Update(customerDto);
+            
+            return customerDto;
         }
     }
 }

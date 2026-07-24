@@ -8,5 +8,11 @@ namespace LovatoOpticalApp.Controllers
         {
             return View();
         }
+
+        public IActionResult CreateOrder()
+        {
+            return View();
+        }
+
     }
 }

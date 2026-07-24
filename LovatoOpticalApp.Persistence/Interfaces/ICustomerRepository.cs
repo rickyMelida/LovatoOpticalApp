@@ -4,7 +4,9 @@ namespace LovatoOpticalApp.Persistence.Interfaces
 {
     public interface ICustomerRepository
     {
-        Task CreateCustomer(Customer customerDto);
+        Task<Customer> CreateCustomer(Customer customerDto);
+        Task<Customer> UpdateCustomer(Customer customerDto);
+        Task<Customer> GetCustomerDetails(Guid customerId);
         Task<List<Customer>> GetCustomers();
     }
 }

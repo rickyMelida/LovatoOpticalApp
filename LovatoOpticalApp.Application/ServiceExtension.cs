@@ -15,11 +15,16 @@ namespace LovatoOpticalApp.Application
             services.AddDbContext<AppDbContext>();
             services.AddScoped(typeof(IProductRepository<>), typeof(ProductRepository<>));
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IRecipeRepository, RecipeRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IRecipeService, RecipeService>();
             services.AddScoped<IFrameService, FrameService>();
 			services.AddScoped<IProductService, ProductService>();
 			services.AddScoped<IProductDetailStrategy, FrameProductStrategy>();
+            services.AddScoped<ICustomerRecipeUnitOfWork, CustomerRecipeUnitOfWork>();
+
             services.AddAutoMapper(cfg => 
             {
                 cfg.AddProfile<CustomerProfile>();

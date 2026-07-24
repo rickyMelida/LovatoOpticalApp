@@ -9,41 +9,16 @@
             </div>
             <div class="modal-body">
                 <form id="newCustomerForm">
-                    <div class="row g-3">
+                    @await Html.PartialAsync("Forms/_NewCustomer")
 
-                        <div class="col-6">
-                            <label for="customerName" class="form-label">Nombre<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="customerName" name="Name"
-                                   placeholder="Juan" required>
-                        </div>
-                        <div class="col-6">
-                            <label for="customerLastname" class="form-label">Apellido<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="customerLastname" name="Lastname"
-                                   placeholder="Perez" required>
-                        </div>
-
-                        <div class="col-6">
-                            <label for="customerCiRuc" class="form-label">CI - RUC<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="customerCiRuc" name="CiRuc"
-                                   placeholder="800100-6" required>
-                        </div>
-                        <div class="col-6">
-                            <label for="customerBirthDay" class="form-label">Fecha Nacimiento<span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" id="customerBirthDay" name="Birthday"
-                                   placeholder="" required>
-                        </div>
-                        
-                        <div class="col-6">
-                            <label for="customerAddress" class="form-label">Dirección<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="customerAddress" name="Address"
-                                   placeholder="Avda. Fernando de la Mora 123" required>
-                        </div>
-                        <div class="col-6">
-                            <label for="customerPhone" class="form-label">Teléfono/Celular<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="customerPhone" name="Phone"
-                                   placeholder="0991 123 456" required>
+                    <div class="row mt-4 justify-content-center">
+                        <div class="col-md-12">
+                            <hr />
                         </div>
                     </div>
+
+                    @await Html.PartialAsync("Forms/_NewRecipe")
+
                 </form>
             </div>
             <div class="modal-footer">

@@ -6,18 +6,23 @@
         public string Name { get; set; }
         public string CiRuc { get; set; }
         public DateTime? BirthDay { get; set; }
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
         public string Phone { get; set; }
+        public string Email { get; set; }
+        public List<Recipe> Recipes { get; set; } = new List<Recipe>();
         public DateTime CreationDate { get; set; }
 
-        public Customer(string name, string ciRuc, DateTime? birthDay, string address, string phone)
+        protected Customer() { }
+
+        public Customer(string name, string ciRuc, string phone, string email, DateTime? birthDay, string address)
         {
             Id = Guid.NewGuid();
             Name = name;
             CiRuc = ciRuc;
+            Phone = phone;
+            Email = email;
             BirthDay = birthDay;
             Address = address;
-            Phone = phone;
             CreationDate = DateTime.Now;
         }
 

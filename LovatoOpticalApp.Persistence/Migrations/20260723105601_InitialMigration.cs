@@ -79,23 +79,6 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CiRuc = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BirthDay = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DebitCardPayments",
                 columns: table => new
                 {
@@ -192,6 +175,30 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Recipes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    VL_OD_ESF = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VL_OD_CIL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VL_OD_EJE = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VL_OI_ESF = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VL_OI_CIL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VL_OI_EJE = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VC_OD_ESF = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VC_OD_CIL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VC_OD_EJE = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VC_OI_ESF = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VC_OI_CIL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VC_OI_EJE = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Adicion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CrystalTreatment",
                 columns: table => new
                 {
@@ -208,6 +215,51 @@ namespace LovatoOpticalApp.Persistence.Migrations
                         name: "FK_CrystalTreatment_Crystals_CrystalId",
                         column: x => x.CrystalId,
                         principalTable: "Crystals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TransferPayments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ProofId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PaidAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransferPayments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TransferPayments_PaymentProofs_ProofId",
+                        column: x => x.ProofId,
+                        principalTable: "PaymentProofs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CiRuc = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BirthDay = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RecipeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customers_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -255,26 +307,6 @@ namespace LovatoOpticalApp.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransferPayments",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ProofId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PaidAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TransferPayments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TransferPayments_PaymentProofs_ProofId",
-                        column: x => x.ProofId,
-                        principalTable: "PaymentProofs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Invoices",
                 columns: table => new
                 {
@@ -293,6 +325,11 @@ namespace LovatoOpticalApp.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customers_RecipeId",
+                table: "Customers",
+                column: "RecipeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_OrderId",
@@ -372,6 +409,9 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Frames");
+
+            migrationBuilder.DropTable(
+                name: "Recipes");
         }
     }
 }

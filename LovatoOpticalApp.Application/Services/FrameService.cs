@@ -62,6 +62,7 @@ namespace LovatoOpticalApp.Application.Services
                 return new ApiServiceResponse("Armazón no encontrado.", 404);
 
             frameEntity.UpdateStock(frameEntity.Quantity + quantityToAdd);
+
             await _repository.UpdateAsync(frameEntity);
 
             return new ApiServiceResponse("Stock actualizado correctamente", 200);

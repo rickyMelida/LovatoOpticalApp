@@ -18,17 +18,24 @@ namespace LovatoOpticalApp.Application.Services
             _customerRepository = customerRepository;
         }
 
-        public async Task<ApiServiceResponse> CreateCustomer(CustomerResquestDto customerRequestDto)
+        public async Task<CustomerResponseDto> CreateCustomer(CustomerResquestDto customerRequestDto)
         {
             var customer = _mapper.Map<Customer>(customerRequestDto);
-            await _customerRepository.CreateCustomer(customer);
+            var result = await _customerRepository.CreateCustomer(customer);
 
-            return new ApiServiceResponse("Cliente agregado exitosamente", 200);
+            return _mapper.Map<CustomerResponseDto>(result);
         }
 
         public Task<ApiServiceResponse> DeleteCustomer(Guid customerId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<CustomerResponseDto> GetCustomerById(Guid customerId)
+        {
+            var customer = await _customerRepository.GetCustomerDetails(customerId);
+
+            return _mapper.Map<CustomerResponseDto>(customer);
         }
 
         public async Task<PagedResult<CustomerResponseDto>> GetCustomers(PaginationParams parameters)
@@ -49,6 +56,7 @@ namespace LovatoOpticalApp.Application.Services
                     Id = f.Id,
                     Name = f.Name,
                     CiRuc = f.CiRuc,
+                    Email = f.Email,
                     BirthDay = f.BirthDay,
                     Address = f.Address,
                     Phone = f.Phone,
@@ -65,9 +73,12 @@ namespace LovatoOpticalApp.Application.Services
             };
         }
 
-        public Task<ApiServiceResponse> UpdateCustomer(CustomerResquestDto customerRequestDto)
+        public async Task<CustomerResponseDto> UpdateCustomer(CustomerResquestDto customerRequestDto)
         {
-            throw new NotImplementedException();
+            var customer = _mapper.Map<Customer>(customerRequestDto);
+            var result = await _customerRepository.UpdateCustomer(customer);
+
+            return _mapper.Map<CustomerResponseDto>(result);
         }
     }
 }
