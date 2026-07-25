@@ -43,6 +43,7 @@ namespace LovatoOpticalApp.Application.Services
         public async Task<FrameResponseDto> GetFrameById(Guid frameId)
 		{
 			var frame = await _repository.GetByIdAsync(frameId);
+
 			if (frame == null)
 				throw new KeyNotFoundException($"Frame with ID {frameId} not found.");
 
@@ -52,6 +53,7 @@ namespace LovatoOpticalApp.Application.Services
 		public async Task<List<FrameResponseDto>> GetFrames()
 		{
 			var frames = await _repository.GetAllAsync();
+
 			return _mapper.Map<List<FrameResponseDto>>(frames);
 		}
 

@@ -1,21 +1,16 @@
 ﻿using LovatoOpticalApp.Application.DTOs;
 using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Application.Interfaces;
-using LovatoOpticalApp.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LovatoOpticalApp.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomerController : RecipeController
     {
-        private readonly ICustomerService _customerService;
-        private readonly ICustomerRecipeUnitOfWork _customerRecipeUnitOfWork;
-        private readonly IRecipeService _recipeService;
-        public CustomerController(ICustomerService customerService, ICustomerRecipeUnitOfWork customerRecipeUnitOfWork, IRecipeService recipeService    )
+      
+        public CustomerController(ICustomerService customerService, ICustomerRecipeUnitOfWork customerRecipeUnitOfWork, IRecipeService recipeService): 
+            base(customerService, customerRecipeUnitOfWork, recipeService)
         {
-            _customerService = customerService;
-            _customerRecipeUnitOfWork = customerRecipeUnitOfWork;
-            _recipeService = recipeService;
         }
 
         public async Task<IActionResult> Index()
@@ -47,6 +42,17 @@ namespace LovatoOpticalApp.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        public async Task<ActionResult<CustomerResponseDto>> GetCustomerByDoc(string doc)
+        {
+            if (String.IsNullOrEmpty(doc))
+                return BadRequest("El documento del cliente no es válido.");
+
+            var result = await _customerService.GetCustomerByDoc(doc);
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Update([FromBody] CustomerRecipeDtoRequest customerResquest)
         {
@@ -54,24 +60,5 @@ namespace LovatoOpticalApp.Controllers
 
             return Ok(result);
         }
-
-        [HttpPost]
-        public async Task<ActionResult<ApiServiceResponse>> CreateRecipe([FromBody] RecipeRequestDto recipeRequest)
-        {
-            try
-            {
-                if (recipeRequest.CustomerId == Guid.Empty)
-                    return BadRequest("El ID del cliente es requerido");
-            
-                await _recipeService.CreateRecipe(recipeRequest, recipeRequest.CustomerId, true);
-
-                return Ok(new ApiServiceResponse("Receta Agregada Correctamente", 201));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
     }
 }

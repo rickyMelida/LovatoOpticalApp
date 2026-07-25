@@ -30,6 +30,16 @@ namespace LovatoOpticalApp.Application.Services
                 await _unitOfWork.SaveChangesAsync();
         }
 
+        public async Task<RecipeResponseDto> GetLastRecipe(string customerId)
+        {
+            var recipe = await _recipeRepository.GetLastRecipe(Guid.Parse(customerId));
+
+            if (recipe is null)
+                return null;
+
+            return _mapper.Map<RecipeResponseDto>(recipe);
+        }
+
         public async Task UpdateRecipe(RecipeRequestDto recipeRequestDto)
         {
             var recipe = _mapper.Map<Recipe>(recipeRequestDto);

@@ -1,0 +1,105 @@
+﻿#printArea {
+    display: none;
+}
+
+@media print {
+    @page {
+        size: 15cm 12cm;
+        margin: 0.35cm;
+    }
+
+    html, body {
+        width: 15cm;
+        height: 12cm;
+        max-height: 12cm;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Oculta todo el resto de la app y muestra solo la ficha */
+    body * {
+        visibility: hidden;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #printArea, #printArea * {
+        visibility: visible;
+        height: revert !important;
+        overflow: revert !important;
+        margin: revert !important;
+        padding: revert !important;
+    }
+
+    #printArea {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 14.3cm;
+        font-size: 7.5pt;
+        line-height: 1.25;
+        color: #000;
+    }
+
+    #printArea .p-title {
+        font-size: 10pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .04em;
+        text-align: center;
+        border-bottom: 1.5px solid #000;
+        padding-bottom: 2px;
+        margin-bottom: 3px;
+    }
+
+    #printArea .p-brand {
+        font-size: 8.5pt;
+        font-weight: 700;
+    }
+
+    #printArea table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 3px;
+    }
+
+    #printArea table, #printArea th, #printArea td {
+        border: 0.75px solid #000;
+    }
+
+    #printArea th, #printArea td {
+        padding: 1.5px 3px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    #printArea th {
+        background: #ddd !important;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    #printArea .p-label {
+        font-size: 6.5pt;
+        color: #333;
+        text-transform: uppercase;
+        display: block;
+    }
+
+    #printArea .p-value {
+        font-weight: 600;
+        min-height: 8pt;
+    }
+
+    #printArea .receta-table th,
+    #printArea .receta-table td {
+        text-align: center;
+    }
+}

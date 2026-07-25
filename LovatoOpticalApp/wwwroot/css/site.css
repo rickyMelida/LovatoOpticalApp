@@ -11,5 +11,14 @@
 	pointer-events: none;
 	opacity: 0.6;
 	cursor: not-allowed;
-	border-color: rgb(109, 108, 108);
+	border-color: #000 !important;
+}
+
+.loading-lg-btn {
+	background-color: gray !important;
+	pointer-events: none;
+	opacity: 0.6;
+	cursor: not-allowed;
+	border-color: #000 !important;
+	width: 200px;
 }

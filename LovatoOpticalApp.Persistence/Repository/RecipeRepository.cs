@@ -43,5 +43,18 @@ namespace LovatoOpticalApp.Persistence.Repository
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<Recipe> GetLastRecipe(Guid customerId)
+        {
+            var recipeFound =  await _context.Recipes
+                .Where(r => r.CustomerId == customerId)
+                .OrderByDescending(r => r.PrescriptionIssueDate)
+                .FirstOrDefaultAsync();
+
+            if (recipeFound is null)
+                return null;
+
+            return recipeFound;
+        }
     }
 }

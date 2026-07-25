@@ -14,6 +14,9 @@ namespace LovatoOpticalApp.Core.Entities
         public Crystal CrystalLeft { get; set; }
         public Crystal CrystalRight { get; set; }
 
+        // Orden de trabajo enviada al laboratorio para fabricar los cristales
+        public CrystalOrderWork CrystalOrderWork { get; set; }
+
         // Estuche dedicado (obligatorio según el diagrama)
         [NotMapped]
         public IAccessory GlassesCase { get; set; }

@@ -31,6 +31,14 @@ namespace LovatoOpticalApp.Application.Services
             throw new NotImplementedException();
         }
 
+        public async Task<CustomerResponseDto> GetCustomerByDoc(string doc)
+        {
+            string docCleaned = doc.Trim().ToLower();
+            var customer = await _customerRepository.GetCustomerByDoc(docCleaned);
+
+            return _mapper.Map<CustomerResponseDto>(customer);
+        }
+
         public async Task<CustomerResponseDto> GetCustomerById(Guid customerId)
         {
             var customer = await _customerRepository.GetCustomerDetails(customerId);

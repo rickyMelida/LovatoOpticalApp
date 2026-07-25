@@ -5,16 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LovatoOpticalApp.Controllers
 {
-    public class CatalogController : Controller
-    {
-        private readonly IFrameService _frameService;
-		private readonly IProductService _productService;
-		
+    public class CatalogController : FrameController
+    {	
 
-        public CatalogController(IFrameService frameService, IProductService productService)
+        public CatalogController(IFrameService frameService, IProductService productService): 
+            base(frameService, productService)
         {
-            _frameService = frameService;
-			_productService = productService;
         }
 
         public async Task<IActionResult> Index()
@@ -29,43 +25,6 @@ namespace LovatoOpticalApp.Controllers
 			ViewData["Products"] = result;
 			
             return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateFrame([FromBody] FrameRequestDto? frame)
-        {
-            if (frame is null)
-            	return BadRequest("El cuerpo de la solicitud no es válido.");
-            
-
-            var result = await _frameService.CreateFrame(frame);
-            return Ok(result);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateFrame([FromBody] FrameRequestDto? frame)
-        {
-            if (frame is null)
-                return BadRequest("El cuerpo de la solicitud no es válido.");
-
-
-            var result = await _frameService.UpdateFrame(frame);
-            return Ok(result);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> DeleteProduct(string productId, ProductTypeEnum productType)
-        {
-            if (String.IsNullOrEmpty(productId) || !Guid.TryParse(productId, out Guid parsedProductId))
-                return BadRequest("El ID del producto no es válido.");
-
-            if (!Enum.IsDefined(typeof(ProductTypeEnum), productType))
-                return BadRequest("El tipo de producto no es válido.");
-
-            var result = await _productService.DeleteProduct(parsedProductId, productType);
-            
-            return Ok(result);
-
         }
 
         [HttpGet]

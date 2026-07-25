@@ -1,0 +1,149 @@
+﻿<form novalidate id="crystalForm">
+
+    <!-- Material / Lente -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white">
+            <span class="form-section-title"><i class="bi bi-droplet-half me-2"></i>Material del lente</span>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="material" placeholder="Material">
+                        <label for="material">Material</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="indice" placeholder="Índice">
+                        <label for="indice">Índice</label>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                        <textarea class="form-control" id="filtroTratamientos" placeholder="Filtro y/o tratamientos" style="height: 90px"></textarea>
+                        <label for="filtroTratamientos">Filtro y/o tratamientos</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Receta -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white">
+            <span class="form-section-title">
+                <i class="bi bi-clipboard2-pulse"></i>Info / Receta
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered receta align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width:6%">Ojo</th>
+                            <th>Esférico</th>
+                            <th>Cilíndrico</th>
+                            <th>Eje</th>
+                            <th>Adición</th>
+                            <th>DNP</th>
+                            <th>Altura</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="table-light">O.D.</th>
+                            <td><input type="number" step="0.25" class="form-control" id="od_esferico" aria-label="Esférico O.D."></td>
+                            <td><input type="number" step="0.25" class="form-control" id="od_cilindrico" aria-label="Cilíndrico O.D."></td>
+                            <td><input type="number" class="form-control" id="od_eje" aria-label="Eje O.D."></td>
+                            <td><input type="number" step="0.25" class="form-control" id="od_adicion" aria-label="Adición O.D."></td>
+                            <td><input type="number" step="0.5" class="form-control" id="od_dnp" aria-label="DNP O.D."></td>
+                            <td><input type="number" step="0.5" class="form-control" id="od_altura" aria-label="Altura O.D."></td>
+                        </tr>
+                        <tr>
+                            <th class="table-light">O.I.</th>
+                            <td><input type="number" step="0.25" class="form-control" id="oi_esferico" aria-label="Esférico O.I."></td>
+                            <td><input type="number" step="0.25" class="form-control" id="oi_cilindrico" aria-label="Cilíndrico O.I."></td>
+                            <td><input type="number" class="form-control" id="oi_eje" aria-label="Eje O.I."></td>
+                            <td><input type="number" step="0.25" class="form-control" id="oi_adicion" aria-label="Adición O.I."></td>
+                            <td><input type="number" step="0.5" class="form-control" id="oi_dnp" aria-label="DNP O.I."></td>
+                            <td><input type="number" step="0.5" class="form-control" id="oi_altura" aria-label="Altura O.I."></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-text mt-2">Todas las medidas en milímetros (mm).</div>
+        </div>
+    </div>
+
+    <!-- Armazón -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white">
+            <span class="form-section-title"><i class="bi bi-eyeglasses me-2"></i>Armazón</span>
+        </div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="montaje" placeholder="Montaje">
+                        <label for="montaje">Montaje</label>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="horizontal" placeholder="Horizontal">
+                        <label for="horizontal">Horizontal</label>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="vertical" placeholder="Vertical">
+                        <label for="vertical">Vertical</label>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="diagMayor" placeholder="Diag. mayor">
+                        <label for="diagMayor">Diag. mayor</label>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="form-floating">
+                        <input type="text"  class="form-control" id="puente" placeholder="Puente">
+                        <label for="puente">Puente</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="angPantoscopico" placeholder="Áng. pantoscópico">
+                        <label for="angPantoscopico">Áng. pantoscópico</label>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="angPanoramico" placeholder="Áng. panorámico">
+                        <label for="angPanoramico">Áng. panorámico</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Observaciones -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white">
+            <span class="form-section-title"><i class="bi bi-chat-left-text me-2"></i>Observaciones</span>
+        </div>
+        <div class="card-body">
+            <div class="form-floating">
+                <textarea class="form-control" id="observaciones" placeholder="Observaciones" style="height: 100px"></textarea>
+                <label for="observaciones">Observaciones</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acciones -->
+    <div class="d-flex justify-content-end gap-2 mt-4 no-print">
+        <button type="submit" class="btn btn-outline-primary" id="btnImprimir"><i class="bi bi-file-earmark-pdf me-1"></i>Imprimir</button>
+    </div>
+</form>

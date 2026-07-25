@@ -22,9 +22,23 @@ namespace LovatoOpticalApp.Persistence.Repository
             return customer;
         }
 
+        public async Task<Customer> GetCustomerByDoc(string doc)
+        {
+            var customerFind = await _context.Customers.FirstOrDefaultAsync(c => c.CiRuc.ToLower() == doc);
+
+            if (customerFind == null)
+                return null;
+            
+
+            var customer = await _context.Customers
+                .Include(c => c.Recipes)
+                .FirstOrDefaultAsync(c => c.Id == customerFind.Id);
+
+            return customer;
+        }
+
         public async Task<Customer> GetCustomerDetails(Guid customerId)
         {
-            // Obtener un cliente CON todas sus recetas cargadas
             var customer = await _context.Customers
                 .Include(c => c.Recipes)  // ← aquí sí se aprovecha la colección
                 .FirstOrDefaultAsync(c => c.Id == customerId);
