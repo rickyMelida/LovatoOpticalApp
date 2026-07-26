@@ -13,14 +13,51 @@ export const handlerCrystalForm = () => {
         }
 
         form.classList.add('was-validated');
-
-        console.log({state})
-
+        
         fillPrintArea();
 
         setTimeout(() => window.print(), 300);
+
+        state.order.lens = getCrystalOrderWork();
+
+        console.log({ state })
     });
 }
+    
+const getCrystalOrderWork = () => {
+    return {
+        Material: document.getElementById('material').value,
+        Index: document.getElementById('indice').value,
+        TreatmentNotes: document.getElementById('filtroTratamientos').value,
+
+        // Graduación Ojo Derecho (OD)
+        OD_ESF: document.getElementById('od_esferico').value,
+        OD_CIL: document.getElementById('od_cilindrico').value,
+        OD_AXIS: document.getElementById('od_eje').value,
+        OD_ADD: document.getElementById('od_adicion').value,
+        OD_DNP: document.getElementById('od_dnp').value,
+        OD_HEIGHT: document.getElementById('od_altura').value,
+
+        // Graduación Ojo Izquierdo (OI)
+        OI_ESF: document.getElementById('oi_esferico').value,
+        OI_CIL: document.getElementById('oi_cilindrico').value,
+        OI_AXIS: document.getElementById('oi_eje').value,
+        OI_ADD: document.getElementById('oi_adicion').value,
+        OI_DNP: document.getElementById('oi_dnp').value,
+        OI_HEIGHT: document.getElementById('oi_altura').value,
+
+        // Medidas del armazón
+        Mounting: document.getElementById('montaje').value,
+        Horizontal: document.getElementById('horizontal').value,
+        Vertical: document.getElementById('vertical').value,
+        MajorDiagonal: document.getElementById('diagMayor').value,
+        Bridge: document.getElementById('puente').value,
+        PantoscopicAngle: document.getElementById('angPantoscopico').value,
+        PanoramicAngle: document.getElementById('angPanoramico').value,
+        Observations: document.getElementById('angPanoramico').value,
+    }
+}
+
 const val = (id) => {
     const missedField = {
         numero: "1234",
@@ -30,20 +67,19 @@ const val = (id) => {
         nombrePaciente: state.order.patient.name
     }
 
-    if (missedField.hasOwnProperty(id)) {
+    if (missedField.hasOwnProperty(id))
         return missedField[id];
-    }
-
-
+    
 
     const el = document.getElementById(id);
+
     return el ? (el.value || '').trim() : '';
 }
 
 const formatFecha = (date) => {
-    const day = String(date.getDate()).padStart(2, '0');       // 01-31
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // 01-12
-    const year = date.getFullYear();                            // yyyy
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
 
     return `${day}-${month}-${year}`;
 }

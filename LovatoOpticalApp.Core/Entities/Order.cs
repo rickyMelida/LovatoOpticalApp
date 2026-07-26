@@ -56,5 +56,66 @@ namespace LovatoOpticalApp.Core.Entities
 
             return (!errors.Any(), errors);
         }
+
+        /// <summary>
+        /// Confirma la orden cambiando su estado a <see cref="StateEnum.Confirmed"/>.
+        /// Solo puede confirmarse si la orden es válida.
+        /// </summary>
+        public void Confirm()
+        {
+            var (isValid, errors) = Validate();
+            if (!isValid)
+                throw new InvalidOperationException(
+                    $"No se puede confirmar la orden:\n{string.Join("\n", errors)}");
+
+            if (State != StateEnum.Drafts)
+                throw new InvalidOperationException(
+                    $"La orden ya fue procesada (estado actual: {State}).");
+
+            State = StateEnum.Confirmed;
+        }
+
+        /// <summary>
+        /// Genera la <see cref="CrystalOrderWork"/> para enviar al laboratorio.
+        /// Pre-llena los campos ópticos desde las prescripciones de los cristales si están disponibles.
+        /// Solo se puede generar si la orden está confirmada.
+        /// </summary>
+        public CrystalOrderWork GenerateCrystalOrderWork()
+        {
+            if (State == StateEnum.Drafts)
+                throw new InvalidOperationException(
+                    "Confirma la orden antes de generar la orden de trabajo para el laboratorio.");
+
+            var work = new CrystalOrderWork
+            {
+                OrderId       = Id,
+                Order         = this,
+                CrystalRightId = CrystalRight?.Id,
+                CrystalRight   = CrystalRight,
+                CrystalLeftId  = CrystalLeft?.Id,
+                CrystalLeft    = CrystalLeft,
+            };
+
+            // Pre-llenado desde prescripción del ojo derecho
+            if (CrystalRight?.Prescription is { } pr)
+            {
+                work.OD_ESF  = pr.Sphere.ToString("+0.00;-0.00");
+                work.OD_CIL  = pr.Cylinder.ToString("+0.00;-0.00");
+                work.OD_AXIS = pr.Axis.ToString();
+                work.OD_ADD  = pr.Addition?.ToString("+0.00;-0.00") ?? string.Empty;
+            }
+
+            // Pre-llenado desde prescripción del ojo izquierdo
+            if (CrystalLeft?.Prescription is { } pl)
+            {
+                work.OI_ESF  = pl.Sphere.ToString("+0.00;-0.00");
+                work.OI_CIL  = pl.Cylinder.ToString("+0.00;-0.00");
+                work.OI_AXIS = pl.Axis.ToString();
+                work.OI_ADD  = pl.Addition?.ToString("+0.00;-0.00") ?? string.Empty;
+            }
+
+            CrystalOrderWork = work;
+            return work;
+        }
     }
 }

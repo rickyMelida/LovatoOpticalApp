@@ -25,7 +25,7 @@ export const buildSummary = () => {
 
                     <div class="col-md-6">
                         <div class="text-muted">Documento</div>
-                        <strong>${state.order.patient.documentId}</strong>
+                        <strong>${state.order.patient.ciRuc}</strong>
                     </div>
 
                     <div class="col-md-6">

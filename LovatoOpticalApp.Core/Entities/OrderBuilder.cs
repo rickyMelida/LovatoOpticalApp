@@ -55,6 +55,12 @@ namespace LovatoOpticalApp.Core.Entities
             return this;
         }
 
+        public OrderBuilder WithCrystalOrderWork(CrystalOrderWork crystalOrderWork)
+        {
+            _order.CrystalOrderWork = crystalOrderWork;
+            return this;
+        }
+
         public Order Build()
         {
             var (isValid, errors) = _order.Validate();

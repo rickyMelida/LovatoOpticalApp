@@ -175,70 +175,14 @@
 
                     <div id="bloqueRecetaNueva" class="mt-3 d-none">
                         <hr>
+                        <form id="createRecipe">
+                            @await Html.PartialAsync("Forms/_NewRecipe")
 
-                        <div class="table-responsive">
-                            <table class="table table-sm table-bordered align-middle">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th></th>
-                                        <th>Esfera</th>
-                                        <th>Cilindro</th>
-                                        <th>Eje</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr>
-                                        <td class="fw-semibold">OD</td>
-                                        <td>
-                                            <input class="form-control form-control-sm" id="odEsfera"
-                                                   placeholder="-2.00">
-                                        </td>
-                                        <td>
-                                            <input class="form-control form-control-sm" id="odCilindro"
-                                                   placeholder="-0.50">
-                                        </td>
-                                        <td>
-                                            <input class="form-control form-control-sm" id="odEje"
-                                                   placeholder="90�">
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="fw-semibold">OI</td>
-                                        <td>
-                                            <input class="form-control form-control-sm" id="oiEsfera"
-                                                   placeholder="-1.75">
-                                        </td>
-                                        <td>
-                                            <input class="form-control form-control-sm" id="oiCilindro"
-                                                   placeholder="-0.25">
-                                        </td>
-                                        <td>
-                                            <input class="form-control form-control-sm" id="oiEje"
-                                                   placeholder="85�">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Fecha de la receta</label>
-                                <input type="date" class="form-control" id="fechaReceta">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Optometrista</label>
-                                <input type="text" class="form-control" id="optometrista" placeholder="Dr(a). ...">
-                            </div>
-                        </div>
-
-                        <button class="btn btn-primary mt-3" onclick="createPrescription()">
-                            <i class="bi bi-check-lg me-1"></i>
-                            Guardar receta
-                        </button>
+                            <button type="button" class="btn btn-primary mt-3" id="btnCreateRecipe" onclick="createPrescription()">
+                                <i class="bi bi-check-lg me-1"></i>
+                                Guardar receta
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

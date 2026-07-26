@@ -8,29 +8,33 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LovatoOpticalApp.Application
 {
-    public static class ServiceExtension
-    {
-        public static void ConfigureApplication(this IServiceCollection services)
-        {
-            services.AddDbContext<AppDbContext>();
-            services.AddScoped(typeof(IProductRepository<>), typeof(ProductRepository<>));
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IRecipeRepository, RecipeRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+	public static class ServiceExtension
+	{
+		public static void ConfigureApplication(this IServiceCollection services)
+		{
+			services.AddDbContext<AppDbContext>();
+			services.AddScoped(typeof(IProductRepository<>), typeof(ProductRepository<>));
+			services.AddScoped<ICustomerRepository, CustomerRepository>();
+			services.AddScoped<IRecipeRepository, RecipeRepository>();
+			services.AddScoped<ICrystalRepository, CrystalRepository>();
+			services.AddScoped<IGlassesCaseRepository, GlassesCaseRepository>();
+			services.AddScoped<IOrderRepository, OrderRepository>();
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped<ICustomerService, CustomerService>();
-            services.AddScoped<IRecipeService, RecipeService>();
-            services.AddScoped<IFrameService, FrameService>();
+			services.AddScoped<ICustomerService, CustomerService>();
+			services.AddScoped<IRecipeService, RecipeService>();
+			services.AddScoped<IFrameService, FrameService>();
 			services.AddScoped<IProductService, ProductService>();
 			services.AddScoped<IProductDetailStrategy, FrameProductStrategy>();
-            services.AddScoped<ICustomerRecipeUnitOfWork, CustomerRecipeUnitOfWork>();
+			services.AddScoped<ICustomerRecipeUnitOfWork, CustomerRecipeUnitOfWork>();
+			services.AddScoped<IOrderService, OrderService>();
 
-            services.AddAutoMapper(cfg => 
-            {
-                cfg.AddProfile<CustomerProfile>();
-                cfg.AddProfile<FrameProfile>();
+			services.AddAutoMapper(cfg => 
+			{
+				cfg.AddProfile<CustomerProfile>();
+				cfg.AddProfile<FrameProfile>();
 				cfg.AddProfile<ProductProfile>();
-            });
-        }
-    }
+			});
+		}
+	}
 }

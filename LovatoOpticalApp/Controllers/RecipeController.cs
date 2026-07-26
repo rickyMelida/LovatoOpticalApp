@@ -28,7 +28,7 @@ namespace LovatoOpticalApp.Controllers
 
                 await _recipeService.CreateRecipe(recipeRequest, recipeRequest.CustomerId, true);
 
-                return Ok(new ApiServiceResponse("Receta Agregada Correctamente", 201));
+                return Ok(new ApiServiceResponse("Receta agregada correctamente", 201));
             }
             catch (Exception ex)
             {

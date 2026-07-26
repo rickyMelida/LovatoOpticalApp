@@ -3,6 +3,8 @@ import { showFeedback, hideFeedback } from './Order.UI.js';
 import { dateDayMonthYear } from '../Common/DateFormats.js';
 import { crystalShortFormatt } from '../Common/CrystalFormatt.js';
 import { enableLargeButton } from '../Common/ButtonEvents.js';
+import { buildRecipePayload } from '../Customer/Customer.Form.js';
+import { enableButton } from '../Common/ButtonEvents.js';
 
 export const setPrescriptionMode = (mode) => {
     hideFeedback();
@@ -56,31 +58,38 @@ const getRecipeAsync = async (customerId) => {
     return await result.json();
 }
 
-export const createPrescription = () => {
+export const createPrescription = async () => {
     hideFeedback();
+    const form = document.getElementById('createRecipe');
+    const btnCreateRecipe = document.getElementById('btnCreateRecipe');
 
-    const date         = document.getElementById('fechaReceta').value;
-    const optometrist  = document.getElementById('optometrista').value.trim();
+    enableButton(btnCreateRecipe, true);
 
-    if (!date || !optometrist) {
-        showFeedback('Completa la fecha de la receta y el nombre del optometrista.');
+    const recipeRequest = buildRecipePayload(form);
+    const request = { ...recipeRequest, CustomerId: state.order.patient.id }
+    const result = await createRecipeAsync(request);
+
+    if (!result.status && result.status != 201) {
+        showFeedback('Hubo un error al crear la receta.');
+        enableButton(btnCreateRecipe, false);
         return;
     }
 
-    const odSphere   = document.getElementById('odEsfera').value.trim()   || 'sin dato';
-    const odCylinder = document.getElementById('odCilindro').value.trim() || 'sin dato';
-    const odAxis      = document.getElementById('odEje').value.trim()      || 'sin dato';
+    state.order.prescription = { ...request };
 
-    const oiSphere   = document.getElementById('oiEsfera').value.trim()   || 'sin dato';
-    const oiCylinder = document.getElementById('oiCilindro').value.trim() || 'sin dato';
-    const oiAxis      = document.getElementById('oiEje').value.trim()      || 'sin dato';
-
-    state.order.prescription = {
-        od: `${odSphere} / ${odCylinder} / ${odAxis}`,
-        oi: `${oiSphere} / ${oiCylinder} / ${oiAxis}`,
-        date,
-        optometrist
-    };
-
-    showFeedback('Receta guardada correctamente. Puedes continuar.', 'success');
+    showFeedback(`${result.message} Puedes continuar.`, 'success');
+    enableButton(btnCreateRecipe, false);
 };
+
+const createRecipeAsync = async (request) => {
+    const result = await fetch('/Customer/CreateRecipe', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(request)
+    });
+
+
+    return await result.json();
+}

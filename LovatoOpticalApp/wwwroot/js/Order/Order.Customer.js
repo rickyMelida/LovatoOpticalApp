@@ -8,7 +8,6 @@ export const searchPatient = async () => {
     const documentId = document.getElementById('docInput').value.trim();
     const btnSearch = document.getElementById('btn-search');
 
-    enableLargeButton(btnSearch, true);
 
     const found    = document.getElementById('pacienteEncontrado');
     const notFound  = document.getElementById('pacienteNoEncontrado');
@@ -22,6 +21,7 @@ export const searchPatient = async () => {
         showFeedback('Ingresa un documento para buscar al cliente.');
         return;
     }
+    enableLargeButton(btnSearch, true);
 
     const patient = await findCustomerByDocument(documentId);//DB_PATIENTS.find(x => x.documentId === documentId);
 
