@@ -56,7 +56,15 @@
             VC_OI_EJE = vc_oi_eje;
             Adicion = adicion;
             Optometrist = optometrist;
-            PrescriptionIssueDate = prescriptionIssueDate ?? DateTime.Today;
+            PrescriptionIssueDate = NormalizeToUtc(prescriptionIssueDate ?? DateTime.UtcNow);
         }
+
+        private static DateTime NormalizeToUtc(DateTime value)
+            => value.Kind switch
+            {
+                DateTimeKind.Utc => value,
+                DateTimeKind.Local => value.ToUniversalTime(),
+                _ => DateTime.SpecifyKind(value, DateTimeKind.Utc)
+            };
     }
 }

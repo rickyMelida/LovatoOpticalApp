@@ -21,10 +21,21 @@
             CiRuc = ciRuc;
             Phone = phone;
             Email = email;
-            BirthDay = birthDay;
+            BirthDay = NormalizeToUtc(birthDay);
             Address = address;
-            CreationDate = DateTime.Now;
+            CreationDate = DateTime.UtcNow;
         }
+
+        private static DateTime? NormalizeToUtc(DateTime? value)
+            => value.HasValue ? NormalizeToUtc(value.Value) : null;
+
+        private static DateTime NormalizeToUtc(DateTime value)
+            => value.Kind switch
+            {
+                DateTimeKind.Utc => value,
+                DateTimeKind.Local => value.ToUniversalTime(),
+                _ => DateTime.SpecifyKind(value, DateTimeKind.Utc)
+            };
 
     }
 }
