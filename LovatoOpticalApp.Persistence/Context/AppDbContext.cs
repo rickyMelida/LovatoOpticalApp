@@ -35,8 +35,8 @@ namespace LovatoOpticalApp.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            //options.UseNpgsql("Server=localhost; Database=lovato; Port=5432; User Id=postgres; Password=12345678");
-            options.UseSqlServer("Server=localhost;Database=LovatoOptical;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True");
+            options.UseNpgsql("Server=localhost; Database=lovato; Port=5432; User Id=postgres; Password=12345678");
+            //options.UseSqlServer("Server=localhost;Database=LovatoOptical;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
