@@ -76,5 +76,40 @@ namespace LovatoOpticalApp.Application.Services
 
             return strategy.AddStock(productId, quantityToAdd);
         }
+
+        public async Task<PagedResult<ProductResponse>> SearchCatalog(string query, PaginationParams paginationParams)
+        {
+            var frames = await _frameService.SearchFrames(query);
+
+            var pageNumber = paginationParams.PageNumber > 0 ? paginationParams.PageNumber : 1;
+            var pageSize = paginationParams.PageSize > 0 ? paginationParams.PageSize : 10;
+            var totalCount = frames.Count();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            var safePageNumber = Math.Min(pageNumber, Math.Max(totalPages, 1));
+            var skip = (safePageNumber - 1) * pageSize;
+
+            var pagedItems = frames
+                .Skip(skip)
+                .Take(pageSize)
+                .Select(f => new ProductResponse
+                {
+                    Id = f.Id,
+                    Name = f.Name,
+                    PurchasePrice = f.PurchasePrice,
+                    SalePrice = f.SalePrice,
+                    Quantity = f.Quantity,
+                    MinimumQuantity = f.MinimumQuantity,
+                    Type = f.Type,
+                })
+                .ToList();
+
+            return new PagedResult<ProductResponse>
+            {
+                Items = pagedItems,
+                TotalCount = totalCount,
+                PageNumber = safePageNumber,
+                PageSize = pageSize
+            };
+        }
     }
 }

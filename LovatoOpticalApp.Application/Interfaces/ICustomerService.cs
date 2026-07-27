@@ -8,6 +8,7 @@ namespace LovatoOpticalApp.Application.Interfaces
         Task<PagedResult<CustomerResponseDto>> GetCustomers(PaginationParams parameters);
         Task<CustomerResponseDto> GetCustomerById(Guid customerId);
         Task<CustomerResponseDto> GetCustomerByDoc(string doc);
+        Task<PagedResult<CustomerResponseDto>> SearchCustomer(string query, PaginationParams parameters);
         Task<CustomerResponseDto> CreateCustomer(CustomerResquestDto customerRequestDto);
         Task<CustomerResponseDto> UpdateCustomer(CustomerResquestDto customerRequestDto);
         Task<ApiServiceResponse> DeleteCustomer(Guid customerId);

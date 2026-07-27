@@ -42,6 +42,14 @@ namespace LovatoOpticalApp.Persistence
                 await _context.SaveChangesAsync();
             }
         }
+        
+        public async Task<IEnumerable<T>> SearchAsync(string query)
+        {
+            string lowerQuery = query.ToLower();
+            return await _dbSet
+                .Where(p => p.Name.ToLower().Contains(lowerQuery) || p.Description.ToLower().Contains(lowerQuery))
+                .ToListAsync();
+        }
     }
 }
 

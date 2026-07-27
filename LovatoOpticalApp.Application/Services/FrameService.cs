@@ -104,5 +104,12 @@ namespace LovatoOpticalApp.Application.Services
 
             return new ApiServiceResponse("Armazón actualizado correctamente", 200);
         }
+
+        public async Task<List<FrameResponseDto>> SearchFrames(string query)
+        {
+            var frames = await _repository.SearchAsync(query);
+
+            return _mapper.Map<List<FrameResponseDto>>(frames);
+        }
     }
 }

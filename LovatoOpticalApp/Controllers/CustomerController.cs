@@ -1,6 +1,7 @@
 ﻿using LovatoOpticalApp.Application.DTOs;
 using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Application.Interfaces;
+using LovatoOpticalApp.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LovatoOpticalApp.Controllers
@@ -51,6 +52,20 @@ namespace LovatoOpticalApp.Controllers
             var result = await _customerService.GetCustomerByDoc(doc);
 
             return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchCustomer(string query)
+        {
+            var parameters = new PaginationParams { PageNumber = 1, PageSize = 10 };
+           
+            var customers = String.IsNullOrEmpty(query) 
+                    ? await _customerService.GetCustomers(parameters) 
+                    : await _customerService.SearchCustomer(query, parameters);
+
+            ViewData["customers"] = customers;
+
+            return PartialView("Grid/_CustomerGrid");
         }
 
         [HttpPost]

@@ -25,7 +25,7 @@
 				<label for="inputPassword6" class="col-form-label">Buscar Producto</label>
 			</div>
 			<div class="col-auto">
-				<input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+				<input type="text" id="inputCatalogSearch" class="form-control" >
 			</div>
 		</div>
 	</div>
@@ -47,20 +47,23 @@
 	<h6>Cantidad de Productos <span class="badge text-bg-primary">@products.Items.Count</span></h6>
 </div>
 
-@if (products.Items.Count == 0)
-{
-	<div class="row">
-		<div class="col-md-12">
-			<div class="alert alert-ligth text-center" role="alert">
-				No se encontraron productos.
+<div id="catalogGridContainer">
+
+	@if (products.Items.Count == 0)
+	{
+		<div class="row">
+			<div class="col-md-12">
+				<div class="alert alert-ligth text-center" role="alert">
+					No se encontraron productos.
+				</div>
 			</div>
 		</div>
-	</div>
-}
-else
-{
-	@await Html.PartialAsync("Grid/_CatalogGrid")
-}
+	}
+	else
+	{
+		@await Html.PartialAsync("Grid/_CatalogGrid")
+	}
+</div>
 
 @*New Products Modal*@
 @await Html.PartialAsync("Modal/Catalog/_NewProduct")

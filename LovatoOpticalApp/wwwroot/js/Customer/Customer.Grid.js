@@ -4,11 +4,28 @@ import { showModal } from "../Common/ModalEvents.js";
 
 export const handleGridModal = () => {
 	const btnNewCustomer = document.getElementById("btnNewCustomer");
+	const customerInputSearch = document.getElementById('customerInputSearch');
+
+	btnNewCustomer.addEventListener('click', showCreateCustomerModal);
+
+	customerInputSearch.addEventListener('input', async (e) => {
+		const query = customerInputSearch.value.trim();
+		let debounceTimer;
+		clearTimeout(debounceTimer);
+
+
+		debounceTimer = setTimeout(() => {
+			searchCustomerAsync(query);
+		}, 1000);
+	})
+
+	attachGridEvents();
+}
+
+const attachGridEvents = () => {
 	const viewDetailsButtons = document.querySelectorAll(".view-customer-details");
 	const editButtons = document.querySelectorAll(".edit-customer");
 	const deleteButtons = document.querySelectorAll(".delete-customer");
-
-	btnNewCustomer.addEventListener('click', showCreateCustomerModal);
 
 	viewDetailsButtons.forEach(button => {
 		button.addEventListener("click", async (event) => {
@@ -175,5 +192,17 @@ const deleteAction = async (customerId) => {
 	} catch (error) {
 		console.error('Error fetching customer details:', error);
 		return null;
+	}
+}
+
+const searchCustomerAsync = async (query) => {
+	try {
+		const response = await fetch(`/Customer/SearchCustomer?query=${query}`);
+		if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+		const html = await response.text();
+		document.getElementById('customerGridContainer').innerHTML = html;
+		attachGridEvents();
+	} catch (error) {
+		console.error('Error buscando clientes:', error);
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using LovatoOpticalApp.Application.DTOs;
 using LovatoOpticalApp.Application.Interfaces;
+using LovatoOpticalApp.Application.Services;
 using LovatoOpticalApp.Core.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,5 +42,19 @@ namespace LovatoOpticalApp.Controllers
 
 			return Ok(frameDetails);
 		}
+
+        [HttpGet]
+        public async Task<IActionResult> SearchCatalog(string query)
+        {
+            var parameters = new PaginationParams { PageNumber = 1, PageSize = 10 };
+
+            var products = String.IsNullOrEmpty(query)
+                    ? await _productService.GetProducts(parameters)
+                    : await _productService.SearchCatalog(query, parameters);
+
+            ViewData["Products"] = products;
+
+            return PartialView("Grid/_CatalogGrid");
+        }
     }
 }

@@ -51,6 +51,20 @@ namespace LovatoOpticalApp.Persistence.Repository
             return await _context.Customers.ToListAsync();
         }
 
+        public async Task<List<Customer>> SearchCustomer(string query)
+        {
+            var queryLower = query.Trim().ToLower();
+            return await _context.Customers
+                .Where(c => 
+                    c.CiRuc.ToLower().Contains(queryLower) || 
+                    c.Name.ToLower().Contains(queryLower) ||
+                    c.Phone.ToLower().Contains(queryLower) ||
+                    c.Email.ToLower().Contains(queryLower) ||
+                    c.Address.ToLower().Contains(queryLower)
+                )
+                .ToListAsync();
+        }
+
         public async Task<Customer> UpdateCustomer(Customer customerDto)
         {
             _context.Customers.Update(customerDto);

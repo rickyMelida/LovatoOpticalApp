@@ -10,6 +10,7 @@ namespace LovatoOpticalApp.Application.Interfaces
 		Task<ApiServiceResponse> UpdateFrame(FrameRequestDto frame);
 		Task<ApiServiceResponse> DeleteFrame(Guid frameId);
 		Task<List<FrameResponseDto>> GetFrames();
+		Task<List<FrameResponseDto>> SearchFrames(string query);
 		Task<ApiServiceResponse> AddStock(Guid frameId, int quantityToAdd);
 	}
 }

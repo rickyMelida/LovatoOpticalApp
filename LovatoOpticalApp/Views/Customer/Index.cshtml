@@ -20,7 +20,7 @@
                 <label for="inputPassword6" class="col-form-label">Buscar Cliente</label>
             </div>
             <div class="col-auto">
-                <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                <input type="text" id="customerInputSearch" class="form-control">
             </div>
         </div>
     </div>
@@ -40,20 +40,22 @@
     <h6>Cantidad de Clientes <span class="badge text-bg-primary">@customers?.Items.Count</span></h6>
 </div>
 
-@if (customers?.Items.Count == 0)
-{
-    <div class="row">
-        <div class="col-md-12">
-            <div class="alert alert-ligth text-center" role="alert">
-                No se encontraron clientes.
+<div id="customerGridContainer">
+    @if (customers?.Items.Count == 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-ligth text-center" role="alert">
+                    No se encontraron clientes.
+                </div>
             </div>
         </div>
-    </div>
-}
-else
-{
-    @await Html.PartialAsync("Grid/_CustomerGrid")
-}
+    }
+    else
+    {
+        @await Html.PartialAsync("Grid/_CustomerGrid")
+    }
+</div>
 
 @await Html.PartialAsync("Modal/Customer/_NewCustomer")
 @await Html.PartialAsync("Modal/Customer/_CustomerDetail")

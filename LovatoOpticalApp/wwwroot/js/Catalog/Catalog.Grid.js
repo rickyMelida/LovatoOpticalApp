@@ -5,6 +5,24 @@ import { getProductDetails, showEditProductModal } from "./Catalog.Rules.js"
 import { showModal } from "../Common/ModalEvents.js"
 
 export const handlerGridModal = () => {
+	const inputCatalogSearch = document.getElementById('inputCatalogSearch');
+
+	inputCatalogSearch.addEventListener('input', async () => {
+		const query = inputCatalogSearch.value.trim();
+		let debounceTimer;
+		clearTimeout(debounceTimer);
+
+
+		debounceTimer = setTimeout(() => {
+			searchCatalogAsync(query);
+		}, 500);
+	});
+
+	attachGridEvents()
+}
+
+
+const attachGridEvents = () => {
 	const viewDetailsButtons = document.querySelectorAll(".view-product-catalog");
 	const editButtons = document.querySelectorAll(".edit-product-catalog");
 	const deleteButtons = document.querySelectorAll(".deleteProductCatalog");
@@ -114,3 +132,14 @@ const renderFrameDetails = (frameDetails) => {
 	description.innerHTML = !frameDetails.description ? `<span class="text-muted fst-italic">Sin descripción</span>` : `<span class="text-dark">${frameDetails.description} </span>`
 }
 
+const searchCatalogAsync = async (query) => {
+	try {
+		const response = await fetch(`/Catalog/SearchCatalog?query=${query}`);
+		if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+		const html = await response.text();
+		document.getElementById('catalogGridContainer').innerHTML = html;
+		handlerGridModal();
+	} catch (error) {
+		console.error('Error buscando productos:', error);
+	}
+}
