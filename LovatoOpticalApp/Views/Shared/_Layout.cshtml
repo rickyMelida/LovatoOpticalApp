@@ -16,7 +16,18 @@
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
-    
+
+    <!-- Barra superior móvil -->
+    <div class="mobile-topbar">
+        <button class="mobile-toggle-btn" id="mobileToggleSidebar" aria-label="Abrir menú">
+            <i class="bi bi-list"></i>
+        </button>
+        <span class="app-title">Óptica Lovato</span>
+    </div>
+
+    <!-- Overlay del sidebar (móvil) -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
     <!-- Barra lateral -->
     @{
         var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
@@ -94,12 +105,33 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
-        const toggleButton = document.getElementById('toggleSidebar');
         const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebarBackdrop');
 
-        toggleButton.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-        });
+        // Toggle desktop (colapsar)
+        const toggleButton = document.getElementById('toggleSidebar');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+            });
+        }
+
+        // Toggle móvil (abrir overlay)
+        const mobileToggle = document.getElementById('mobileToggleSidebar');
+        if (mobileToggle) {
+            mobileToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+                backdrop.classList.toggle('show');
+            });
+        }
+
+        // Cerrar sidebar al hacer clic en el backdrop
+        if (backdrop) {
+            backdrop.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                backdrop.classList.remove('show');
+            });
+        }
     </script>
 </body>
 </html>

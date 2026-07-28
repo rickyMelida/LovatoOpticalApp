@@ -11,19 +11,19 @@
     int numberOfAccessoriesAvailable = products.Items.Where(e => e.Type == ProductTypeEnum.Accessory).Sum(p => p.Quantity);
 
 }
-<div class="row my-3">
-    <div class="col-md-4 text-center">
-        <button type="button" class="btn btn-ligth border border-3">
+<div class="row my-3 g-2">
+    <div class="col-6 col-md-4 text-center">
+        <button type="button" class="btn btn-ligth border border-3 w-100">
             Armazones <span class="badge text-bg-primary">@numberOfFramesAvailable</span>
         </button>
     </div>
-    <div class="col-md-4 text-center">
-        <button type="button" class="btn btn-ligth border border-3">
+    <div class="col-6 col-md-4 text-center">
+        <button type="button" class="btn btn-ligth border border-3 w-100">
             Cristales <span class="badge text-bg-primary">@numberOfCrystalsAvailable</span>
         </button>
     </div>
-    <div class="col-md-4 text-center">
-        <button type="button" class="btn btn-ligth border border-3">
+    <div class="col-12 col-md-4 text-center">
+        <button type="button" class="btn btn-ligth border border-3 w-100">
             Accesorios <span class="badge text-bg-primary">@numberOfAccessoriesAvailable</span>
         </button>
     </div>
@@ -35,7 +35,7 @@
     </div>
 </div>
 <div class="row mt-5 mb-2">
-    <div class="col-md-6">
+    <div class="col-12 col-md-6">
 
         <div class="row g-3 align-items-center">
             <div class="col-auto">

@@ -91,4 +91,119 @@
 main {
     flex: 1;
     padding: 2rem;
+    min-width: 0;
+}
+
+/* =============================================
+   MOBILE TOPBAR
+   ============================================= */
+.mobile-topbar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background-color: #212529;
+    color: white;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 1040;
+    gap: 1rem;
+}
+
+.mobile-topbar .mobile-toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.mobile-topbar .app-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* =============================================
+   SIDEBAR OVERLAY (backdrop en móvil)
+   ============================================= */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1045;
+}
+
+.sidebar-backdrop.show {
+    display: block;
+}
+
+/* =============================================
+   RESPONSIVE: móvil (< 768px)
+   ============================================= */
+@media (max-width: 767.98px) {
+    body {
+        display: block;
+        padding-top: 56px;
+    }
+
+    .mobile-topbar {
+        display: flex;
+    }
+
+    #sidebar {
+        position: fixed;
+        top: 0;
+        left: -260px;
+        width: 250px;
+        min-height: 100vh;
+        height: 100vh;
+        z-index: 1050;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+    }
+
+    #sidebar.open {
+        left: 0;
+    }
+
+    /* Ocultar el toggle-btn del sidebar en móvil (se usa el de la topbar) */
+    #sidebar .toggle-btn {
+        display: none;
+    }
+
+    main {
+        padding: 1rem;
+    }
+}
+
+/* =============================================
+   RESPONSIVE: tablet (768px - 991px)
+   ============================================= */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    #sidebar {
+        width: 70px;
+    }
+
+    #sidebar .sidebar-title,
+    #sidebar .link-text {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+    }
+
+    #sidebar .nav-link {
+        justify-content: center;
+    }
+
+    main {
+        padding: 1.5rem;
+    }
 }
