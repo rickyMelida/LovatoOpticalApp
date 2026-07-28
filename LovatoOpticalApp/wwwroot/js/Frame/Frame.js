@@ -3,9 +3,9 @@
 const frameCode = document.getElementById("frameCode");
 const frameCodeHelp = document.getElementById('frameCodeHelp');
 
-// Formato esperado: "GU2872 069 54-17 140"
+// Formato esperado: "GU2872 C7 54-17 140"
 // Partes: [Código armazón] [Color] [Ancho-Alto] [Largo patilla]
-const FRAME_CODE_REGEX = /^([A-Za-z0-9]+)(?:\s+(\d+))?(?:\s+(\d+)-(\d+))?(?:\s+(\d+))?$/;
+const FRAME_CODE_REGEX = /^([A-Za-z0-9]+)(?:\s+([A-Za-z0-9]+))?(?:\s+(\d+)-(\d+))?(?:\s+(\d+))?$/;
 
 const parseFrameCode = (value) => {
     const trimmed = value.trim();
