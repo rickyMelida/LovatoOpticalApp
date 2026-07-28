@@ -10,5 +10,6 @@ namespace LovatoOpticalApp.Persistence.Interfaces
         Task<Recipe?> GetByIdAsync(Guid id);
         Task UpdateAsync(Recipe recipe);
         Task DeleteAsync(Guid id);
+		Task DeleteCustomerRecipe(Guid customerId);
     }
 }

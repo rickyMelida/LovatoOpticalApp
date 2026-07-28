@@ -56,5 +56,13 @@ namespace LovatoOpticalApp.Persistence.Repository
 
             return recipeFound;
         }
-    }
+
+		public async Task DeleteCustomerRecipe(Guid customerId)
+		{
+			var recipes = await GetRecipesByCustomerAsync(customerId);
+
+			if(recipes.Any())
+				_context.Recipes.RemoveRange(recipes);
+		}
+	}
 }

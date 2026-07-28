@@ -74,6 +74,7 @@ export const initForm = () => {
             .then(() => {
                 resetForm(form, btnSaveButton);
                 hideModal("newCustomerModal");
+				reloadCurrentPage();
             })
     })
 }

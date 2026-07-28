@@ -10,5 +10,6 @@ namespace LovatoOpticalApp.Persistence.Interfaces
         Task<Customer> GetCustomerByDoc(string doc);
         Task<List<Customer>> SearchCustomer(string query);
         Task<List<Customer>> GetCustomers();
+		Task DeleteCustomer(Guid customerId);
     }
 }

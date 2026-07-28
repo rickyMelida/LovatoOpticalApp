@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using LovatoOpticalApp.Application.DTOs;
-using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Application.Interfaces;
 using LovatoOpticalApp.Core.Entities;
 using LovatoOpticalApp.Persistence.Interfaces;
@@ -25,9 +24,9 @@ namespace LovatoOpticalApp.Application.Services
             return _mapper.Map<CustomerResponseDto>(result);
         }
 
-        public Task<ApiServiceResponse> DeleteCustomer(Guid customerId)
+        public async Task DeleteCustomer(Guid customerId)
         {
-            throw new NotImplementedException();
+            await _customerRepository.DeleteCustomer(customerId);
         }
 
         public async Task<CustomerResponseDto> GetCustomerByDoc(string doc)

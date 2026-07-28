@@ -75,5 +75,16 @@ namespace LovatoOpticalApp.Controllers
 
             return Ok(result);
         }
+
+		[HttpGet]
+		public async Task<IActionResult> DeleteCustomer(string customerId)
+		{
+			if(String.IsNullOrEmpty(customerId) || !Guid.TryParse(customerId, out Guid parseCustomerID))
+				return BadRequest("El id del cliente no es valido");
+
+			var result = await _customerRecipeUnitOfWork.DeleteCustomerRecipeAsync(parseCustomerID);
+
+			return Ok(result);
+		}
     }
 }

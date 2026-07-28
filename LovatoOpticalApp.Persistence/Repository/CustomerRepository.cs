@@ -22,7 +22,15 @@ namespace LovatoOpticalApp.Persistence.Repository
             return customer;
         }
 
-        public async Task<Customer> GetCustomerByDoc(string doc)
+		public async Task DeleteCustomer(Guid customerId)
+		{
+			var customer = await _context.Customers.FindAsync(customerId);
+
+			if(customer != null)
+				_context.Customers.Remove(customer);
+		}
+
+		public async Task<Customer> GetCustomerByDoc(string doc)
         {
             var customerFind = await _context.Customers.FirstOrDefaultAsync(c => c.CiRuc.ToLower() == doc);
 

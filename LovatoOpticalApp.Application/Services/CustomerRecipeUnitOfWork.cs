@@ -33,7 +33,24 @@ namespace LovatoOpticalApp.Application.Services
             }
         }
 
-        public async Task<ApiServiceResponse> UpdateCustomerRecipeAsync(CustomerRecipeDtoRequest customerRecipeDtoRequest)
+		public async Task<ApiServiceResponse> DeleteCustomerRecipeAsync(Guid customerId)
+		{
+			try
+			{
+				await _recipeService.DeleteCustomerRecipe(customerId);
+				await _customerService.DeleteCustomer(customerId);
+
+				await _unitOfWork.SaveChangesAsync();
+
+				return new ApiServiceResponse("El cliente y su receta se ha eliminado correctamente", 200);
+			}
+			catch(Exception ex)
+			{
+				return new ApiServiceResponse("Hubo un error al eliminar el Cliente", 500);
+			}
+		}
+
+		public async Task<ApiServiceResponse> UpdateCustomerRecipeAsync(CustomerRecipeDtoRequest customerRecipeDtoRequest)
         {
             try
             {

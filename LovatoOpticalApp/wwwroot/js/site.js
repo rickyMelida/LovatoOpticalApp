@@ -35,7 +35,7 @@ const showDeleteConfirmAsync = (message, title, type, action) => {
             const { message, status } = result.value;
             showAlert(
                 message,
-                status == 200 ? "Producto Eliminado" : "Advertencia",
+                status == 200 ? "Eliminado" : "Advertencia",
                 status == 200 ? "success" : "warning"
             ).then(() => reloadCurrentPage())
         }

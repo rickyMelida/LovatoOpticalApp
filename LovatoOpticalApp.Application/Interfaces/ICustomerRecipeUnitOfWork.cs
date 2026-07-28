@@ -6,5 +6,6 @@ namespace LovatoOpticalApp.Application.Interfaces
     {
         Task<ApiServiceResponse> CreateCustomerRecipeAsync(CustomerRecipeDtoRequest customerRecipeDtoRequest);
         Task<ApiServiceResponse> UpdateCustomerRecipeAsync(CustomerRecipeDtoRequest customerRecipeDtoRequest);
+        Task<ApiServiceResponse> DeleteCustomerRecipeAsync(Guid customerId);
     }
 }

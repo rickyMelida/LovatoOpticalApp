@@ -30,14 +30,18 @@ const attachGridEvents = () => {
 	viewDetailsButtons.forEach(button => {
 		button.addEventListener("click", async (event) => {
 			const customerId = event.currentTarget.id;
+
 			await showViewDetailsModal(customerId);
+			event.stopPropagation();
 		});
 	});
 
 	editButtons.forEach(button => {
 		button.addEventListener("click", async (event) => {
 			const customerId = event.currentTarget.id;
+			
 			await showEditCustomerModal(customerId);
+			event.stopPropagation();
 		});
 	});
 
@@ -46,6 +50,7 @@ const attachGridEvents = () => {
 			const customerId = event.currentTarget.id;
 
 			showDeleteConfirmation(customerId);
+			event.stopPropagation();
 		});
 	});
 }
