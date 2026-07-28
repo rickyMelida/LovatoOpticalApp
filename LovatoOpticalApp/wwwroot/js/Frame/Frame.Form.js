@@ -1,4 +1,5 @@
 import { hideModal, showModal } from "../Common/ModalEvents.js"
+import { guaraniStringANumero } from "../Helper/Helper.js";
 
 const form = document.getElementById("newFrameForm");
 const btnFormSubmit = document.getElementById("btnFormSubmit");
@@ -13,8 +14,8 @@ const buildFramePayload = () => {
 		Material: formData.get("Material")?.toString() ?? "",
 		FrameType: formData.get("FrameType")?.toString() ?? "",
 		Color: formData.get("Color")?.toString().trim() ?? "",
-		PurchasePrice: parseFloat(formData.get("PurchasePrice") ?? 0) || 0,
-		SalePrice: parseFloat(formData.get("SalePrice") ?? 0) || 0,
+		PurchasePrice: guaraniStringANumero(formData.get("PurchasePrice")),
+		SalePrice: guaraniStringANumero(formData.get("SalePrice")),
 		Quantity: parseInt(formData.get("Quantity") ?? 0, 10) || 0,
 		MinimumQuantity: parseInt(formData.get("MinimumQuantity") ?? 0, 10) || 0,
 		Description: formData.get("Description")?.toString().trim() ?? "",

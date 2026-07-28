@@ -5,6 +5,7 @@ import { crystalShortFormatt } from '../Common/CrystalFormatt.js';
 import { enableLargeButton } from '../Common/ButtonEvents.js';
 import { buildRecipePayload } from '../Customer/Customer.Form.js';
 import { enableButton } from '../Common/ButtonEvents.js';
+import { calculatePrescriptionSummary, formatPrescriptionSummary } from '../Crystal/Crystal.Rules.js';
 
 export const setPrescriptionMode = (mode) => {
     hideFeedback();
@@ -29,22 +30,62 @@ export const fetchCurrentPrescription = async () => {
 
     card.classList.remove('d-none', 'alert-success', 'alert-danger');
 
-    if (prescription) {
-        state.order.prescription = prescription;
+    const recipe = {
+        distance: {
+            OD: {
+                sphere: prescription.vL_OD_ESF,
+                cylinder: prescription.vL_OD_CIL,
+                axis: prescription.vL_OD_EJE,
+            },
+            OI: {
+                sphere: prescription.vL_OI_ESF,
+                cylinder: prescription.vL_OI_CIL,
+                axis: prescription.vL_OI_EJE,
+            },
+        },
+        near: {
+            OD: {
+                sphere: prescription.vC_OD_ESF,
+                cylinder: prescription.vC_OD_CIL,
+                axis: prescription.vC_OD_EJE,
+            },
+            OI: {
+                sphere: prescription.vC_OI_ESF,
+                cylinder: prescription.vC_OI_CIL,
+                axis: prescription.vC_OI_EJE,
+            },
+        },
+    };
 
-        card.classList.add('alert-success');
-        card.innerHTML = `
-            <strong>Receta vigente encontrada</strong><br>
-            <span class="small">${crystalShortFormatt(prescription, 'OD')} · ${crystalShortFormatt(prescription, 'OI') }</span><br>
-            <span class="small">Fecha: ${dateDayMonthYear(prescription.prescriptionIssueDate)} · ${prescription.optometrist}</span>
-        `;
-    } else {
-        card.classList.add('alert-danger');
-        card.innerHTML = `
-            <strong>Este paciente no tiene receta vigente.</strong>
-            <span class="small">Carga una nueva receta para continuar.</span>
-        `;
-    }
+	try{
+
+		const recipeFormatt = calculatePrescriptionSummary(recipe);
+		
+		if (prescription) {
+			state.order.prescription = prescription;
+			
+			card.classList.add('alert-success');
+			card.innerHTML = `
+				<strong>Receta vigente encontrada</strong><br>
+				${formatPrescriptionSummary(recipeFormatt)} <br/>
+				<span class="small">Fecha: ${dateDayMonthYear(prescription.prescriptionIssueDate)} · ${prescription.optometrist}</span>
+				`;
+		} else {
+			card.classList.add('alert-danger');
+			card.innerHTML = `
+			<strong>Este paciente no tiene receta vigente.</strong>
+			<span class="small">Carga una nueva receta para continuar.</span>
+			`;
+		}
+	}catch(err){
+		console.log({err: err.message})
+		card.classList.add('alert-danger', 'text-center');
+			card.innerHTML = `
+			<strong>Error en la receta del cliente.</strong></br>
+			<span class="small">${err.message}</span><br>
+			<span class="small">Favor vuelva a verificar la receta del cliente.</span><br>
+			`;
+	}
 
     enableLargeButton(btnGetVigentRecipe, false, btnOriginalContent);
 };

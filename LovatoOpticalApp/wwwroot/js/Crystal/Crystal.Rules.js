@@ -1,173 +1,230 @@
 ﻿function normalizeAxis(axis) {
-    if (axis == null) return null;
+    if (axis == null || axis === "") return null;
 
-    let normalized = Number(axis) % 180;
+    let value = Number(axis);
 
-    if (normalized <= 0) {
-        normalized += 180;
+    if (Number.isNaN(value)) {
+        throw new Error(`Eje inválido: ${axis}`);
     }
 
-    return normalized;
+    value = value % 180;
+
+    if (value <= 0) {
+        value += 180;
+    }
+
+    return value;
 }
 
-function transposePrescription(prescription) {
-    const sphere = Number(prescription.sphere);
-    const cylinder = Number(prescription.cylinder || 0);
-    const axis = prescription.axis != null ? normalizeAxis(prescription.axis) : null;
+function parseEyePrescription(eye) {
+    const sphere = parseOpticalPower(eye.sphere);
+    const cylinder = parseOpticalPower(eye.cylinder || "000");
+    const axis = cylinder === 0 ? null : normalizeAxis(eye.axis);
 
-    if (cylinder === 0) {
+    return {
+        sphere,
+        cylinder,
+        axis,
+    };
+}
+
+function transposeEyePrescription(eye) {
+    if (eye.cylinder === 0) {
         return {
-            sphere,
+            sphere: eye.sphere,
             cylinder: 0,
             axis: null,
         };
     }
 
     return {
-        sphere: sphere + cylinder,
-        cylinder: -cylinder,
-        axis: normalizeAxis(axis + 90),
+        sphere: eye.sphere + eye.cylinder,
+        cylinder: -eye.cylinder,
+        axis: normalizeAxis(eye.axis + 90),
     };
 }
 
-function toNegativeCylinder(prescription) {
-    const cylinder = Number(prescription.cylinder || 0);
-
-    if (cylinder > 0) {
-        return transposePrescription(prescription);
+function toNegativeCylinder(eye) {
+    if (eye.cylinder > 0) {
+        return transposeEyePrescription(eye);
     }
 
-    return {
-        sphere: Number(prescription.sphere),
-        cylinder,
-        axis: cylinder === 0 ? null : normalizeAxis(prescription.axis),
-    };
+    return eye;
 }
 
-function roundToQuarter(value) {
-    return Math.round(value * 4) / 4;
-}
+function sameAstigmatism(distanceEye, nearEye) {
+    const distance = toNegativeCylinder(distanceEye);
+    const near = toNegativeCylinder(nearEye);
 
-function areAxesEquivalent(axis1, axis2) {
-    return normalizeAxis(axis1) === normalizeAxis(axis2);
-}
+    const sameCylinder = distance.cylinder === near.cylinder;
 
-function sameAstigmatism(distance, near) {
-    const d = toNegativeCylinder(distance);
-    const n = toNegativeCylinder(near);
-
-    const sameCylinder = roundToQuarter(d.cylinder) === roundToQuarter(n.cylinder);
-
-    if (d.cylinder === 0 && n.cylinder === 0) {
+    if (distance.cylinder === 0 && near.cylinder === 0) {
         return sameCylinder;
     }
 
-    const sameAxis = areAxesEquivalent(d.axis, n.axis);
+    const sameAxis = normalizeAxis(distance.axis) === normalizeAxis(near.axis);
 
     return sameCylinder && sameAxis;
 }
 
-function calculateAdd(distance, near) {
-    const d = toNegativeCylinder(distance);
-    const n = toNegativeCylinder(near);
+function calculateAddForEye(distanceEyeRaw, nearEyeRaw) {
+    const distanceEye = toNegativeCylinder(parseEyePrescription(distanceEyeRaw));
+    const nearEye = toNegativeCylinder(parseEyePrescription(nearEyeRaw));
 
-    if (!sameAstigmatism(d, n)) {
+    if (!sameAstigmatism(distanceEye, nearEye)) {
         throw new Error(
-            "La graduación de cerca no parece ser solo una adición sobre la de lejos. Revisar cilindro/eje."
+            "La receta de cerca no parece ser solamente una adición sobre la receta de lejos."
         );
     }
 
-    return roundToQuarter(n.sphere - d.sphere);
+    return nearEye.sphere - distanceEye.sphere;
 }
 
 export function calculatePrescriptionSummary(recipe) {
-    const distanceOD = toNegativeCylinder(recipe.distance.OD);
-    const distanceOI = toNegativeCylinder(recipe.distance.OI);
+    const distanceOD = toNegativeCylinder(parseEyePrescription(recipe.distance.OD));
+    const distanceOI = toNegativeCylinder(parseEyePrescription(recipe.distance.OI));
 
-    const addOD = calculateAdd(recipe.distance.OD, recipe.near.OD);
-    const addOI = calculateAdd(recipe.distance.OI, recipe.near.OI);
+    const addOD = calculateAddForEye(recipe.distance.OD, recipe.near.OD);
+    const addOI = calculateAddForEye(recipe.distance.OI, recipe.near.OI);
 
     const result = {
         OD: distanceOD,
         OI: distanceOI,
-        ADD_OD: addOD,
-        ADD_OI: addOI,
     };
 
     if (addOD === addOI) {
         result.ADD = addOD;
-        delete result.ADD_OD;
-        delete result.ADD_OI;
+    } else {
+        result.ADD_OD = addOD;
+        result.ADD_OI = addOI;
     }
 
     return result;
 }
 
-function formatPower(value) {
-    const number = Number(value);
+function formatEyePrescription(eye) {
+    const sphere = formatOpticalPower(eye.sphere);
 
-    if (number > 0) {
-        return `+${number.toFixed(2)}`;
-    }
-
-    return number.toFixed(2);
-}
-
-function formatEyePrescription(prescription) {
-    const sphere = formatPower(prescription.sphere);
-    const cylinder = formatPower(prescription.cylinder);
-
-    if (prescription.cylinder === 0) {
+    if (eye.cylinder === 0) {
         return sphere;
     }
 
-    return `${sphere} ${cylinder} x ${prescription.axis}`;
+    const cylinder = formatOpticalPower(eye.cylinder);
+
+    return `${sphere} ${cylinder} ${eye.axis}`;
 }
 
-export function formatSummary(summary) {
+export function formatPrescriptionSummary(summary) {
     const lines = [];
 
-    lines.push(`OD: ${formatEyePrescription(summary.OD)}`);
-    lines.push(`OI: ${formatEyePrescription(summary.OI)}`);
+    lines.push(`<span class="small"><strong>OD:</strong> ${formatEyePrescription(summary.OD)}</span>`);
+    lines.push(`<span class="small"><strong>OI:</strong> ${formatEyePrescription(summary.OI)}</span>`);
 
     if (summary.ADD != null) {
-        lines.push(`ADD: ${formatPower(summary.ADD)}`);
+        lines.push(`<span class="small"><strong>ADD:</strong> ${formatOpticalPower(summary.ADD)}</span>`);
     } else {
-        lines.push(`ADD OD: ${formatPower(summary.ADD_OD)}`);
-        lines.push(`ADD OI: ${formatPower(summary.ADD_OI)}`);
+        lines.push(`<span class="small"><strong>ADD OD:</strong> ${formatOpticalPower(summary.ADD_OD)}</span>`);
+        lines.push(`<span class="small"><strong>ADD OI:</strong> ${formatOpticalPower(summary.ADD_OI)}</span>`);
     }
 
     return lines.join("\n");
 }
 
-const recipe = {
-    distance: {
-        OD: {
-            sphere: -2.00,
-            cylinder: -0.75,
-            axis: 180,
-        },
-        OI: {
-            sphere: -1.50,
-            cylinder: -1.25,
-            axis: 170,
-        },
-    },
-    near: {
-        OD: {
-            sphere: 0.00,
-            cylinder: -0.75,
-            axis: 180,
-        },
-        OI: {
-            sphere: 0.50,
-            cylinder: -1.25,
-            axis: 170,
-        },
-    },
-};
+function parseOpticalPower(value) {
+    if (value == null) return null;
 
-const summary = calculatePrescriptionSummary(recipe);
+    const raw = String(value).trim().toUpperCase();
 
-console.log(summary);
-console.log(formatSummary(summary));
+    if (
+        raw === "" ||
+        raw === "PL" ||
+        raw === "PLANO" ||
+        raw === "PLAN" ||
+        raw === "0" ||
+        raw === "000" ||
+        raw === "+000" ||
+        raw === "-000"
+    ) {
+        return 0;
+    }
+
+    // Acepta formatos como:
+    // +200, -175, +025, 200, -2.00, +0.25, .25, -.75
+    const normalized = raw.replace(",", ".");
+
+    // Si viene con punto decimal, por ejemplo -1.75
+    if (normalized.includes(".")) {
+        const number = Number(normalized);
+
+        if (Number.isNaN(number)) {
+            throw new Error(`Potencia inválida: ${value}`);
+        }
+
+        return Math.round(number * 100);
+    }
+
+    // Si viene en formato óptica: +200, -175, +025
+    const match = normalized.match(/^([+-]?)(\d{1,4})$/);
+
+    if (!match) {
+        throw new Error(`Potencia inválida: ${value}`);
+    }
+
+    const sign = match[1] === "-" ? -1 : 1;
+    const digits = match[2];
+
+    return sign * Number(digits);
+}
+
+function formatOpticalPower(power) {
+    if (power == null) return "";
+
+    const sign = power < 0 ? "-" : "+";
+    const absolute = Math.abs(power);
+
+    return `${sign}${String(absolute).padStart(3, "0")}`;
+}
+
+function formatDiopters(power) {
+    if (power == null) return "";
+
+    const sign = power > 0 ? "+" : "";
+    return `${sign}${(power / 100).toFixed(2)}`;
+}
+
+function isQuarterStep(power) {
+    return power % 25 === 0;
+}
+
+/*
+    const recipe = {
+        distance: {
+            OD: {
+                sphere: "-200",
+                cylinder: "-075",
+                axis: "180",
+            },
+            OI: {
+                sphere: "-150",
+                cylinder: "-125",
+                axis: "170",
+            },
+        },
+        near: {
+            OD: {
+                sphere: "000",
+                cylinder: "-075",
+                axis: "180",
+            },
+            OI: {
+                sphere: "+050",
+                cylinder: "-125",
+                axis: "170",
+            },
+        },
+    };
+
+    const summary = calculatePrescriptionSummary(recipe);
+
+    console.log(formatPrescriptionSummary(summary));
+*/

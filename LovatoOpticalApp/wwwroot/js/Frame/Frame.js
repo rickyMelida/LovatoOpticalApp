@@ -1,9 +1,10 @@
 ﻿import { initFrameForm } from './Frame.Form.js';
+import { aplicarFormatoGuarani } from '../Helper/Helper.js'
 
 const frameCode = document.getElementById("frameCode");
 const frameCodeHelp = document.getElementById('frameCodeHelp');
 
-// Formato esperado: "GU2872 C7 54-17 140"
+// Formato esperado: "GU2872 069 54-17 140"
 // Partes: [Código armazón] [Color] [Ancho-Alto] [Largo patilla]
 const FRAME_CODE_REGEX = /^([A-Za-z0-9]+)(?:\s+([A-Za-z0-9]+))?(?:\s+(\d+)-(\d+))?(?:\s+(\d+))?$/;
 
@@ -42,5 +43,7 @@ export const initFrame = () => {
 	
 	frameCode.addEventListener('input', (e) => {
 		frameCodeHelp.innerHTML = parseFrameCode(e.target.value);
-	});
+    });
+
+    document.querySelectorAll(".input-guarani").forEach(aplicarFormatoGuarani);
 }
