@@ -4,15 +4,18 @@ using LovatoOpticalApp.Application.Services;
 using LovatoOpticalApp.Persistence;
 using LovatoOpticalApp.Persistence.Interfaces;
 using LovatoOpticalApp.Persistence.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LovatoOpticalApp.Application
 {
 	public static class ServiceExtension
 	{
-		public static void ConfigureApplication(this IServiceCollection services)
+		public static void ConfigureApplication(this IServiceCollection services, IConfiguration configuration)
 		{
-			services.AddDbContext<AppDbContext>();
+			services.AddDbContext<AppDbContext>(options =>
+				options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 			services.AddScoped(typeof(IProductRepository<>), typeof(ProductRepository<>));
 			services.AddScoped<ICustomerRepository, CustomerRepository>();
 			services.AddScoped<IRecipeRepository, RecipeRepository>();

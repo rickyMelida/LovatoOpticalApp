@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddControllersWithViews()
     .AddRazorRuntimeCompilation();
-builder.Services.ConfigureApplication();
+builder.Services.ConfigureApplication(builder.Configuration);
 
 var app = builder.Build();
 

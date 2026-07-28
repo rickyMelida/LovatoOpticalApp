@@ -3,44 +3,55 @@ using LovatoOpticalApp.Core.Entities;
 using LovatoOpticalApp.Core.Entities.Discounts;
 using LovatoOpticalApp.Core.Entities.Payments;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace LovatoOpticalApp.Persistence
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext : DbContext
     {
-        // Products
+        private readonly IConfiguration _configuration;
+        private const string DefaultSchema = "lovato";
+
+        public AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration configuration)
+            : base(options)
+        {
+            _configuration = configuration;
+        }
+
         public DbSet<Frame> Frames { get; set; }
         public DbSet<Crystal> Crystals { get; set; }
         public DbSet<Accessory> Accessories { get; set; }
         public DbSet<GlassesCase> GlassesCases { get; set; }
 
-        // Customers & Orders
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<CrystalOrderWork> CrystalOrderWorks { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
 
-        // Payments
         public DbSet<CashPayment> CashPayments { get; set; }
         public DbSet<CreditCardPayment> CreditCardPayments { get; set; }
         public DbSet<DebitCardPayment> DebitCardPayments { get; set; }
         public DbSet<TransferPayment> TransferPayments { get; set; }
         public DbSet<PaymentProof> PaymentProofs { get; set; }
 
-        // Discounts
         public DbSet<DiscountByFixedAmount> DiscountByFixedAmounts { get; set; }
         public DbSet<DiscountByPercentage> DiscountByPercentages { get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseNpgsql("Server=localhost; Database=lovato; Port=5432; User Id=postgres; Password=12345678");
-            //options.UseSqlServer("Server=localhost;Database=LovatoOptical;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True");
+            if (!options.IsConfigured)
+            {
+                var connectionString = _configuration.GetConnectionString("DefaultConnection");
+                options.UseNpgsql(connectionString);
+				//options.UseSqlServer("Server=localhost;Database=LovatoOptical;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema(DefaultSchema);
+
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.HasMany(c => c.Recipes)

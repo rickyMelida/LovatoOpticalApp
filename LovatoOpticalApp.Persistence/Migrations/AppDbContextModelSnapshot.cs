@@ -17,6 +17,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("lovato")
                 .HasAnnotation("ProductVersion", "10.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -140,7 +141,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("CrystalOrderWorks");
+                    b.ToTable("CrystalOrderWorks", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Accessory", b =>
@@ -170,7 +171,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accessories");
+                    b.ToTable("Accessories", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Crystal", b =>
@@ -201,7 +202,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Crystals");
+                    b.ToTable("Crystals", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Customer", b =>
@@ -238,7 +239,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Discounts.DiscountByFixedAmount", b =>
@@ -256,7 +257,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DiscountByFixedAmounts");
+                    b.ToTable("DiscountByFixedAmounts", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Discounts.DiscountByPercentage", b =>
@@ -274,7 +275,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DiscountByPercentages");
+                    b.ToTable("DiscountByPercentages", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Frame", b =>
@@ -325,7 +326,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Frames");
+                    b.ToTable("Frames", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.GlassesCase", b =>
@@ -355,7 +356,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GlassesCases");
+                    b.ToTable("GlassesCases", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Invoice", b =>
@@ -377,7 +378,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Order", b =>
@@ -418,7 +419,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasIndex("FrameId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.CashPayment", b =>
@@ -438,7 +439,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CashPayments");
+                    b.ToTable("CashPayments", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.CreditCardPayment", b =>
@@ -462,7 +463,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CreditCardPayments");
+                    b.ToTable("CreditCardPayments", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.DebitCardPayment", b =>
@@ -487,7 +488,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DebitCardPayments");
+                    b.ToTable("DebitCardPayments", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.PaymentProof", b =>
@@ -512,7 +513,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PaymentProofs");
+                    b.ToTable("PaymentProofs", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.TransferPayment", b =>
@@ -534,7 +535,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasIndex("ProofId");
 
-                    b.ToTable("TransferPayments");
+                    b.ToTable("TransferPayments", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Recipe", b =>
@@ -609,7 +610,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.CrystalOrderWork", b =>
@@ -660,7 +661,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                             b1.HasKey("CrystalId", "Id");
 
-                            b1.ToTable("CrystalTreatment");
+                            b1.ToTable("CrystalTreatment", "lovato");
 
                             b1.WithOwner()
                                 .HasForeignKey("CrystalId");
@@ -685,7 +686,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                             b1.HasKey("CrystalId");
 
-                            b1.ToTable("Crystals");
+                            b1.ToTable("Crystals", "lovato");
 
                             b1.WithOwner()
                                 .HasForeignKey("CrystalId");

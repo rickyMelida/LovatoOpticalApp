@@ -52,5 +52,30 @@ public class ProductServicePaginationTests
             MinimumQuantity = 1,
             Type = ProductTypeEnum.Frame
         };
-    }
+
+		public Task<FrameResponseDto> GetFrameById(Guid frameId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<ApiServiceResponse> UpdateFrame(FrameRequestDto frame)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<ApiServiceResponse> DeleteFrame(Guid frameId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<List<FrameResponseDto>> SearchFrames(string query)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<ApiServiceResponse> AddStock(Guid frameId, int quantityToAdd)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

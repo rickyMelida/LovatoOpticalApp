@@ -6,13 +6,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LovatoOpticalApp.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class FirtsMigration : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "lovato");
+
             migrationBuilder.CreateTable(
                 name: "Accessories",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -30,6 +34,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "CashPayments",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -44,6 +49,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "CreditCardPayments",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -59,6 +65,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Crystals",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -80,6 +87,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Customers",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -98,6 +106,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "DebitCardPayments",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -113,6 +122,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "DiscountByFixedAmounts",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -126,6 +136,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "DiscountByPercentages",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -139,6 +150,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Frames",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -162,6 +174,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "GlassesCases",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -179,6 +192,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "PaymentProofs",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -194,6 +208,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "CrystalTreatment",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -208,6 +223,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_CrystalTreatment_Crystals_CrystalId",
                         column: x => x.CrystalId,
+                        principalSchema: "lovato",
                         principalTable: "Crystals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -215,6 +231,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Recipes",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -241,6 +258,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_Recipes_Customers_CustomerId",
                         column: x => x.CustomerId,
+                        principalSchema: "lovato",
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -248,6 +266,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Orders",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -265,24 +284,28 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_Orders_Crystals_CrystalLeftId",
                         column: x => x.CrystalLeftId,
+                        principalSchema: "lovato",
                         principalTable: "Crystals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_Crystals_CrystalRightId",
                         column: x => x.CrystalRightId,
+                        principalSchema: "lovato",
                         principalTable: "Crystals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_Customers_CustomerId",
                         column: x => x.CustomerId,
+                        principalSchema: "lovato",
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_Frames_FrameId",
                         column: x => x.FrameId,
+                        principalSchema: "lovato",
                         principalTable: "Frames",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -290,6 +313,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TransferPayments",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -303,6 +327,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_TransferPayments_PaymentProofs_ProofId",
                         column: x => x.ProofId,
+                        principalSchema: "lovato",
                         principalTable: "PaymentProofs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -310,6 +335,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "CrystalOrderWorks",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -347,18 +373,21 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_CrystalOrderWorks_Crystals_CrystalLeftId",
                         column: x => x.CrystalLeftId,
+                        principalSchema: "lovato",
                         principalTable: "Crystals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CrystalOrderWorks_Crystals_CrystalRightId",
                         column: x => x.CrystalRightId,
+                        principalSchema: "lovato",
                         principalTable: "Crystals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CrystalOrderWorks_Orders_OrderId",
                         column: x => x.OrderId,
+                        principalSchema: "lovato",
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -366,6 +395,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Invoices",
+                schema: "lovato",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -379,6 +409,7 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_Invoices_Orders_OrderId",
                         column: x => x.OrderId,
+                        principalSchema: "lovato",
                         principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -386,52 +417,62 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_CrystalOrderWorks_CrystalLeftId",
+                schema: "lovato",
                 table: "CrystalOrderWorks",
                 column: "CrystalLeftId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CrystalOrderWorks_CrystalRightId",
+                schema: "lovato",
                 table: "CrystalOrderWorks",
                 column: "CrystalRightId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CrystalOrderWorks_OrderId",
+                schema: "lovato",
                 table: "CrystalOrderWorks",
                 column: "OrderId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoices_OrderId",
+                schema: "lovato",
                 table: "Invoices",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CrystalLeftId",
+                schema: "lovato",
                 table: "Orders",
                 column: "CrystalLeftId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CrystalRightId",
+                schema: "lovato",
                 table: "Orders",
                 column: "CrystalRightId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
+                schema: "lovato",
                 table: "Orders",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_FrameId",
+                schema: "lovato",
                 table: "Orders",
                 column: "FrameId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Recipes_CustomerId",
+                schema: "lovato",
                 table: "Recipes",
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TransferPayments_ProofId",
+                schema: "lovato",
                 table: "TransferPayments",
                 column: "ProofId");
         }
@@ -440,55 +481,72 @@ namespace LovatoOpticalApp.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Accessories");
+                name: "Accessories",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "CashPayments");
+                name: "CashPayments",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "CreditCardPayments");
+                name: "CreditCardPayments",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "CrystalOrderWorks");
+                name: "CrystalOrderWorks",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "CrystalTreatment");
+                name: "CrystalTreatment",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "DebitCardPayments");
+                name: "DebitCardPayments",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "DiscountByFixedAmounts");
+                name: "DiscountByFixedAmounts",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "DiscountByPercentages");
+                name: "DiscountByPercentages",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "GlassesCases");
+                name: "GlassesCases",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "Invoices");
+                name: "Invoices",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "Recipes");
+                name: "Recipes",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "TransferPayments");
+                name: "TransferPayments",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Orders",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "PaymentProofs");
+                name: "PaymentProofs",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "Crystals");
+                name: "Crystals",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Customers",
+                schema: "lovato");
 
             migrationBuilder.DropTable(
-                name: "Frames");
+                name: "Frames",
+                schema: "lovato");
         }
     }
 }
