@@ -53,7 +53,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: LovatoOpticalApp/LovatoOpticalApp
-          file: LovatoOpticalApp/LovatoOpticalApp/Dockerfile
+          context: LovatoOpticalApp
+          file: LovatoOpticalApp/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/lovato-optical-app:latest
