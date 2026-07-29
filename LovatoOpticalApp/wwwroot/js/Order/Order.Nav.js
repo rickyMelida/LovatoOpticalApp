@@ -20,7 +20,7 @@ const validateStep = (n) => {
     }
 
     if (n === 4 && !state.order.lens) {
-        showFeedback('Selecciona un cristal antes de continuar.');
+        showFeedback('Debe de imprimir el formulario para su posterior envio a laboratorio.');
         return false;
     }
 
