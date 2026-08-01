@@ -19,11 +19,11 @@ namespace LovatoOpticalApp.Core.Entities
 
         // Estuche dedicado (obligatorio según el diagrama)
         [NotMapped]
-        public IAccessory GlassesCase { get; set; }
+        public Accessory GlassesCase { get; set; }
 
         // Accesorios opcionales (goma, hilo, paño, etc.)
         [NotMapped]
-        public List<IAccessory> Accessories { get; set; } = new();
+        public List<Accessory> Accessories { get; set; } = new();
 
         public string Observations { get; set; }
 

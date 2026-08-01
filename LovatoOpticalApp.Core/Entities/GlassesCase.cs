@@ -2,7 +2,7 @@
 
 namespace LovatoOpticalApp.Core.Entities
 {
-    public class GlassesCase : IAccessory
+    public class GlassesCase : Accessory
     {
         public bool IsOptional { get; private set; }
 
@@ -18,9 +18,8 @@ namespace LovatoOpticalApp.Core.Entities
 
         public int Quantity { get; private set; } = 0;
 
-        private GlassesCase() { }
-
         public GlassesCase(string name, decimal purchasePrice, decimal salePrice, bool isOptional, int minimumQuantity)
+            : base(name, purchasePrice, salePrice, isOptional, minimumQuantity, 0)
         {
             Name = name;
             PurchasePrice = purchasePrice;

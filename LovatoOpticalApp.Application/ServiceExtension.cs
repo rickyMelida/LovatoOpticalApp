@@ -28,7 +28,9 @@ namespace LovatoOpticalApp.Application
 			services.AddScoped<IRecipeService, RecipeService>();
 			services.AddScoped<IFrameService, FrameService>();
 			services.AddScoped<IProductService, ProductService>();
+			services.AddScoped<IAccessoryService, AccessoryService>();
 			services.AddScoped<IProductDetailStrategy, FrameProductStrategy>();
+			services.AddScoped<IProductDetailStrategy, AccessoryProductStrategy>();
 			services.AddScoped<ICustomerRecipeUnitOfWork, CustomerRecipeUnitOfWork>();
 			services.AddScoped<IOrderService, OrderService>();
 
@@ -37,6 +39,7 @@ namespace LovatoOpticalApp.Application
 				cfg.AddProfile<CustomerProfile>();
 				cfg.AddProfile<FrameProfile>();
 				cfg.AddProfile<ProductProfile>();
+				cfg.AddProfile<AccessoryProfile>();
 			});
 		}
 	}

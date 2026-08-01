@@ -8,11 +8,13 @@ namespace LovatoOpticalApp.Application.Services
     public class ProductService : IProductService
     {
         private readonly IFrameService _frameService;
+		private readonly IAccessoryService _accessoryService;
         private readonly Dictionary<ProductTypeEnum, IProductDetailStrategy> _strategies;
 
-        public ProductService(IFrameService frameService, IEnumerable<IProductDetailStrategy> strategies)
+        public ProductService(IFrameService frameService, IAccessoryService accessoryService, IEnumerable<IProductDetailStrategy> strategies)
         {
             _frameService = frameService;
+            _accessoryService = accessoryService;
             _strategies = strategies.ToDictionary(s => s.Type);
         }
 
@@ -37,14 +39,17 @@ namespace LovatoOpticalApp.Application.Services
         public async Task<PagedResult<ProductResponse>> GetProducts(PaginationParams paginationParams)
         {
             var frames = await _frameService.GetFrames();
+			var accessories = await _accessoryService.GetAllAccessories();
             var pageNumber = paginationParams.PageNumber > 0 ? paginationParams.PageNumber : 1;
             var pageSize = paginationParams.PageSize > 0 ? paginationParams.PageSize : 10;
-            var totalCount = frames.Count();
+            var totalCount = frames.Count() + accessories.Count();
             var totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
             var safePageNumber = Math.Min(pageNumber, Math.Max(totalPages, 1));
             var skip = (safePageNumber - 1) * pageSize;
 
-            var pagedItems = frames
+			var products = frames.Cast<ProductResponse>().Concat(accessories.Cast<ProductResponse>()).ToList();
+
+            var pagedItems = products
                 .Skip(skip)
                 .Take(pageSize)
                 .Select(f => new ProductResponse

@@ -1,16 +1,15 @@
 ﻿using LovatoOpticalApp.Application.DTOs;
 using LovatoOpticalApp.Application.Interfaces;
-using LovatoOpticalApp.Application.Services;
+
 using LovatoOpticalApp.Core.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LovatoOpticalApp.Controllers
 {
-    public class CatalogController : FrameController
+    public class CatalogController : AccessoryController
     {	
-
-        public CatalogController(IFrameService frameService, IProductService productService): 
-            base(frameService, productService)
+        public CatalogController(IFrameService frameService, IProductService productService, IAccessoryService accessoryService) : 
+            base(frameService, productService, accessoryService)
         {
         }
 

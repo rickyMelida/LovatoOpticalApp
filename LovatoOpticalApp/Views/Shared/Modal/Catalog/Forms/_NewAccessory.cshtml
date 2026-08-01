@@ -1,90 +1,91 @@
 ﻿<div class="modal fade" id="newAccessoryModal" tabindex="-1" aria-labelledby="newAccessoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="newAccessoryModalLabel">
-                    <i class="bi bi-plus-circle me-2"></i>Nuevo Accesorio
-                </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="newAccessoryForm">
-                    <div class="row g-3">
+	<div class="modal-dialog modal-fullscreen-sm-down modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="newAccessoryModalLabel">
+					<i class="bi bi-plus-circle me-2"></i>Nuevo Accesorio
+				</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="newAccessoryForm">
+					<div class="row g-3">
 
-                        <div class="col-12">
-                            <label for="accessoryName" class="form-label">Nombre <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="accessoryName" name="Name"
-                                   placeholder="Goma para patillas infantil" required>
-                        </div>
+						<div class="col-12">
+							<label for="accessoryName" class="form-label">
+								Nombre <span class="text-danger">*</span>
+							</label>
+							<input type="text" class="form-control" id="accessoryName" name="Name"
+								   placeholder="Goma para patillas infantil" required>
+						</div>
 
-                        <div class="col-12">
-                            <label for="accessoryCategory" class="form-label">Categoría <span class="text-danger">*</span></label>
-                            <select class="form-select" id="accessoryCategory" name="Category" required>
-                                <option value="" disabled selected>Seleccionar…</option>
-                                <option>Estuche</option>
-                                <option>Goma / Hilo para patillas</option>
-                                <option>Paño limpiador</option>
-                                <option>Cadena / Cordón</option>
-                                <option>Otro</option>
-                            </select>
-                        </div>
+						<div class="col-md-6">
+							<label for="accessoryPurchasePrice" class="form-label">
+								Precio Compra<span class="text-danger">*</span>
+							</label>
+							<div class="input-group">
+								<input type="text" class="form-control input-guarani" id="accessoryPurchasePrice"
+									   name="PurchasePrice" placeholder="10.000" required>
+							</div>
+						</div>
 
-                        <div class="col-md-4">
-                            <label for="accessoryPrice" class="form-label">Precio <span class="text-danger">*</span></label>
-                            <div class="input-group">
-                                <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="accessoryPrice" name="Price"
-                                       placeholder="0.00" min="0" step="0.01" required>
-                            </div>
-                        </div>
+						<div class="col-md-6">
+							<label for="accessorySalePrice" class="form-label">
+								Precio Venta<span class="text-danger">*</span>
+							</label>
+							<div class="input-group">
+								<input type="text" class="form-control input-guarani" id="accessorySalePrice"
+									   name="SalePrice" placeholder="10.000" required>
+							</div>
+						</div>
 
-                        <div class="col-md-4">
-                            <label for="accessoryStock" class="form-label">Stock <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="accessoryStock" name="Stock"
-                                   placeholder="0" min="0" required>
-                        </div>
+						<div class="col-md-6">
+							<label for="accessoryStock" class="form-label">
+								Stock <span class="text-danger">*</span>
+							</label>
+							<input type="number" class="form-control" id="accessoryStock" name="Stock"
+								   placeholder="0" min="0" required>
+						</div>
 
-                        <div class="col-md-4">
-                            <label for="accessoryMinStock" class="form-label">
-                                Stock mínimo <span class="text-danger">*</span>
-                                <i class="bi bi-info-circle text-muted ms-1" title="Alerta cuando el stock baje de este valor"></i>
-                            </label>
-                            <input type="number" class="form-control" id="accessoryMinStock" name="MinStock"
-                                   placeholder="0" min="0" required>
-                        </div>
+						<div class="col-md-6">
+							<label for="accessoryMinStock" class="form-label">
+								Stock mínimo <span class="text-danger">*</span>
+								<i class="bi bi-info-circle text-muted ms-1"
+								   title="Alerta cuando el stock baje de este valor"></i>
+							</label>
+							<input type="number" class="form-control" id="accessoryMinStock" name="MinStock"
+								   placeholder="0" min="0" required>
+						</div>
 
-                        <div class="col-12 d-flex flex-column gap-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="accessoryIsOptional" name="IsOptional" checked>
-                                <label class="form-check-label" for="accessoryIsOptional">
-                                    Es opcional en el pedido
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="accessoryIsForKids" name="IsForKids">
-                                <label class="form-check-label" for="accessoryIsForKids">
-                                    Es para público infantil
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="accessoryIsActive" name="IsActive" checked>
-                                <label class="form-check-label" for="accessoryIsActive">
-                                    Activo en catálogo
-                                </label>
-                            </div>
-                        </div>
+						<div class="col-md-12">
+							<label for="description" class="form-label">
+								Descripción
+							</label>
+							<textarea class="form-control" id="description" name="Description" rows="3"
+									  placeholder="Descripción del accesorio"></textarea>
+						</div>
 
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                    <i class="bi bi-x-lg me-1"></i>Cancelar
-                </button>
-                <button type="submit" form="newAccessoryForm" class="btn btn-primary">
-                    <i class="bi bi-floppy me-1"></i>Guardar
-                </button>
-            </div>
-        </div>
-    </div>
+						<div class="col-12 d-flex flex-column gap-2">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="accessoryIsOptional"
+									   name="IsOptional" checked>
+								<label class="form-check-label" for="accessoryIsOptional">
+									Es opcional en el pedido
+								</label>
+							</div>
+						</div>
+
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+					<i class="bi bi-x-lg me-1"></i>Cancelar
+				</button>
+				<button type="button" id="btnAccessoryFormSubmit" class="btn btn-primary">
+					<i class="bi bi-floppy me-1"></i>Guardar
+				</button>
+			</div>
+		</div>
+	</div>
 </div>

@@ -2,9 +2,8 @@
 
 namespace LovatoOpticalApp.Core.Entities
 {
-    public class Accessory : IAccessory
+    public class Accessory : Product
     {
-        public bool IsOptional {  get; private set; }
 
         public Guid Id { get; private set; } = Guid.NewGuid();
 
@@ -18,6 +17,7 @@ namespace LovatoOpticalApp.Core.Entities
 
         public int MinimumQuantity { get; private set; }
 
+        public bool IsOptional {  get; private set; }
         private Accessory() { }
 
         public Accessory(string name, decimal purchasePrice, decimal salePrice, bool isOptional, int quantity, int minimumQuantity)
