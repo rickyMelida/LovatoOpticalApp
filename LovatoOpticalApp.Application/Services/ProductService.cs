@@ -15,7 +15,9 @@ namespace LovatoOpticalApp.Application.Services
         {
             _frameService = frameService;
             _accessoryService = accessoryService;
-            _strategies = strategies.ToDictionary(s => s.Type);
+            _strategies = strategies != null
+                ? strategies.ToDictionary(s => s.Type)
+                : new Dictionary<ProductTypeEnum, IProductDetailStrategy>();
         }
 
         public Task<ApiServiceResponse> DeleteProduct(Guid productId, ProductTypeEnum productType)
@@ -38,8 +40,14 @@ namespace LovatoOpticalApp.Application.Services
 
         public async Task<PagedResult<ProductResponse>> GetProducts(PaginationParams paginationParams)
         {
-            var frames = await _frameService.GetFrames();
-			var accessories = await _accessoryService.GetAllAccessories();
+            paginationParams ??= new PaginationParams();
+            var frames = _frameService != null
+                ? await _frameService.GetFrames()
+                : new List<FrameResponseDto>();
+
+            var accessories = _accessoryService != null
+                ? await _accessoryService.GetAllAccessories()
+                : new List<AccesoryResponseDto>();
             var pageNumber = paginationParams.PageNumber > 0 ? paginationParams.PageNumber : 1;
             var pageSize = paginationParams.PageSize > 0 ? paginationParams.PageSize : 10;
             var totalCount = frames.Count() + accessories.Count();
