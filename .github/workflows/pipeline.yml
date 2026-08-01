@@ -34,11 +34,11 @@ jobs:
         run: dotnet build "LovatoOpticalApp/LovatoOpticalApp.csproj" --no-restore -c Release
 
       # 5. Tests
-      #- name: Test
-      #  run: dotnet test "LovatoOpticalApp/LovatoOpticalApp.csproj" --no-build -c Release --verbosity normal
-      #  env:
+      - name: Test
+        run: dotnet test "LovatoOpticalApp.Tests/LovatoOpticalApp.Tests.csproj" -c Release --verbosity normal
+        env:
           # Variables solo para los tests
-      #    ConnectionStrings__Default: ${{ secrets.TEST_DB_CONNECTION }}
+          ConnectionStrings__Default: ${{ secrets.TEST_DB_CONNECTION }}
 
       # 6. Login a Docker Hub
       - name: Set up Docker Buildx

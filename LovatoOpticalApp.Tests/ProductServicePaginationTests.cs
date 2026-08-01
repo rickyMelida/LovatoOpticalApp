@@ -1,3 +1,4 @@
+using System;
 using LovatoOpticalApp.Application.DTOs;
 using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Application.Interfaces;
@@ -12,7 +13,7 @@ public class ProductServicePaginationTests
     public async Task GetProducts_ReturnsRequestedPage()
     {
         var frameService = new FakeFrameService();
-        var service = new ProductService(frameService);
+        var service = new ProductService(frameService, Array.Empty<IProductDetailStrategy>());
 
         var result = await service.GetProducts(new PaginationParams { PageNumber = 2, PageSize = 2 });
 

@@ -18,7 +18,7 @@ public static class OrderTestFixture
     // ─── Objetos base ────────────────────────────────────────────────────────
 
     public static Customer DefaultCustomer() =>
-        new("Juan Pérez", "12345678", new DateTime(1985, 3, 20), "Av. Siempre Viva 742", "555-0001");
+        new("Juan Pérez", "12345678", "555-0001", "juan.perez@example.com", new DateTime(1985, 3, 20), "Av. Siempre Viva 742");
 
     public static Frame DefaultFrame(decimal salePrice = 200.00m) =>
         new(
