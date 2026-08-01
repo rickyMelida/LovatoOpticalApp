@@ -37,6 +37,8 @@ namespace LovatoOpticalApp.Persistence
 
         public DbSet<DiscountByFixedAmount> DiscountByFixedAmounts { get; set; }
         public DbSet<DiscountByPercentage> DiscountByPercentages { get; set; }
+		public DbSet<User> Users { get; set; }
+		public DbSet<Role> Roles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -44,7 +46,6 @@ namespace LovatoOpticalApp.Persistence
             {
                 var connectionString = _configuration.GetConnectionString("DefaultConnection");
                 options.UseNpgsql(connectionString);
-				//options.UseSqlServer("Server=localhost;Database=LovatoOptical;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True");
             }
         }
 
