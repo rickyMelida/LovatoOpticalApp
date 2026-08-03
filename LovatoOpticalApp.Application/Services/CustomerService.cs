@@ -10,16 +10,21 @@ namespace LovatoOpticalApp.Application.Services
     {
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
-        public CustomerService(IMapper mapper, ICustomerRepository customerRepository)
+		private readonly IUnitOfWork _unitOfWork;
+        public CustomerService(IMapper mapper, ICustomerRepository customerRepository, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _customerRepository = customerRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<CustomerResponseDto> CreateCustomer(CustomerResquestDto customerRequestDto)
+        public async Task<CustomerResponseDto> CreateCustomer(CustomerResquestDto customerRequestDto, bool createOnlyCustomer = false)
         {
             var customer = _mapper.Map<Customer>(customerRequestDto);
             var result = await _customerRepository.CreateCustomer(customer);
+
+			if(createOnlyCustomer)
+				await _unitOfWork.SaveChangesAsync();
 
             return _mapper.Map<CustomerResponseDto>(result);
         }

@@ -1,6 +1,9 @@
 ﻿import { DB_PATIENTS, state } from './Order.State.js';
 import { showFeedback, hideFeedback } from './Order.UI.js';
-import { enableLargeButton } from '../Common/ButtonEvents.js'
+import { enableLargeButton } from '../Common/ButtonEvents.js';
+import { buildCustomerPayload } from "../Customer/Customer.Form.js";
+import { createCustomer } from "../Customer/Customer.Rules.js";
+import { enableButton } from '../Common/ButtonEvents.js';
 
 export const searchPatient = async () => {
     hideFeedback();
@@ -50,38 +53,29 @@ const findCustomerByDocument = async (documentId) => {
     return await result.json();
 }
 
-export const createPatient = () => {
+export const createPatient = async () => {
     hideFeedback();
+	const form = document.getElementById("newCustomerForm");
+	const btnCreatePatient = document.getElementById("btnCreateCustomer");
 
-    const documentId    = document.getElementById('docInput').value.trim();
-    const name = document.getElementById('nuevoNombre').value.trim();
+	enableButton(btnCreatePatient, true);
+	
+	if (!form.checkValidity()) {
+		form.reportValidity();
+		enableButton(btnCreatePatient, false);
+		return;
+	}
+	
+	const customerPayload = buildCustomerPayload();
+	const newPatient = await createCustomer(customerPayload);
 
-    if (!documentId) {
-        showFeedback('Ingresa el documento del cliente.');
-        return;
-    }
-
-    if (!name) {
-        showFeedback('Ingresa el nombre completo del cliente.');
-        return;
-    }
-
-    const newPatient = {
-        id: DB_PATIENTS.length + 100,
-        documentId,
-        name,
-        phone: document.getElementById('nuevoTelefono').value.trim(),
-        email:    document.getElementById('nuevoEmail').value.trim()
-    };
-
-    DB_PATIENTS.push(newPatient);
     state.order.patient = newPatient;
 
     document.getElementById('formNuevoPaciente').classList.add('d-none');
     document.getElementById('pacienteNoEncontrado').classList.add('d-none');
 
     document.getElementById('pacNombre').textContent = newPatient.name;
-    document.getElementById('pacDoc').textContent    = newPatient.documentId;
+    document.getElementById('pacDoc').textContent    = newPatient.ciRuc;
 
     document.getElementById('pacienteEncontrado').classList.remove('d-none');
 };

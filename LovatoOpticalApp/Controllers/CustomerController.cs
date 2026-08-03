@@ -25,9 +25,19 @@ namespace LovatoOpticalApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CustomerRecipeDtoRequest customerResquest)
+		[Route("Customer/create-customer-recipe")]
+        public async Task<IActionResult> CreateCustomerAndRecipe([FromBody] CustomerRecipeDtoRequest customerResquest)
         {
             var result = await _customerRecipeUnitOfWork.CreateCustomerRecipeAsync(customerResquest);
+
+            return Ok(result);
+        }
+
+		[HttpPost]
+		[Route("Customer/create-customer")]
+        public async Task<IActionResult> CreateCustomer([FromBody] CustomerResquestDto customerResquest)
+        {
+            var result = await _customerService.CreateCustomer(customerResquest, true);
 
             return Ok(result);
         }

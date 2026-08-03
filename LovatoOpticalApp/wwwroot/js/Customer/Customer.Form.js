@@ -4,7 +4,7 @@ import { hideModal } from "../Common/ModalEvents.js";
 const form = document.getElementById("newCustomerForm");
 const btnSaveButton = document.getElementById("btnSaveCustomer");
 
-const buildCustomerPayload = () => {
+export const buildCustomerPayload = () => {
     const formData = new FormData(form);
 
     return {
@@ -50,7 +50,6 @@ export const resetForm = (formElement, btnSubmit) => {
     enableButton(btnSubmit, false);
 }
 
-
 export const initForm = () => {
     btnSaveButton.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -81,7 +80,7 @@ export const initForm = () => {
 
 const saveCustomer = async (customerPayload, recipePayload, isNewCustomer) => {
     let request = { Customer: customerPayload, Recipe: recipePayload };
-    let url = `/Customer/Create`;
+    let url = `/Customer/create-customer-recipe`;
 
     if (!isNewCustomer) {
         const customerId = document.getElementById("newCustomerModalLabel").getAttribute("data-customer-id");

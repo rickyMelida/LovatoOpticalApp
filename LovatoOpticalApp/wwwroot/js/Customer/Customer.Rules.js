@@ -78,3 +78,16 @@ export const getCustomerDetails = async (customerId) => {
 		return null;
 	}
 }
+
+export const createCustomer = async (customerPayload) => {
+
+    const result = await fetch('/Customer/create-customer', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+        },
+        body: JSON.stringify(customerPayload)
+    });
+
+    return result.json();
+}
