@@ -57,15 +57,11 @@ const showViewDetailsModal = async (productId, productType) => {
 	const productDetails = await getProductDetails(productId, productType);
 
 	renderProductDetails(productDetails);
-
-	showModal("viewFrameModal")
 }
 
 const renderProductToEdit = (productDetails) => {
 	const newFrameModalLabel = document.getElementById("newFrameModalLabel");
 	newFrameModalLabel.innerText = "Editar Armazón"
-
-	console.log({ productDetails })
 }
 
 const showDeleteConfirmation = (productId, productType) => {
@@ -95,6 +91,11 @@ const renderProductDetails = (productDetails) => {
 	switch (productDetails.type) {
 		case 1:
 			renderFrameDetails(productDetails);
+			showModal("viewFrameModal")
+			break;
+		case 3:
+			renderAccessoryDetails(productDetails);
+			showModal("viewAccessoryModal")
 			break;
 		default:
 			console.warn("Tipo de producto no reconocido.");
@@ -130,6 +131,29 @@ const renderFrameDetails = (frameDetails) => {
 	currentStock.textContent = frameDetails.quantity;
 	minimumStock.textContent = frameDetails.minimumQuantity;
 	description.innerHTML = !frameDetails.description ? `<span class="text-muted fst-italic">Sin descripción</span>` : `<span class="text-dark">${frameDetails.description} </span>`
+}
+
+const renderAccessoryDetails = (accessoryDetails) => {
+	const viewAccessoryName = document.getElementById("viewAccessoryName");
+	const accessoryStock = document.getElementById("viewAccessoryStockBadge");
+	const purchasePrice = document.getElementById("viewAccessoryPurchasePrice");
+	const salePrice = document.getElementById("viewAccessorySalePrice");
+	const profitMargin = document.getElementById("viewAccessoryMargin");
+	const currentStock = document.getElementById("viewAccessoryQuantity");
+	const minimumStock = document.getElementById("viewAccessoryMinimumQuantity");
+	const description = document.getElementById("viewAccessoryDescription");
+	const profitMarginPercentage = (accessoryDetails.salePrice - accessoryDetails.purchasePrice) / accessoryDetails.purchasePrice * 100;
+
+	viewAccessoryName.textContent = accessoryDetails.name;
+	accessoryStock.textContent = accessoryDetails.quantity;
+	purchasePrice.textContent = `${formatToGuarani(accessoryDetails.purchasePrice)}`;
+	salePrice.textContent = `${formatToGuarani(accessoryDetails.salePrice)}`;
+	profitMargin.textContent = `${profitMarginPercentage.toFixed(2)}%`;
+	currentStock.textContent = accessoryDetails.quantity;
+	minimumStock.textContent = accessoryDetails.minimumQuantity;
+
+	description.innerHTML = !accessoryDetails.description ? `<span class="text-muted fst-italic">Sin descripción</span>` : `<span class="text-dark">${accessoryDetails.description} </span>`
+
 }
 
 const searchCatalogAsync = async (query) => {

@@ -1,3 +1,5 @@
+using AutoMapper;
+using LovatoOpticalApp.Application.DTOs;
 using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Application.Interfaces;
 using LovatoOpticalApp.Core.Entities.Enums;
@@ -7,10 +9,12 @@ namespace LovatoOpticalApp.Application.Services
 	public class AccessoryProductStrategy : IProductDetailStrategy
 	{
 		private readonly IAccessoryService _accessoryService;
+		private readonly IMapper _mapper;
 
-		public AccessoryProductStrategy(IAccessoryService accessoryService)
+		public AccessoryProductStrategy(IAccessoryService accessoryService, IMapper mapper)
 		{
-			_accessoryService = accessoryService ?? throw new ArgumentNullException(nameof(accessoryService));
+			_accessoryService = accessoryService;
+			_mapper = mapper;
 		}
 
 		public ProductTypeEnum Type => ProductTypeEnum.Accessory;
@@ -20,9 +24,16 @@ namespace LovatoOpticalApp.Application.Services
 			throw new NotImplementedException();
 		}
 
-		public Task<ApiServiceResponse> DeleteProduct(Guid productId)
-		{
-			throw new NotImplementedException();
+		public async Task<ApiServiceResponse> DeleteProduct(Guid productId)
+		{	
+			try
+			{
+				return await _accessoryService.DeleteAccessory(productId);
+			}
+			catch (Exception ex)
+			{
+				return new ApiServiceResponse($"Error al eliminar el accesorio: {ex.Message}", 500);
+			}
 		}
 
 		public async Task<ProductResponse> GetProductDetails(Guid productId)
@@ -31,17 +42,7 @@ namespace LovatoOpticalApp.Application.Services
 			if (accessory == null)
 				throw new KeyNotFoundException($"Accessory with ID {productId} not found.");
 
-			return new ProductResponse
-			{
-				Id = accessory.Id,
-				Name = accessory.Name,
-				PurchasePrice = accessory.PurchasePrice,
-				SalePrice = accessory.SalePrice,
-				Quantity = accessory.Quantity,
-				MinimumQuantity = accessory.MinimumQuantity,
-				Type = accessory.Type,
-				Description = accessory.Description
-			};
+			return _mapper.Map<AccesoryResponseDto>(accessory);
 		}
 	}
 }

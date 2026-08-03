@@ -1,5 +1,6 @@
 ﻿import { showModal } from "../Common/ModalEvents.js";
 import { mapProductModal } from "../Helper/Mappers.js"
+import { formatToGuarani } from "../Helper/Helper.js";
 
 
 const renderEditProductFrom = (productDetails, productId, productType) => {
@@ -48,11 +49,20 @@ const renderEditFrameFrom = (productDetails, productId) => {
 }
 
 const renderEditCrystalModal = (productDetails, productId) => {
-
+	console.log({ productDetails, productId });
 }
 
 const renderEditAccessoryModal = (productDetails, productId) => {
-
+	document.getElementById("newAccessoryModalLabel").setAttribute("data-product-id", productId);
+	document.getElementById("newAccessoryModalLabel").innerHTML = `<i class="bi bi-pencil me-2"></i>Editar Accesorio`;
+	document.getElementById("btnAccessoryFormSubmit").innerHTML = `<i class="bi bi-pencil me-1 edit-accessory"></i>Editar`;
+	document.getElementById("accessoryName").value = productDetails.name;
+	document.getElementById("accessoryPurchasePrice").value = formatToGuarani(productDetails.purchasePrice);
+	document.getElementById("accessorySalePrice").value = formatToGuarani(productDetails.salePrice);
+	document.getElementById("accessoryStock").value = productDetails.quantity;
+	document.getElementById("accessoryMinStock").value = productDetails.minimumQuantity;
+	document.getElementById("description").value = productDetails.description;
+	document.getElementById("accessoryIsOptional").checked = productDetails.isOptional;
 }
 
 export const showEditProductModal = async (productId, productType) => {
