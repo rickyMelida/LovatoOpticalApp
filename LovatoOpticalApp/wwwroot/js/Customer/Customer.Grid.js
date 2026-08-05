@@ -64,17 +64,21 @@ const showCreateCustomerModal = () => {
 }
 
 const showViewDetailsModal = async (customerId) => {
-	const modalElement = document.getElementById("viewCustomerModal");
-	if (!modalElement) {
-		console.warn("Modal element #viewCustomerModal not found.");
-		return;
-	}
-	const modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
 	const customerDetails = await getCustomerDetails(customerId);
-
+	
 	renderCustomerDetails(customerDetails);
+	
+	if(customerDetails.recipes.length === 0) {
+		document.getElementById("viewCustomerRecipeContainer").classList.add("d-none");
+		document.querySelectorAll('#viewCustomerNoRecipeContainer .add-recipe').forEach(button => button.setAttribute("id", customerId));
+		document.getElementById("viewCustomerNoRecipeContainer").classList.remove("d-none");
+	}	else{
+		document.getElementById("viewCustomerRecipeContainer").classList.remove("d-none");
+		document.querySelectorAll('#viewCustomerNoRecipeContainer .add-recipe').forEach(button => button.removeAttribute("id"));
+		document.getElementById("viewCustomerNoRecipeContainer").classList.add("d-none");
+	}
 
-	modalInstance.show();
+	setTimeout(() => showModal("viewCustomerModal"), 1500);
 }
 
 const getCustomerDetails = async (customerId) => {
@@ -105,6 +109,10 @@ const renderCustomerDetails = (customerDetails) => {
 	document.getElementById("viewCustomerEmail").textContent = customerDetails.email;
 	document.getElementById("viewCustomerBirthday").textContent = dateDayMonthYear(customerDetails.birthDay);
 	document.getElementById("viewCustomerAddress").textContent = customerDetails.address;
+
+	console.log(customerDetails);
+
+	
 
 	// Recipes (ordered from newest to oldest)
 	_recipes = (customerDetails.recipes ?? []).sort((a, b) => new Date(b.prescriptionIssueDate) - new Date(a.prescriptionIssueDate));
