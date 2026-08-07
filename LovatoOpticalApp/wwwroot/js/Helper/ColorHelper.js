@@ -5,7 +5,16 @@ const colores = [
 	{ nombre: "Verde", hex: "#00FF00" },
 	{ nombre: "Azul", hex: "#0000FF" },
 	{ nombre: "Amarillo", hex: "#FFFF00" },
-	// ... agregá más
+	{ nombre: "Marrón", hex: "#8B4513" },
+	{ nombre: "Gris", hex: "#808080" },
+	{ nombre: "Dorado", hex: "#CDAA00" },
+	{ nombre: "Plateado", hex: "#C0C0C0" },
+	{ nombre: "Azul Marino", hex: "#1F3A5F" },
+	{ nombre: "Verde Oliva", hex: "#6B8E23" },
+	{ nombre: "Naranja", hex: "#FFA500" },
+	{ nombre: "Rosa", hex: "#FFC0CB" },
+	{ nombre: "Violeta", hex: "#8A2BE2" },
+	{ nombre: "Beige", hex: "#F5F5DC" }
 ];
 
 function hexToRgb(hex) {
