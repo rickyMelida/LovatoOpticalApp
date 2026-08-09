@@ -1,0 +1,59 @@
+<section class="row justify-content-center panel" id="panel-5">
+	<div class="col-lg-9">
+		<div class="card shadow-sm border-0">
+			<div class="card-header bg-white">
+				<h2 class="h5 mb-1">Confirmar orden de trabajo</h2>
+				<p class="text-muted small mb-0">
+					Revisa el resumen, registra el método de pago y confirma la orden.
+				</p>
+			</div>
+
+			<div class="card-body">
+				<div id="resumenOrden" class="mb-4"></div>
+
+				<div class="card bg-light border mb-4">
+					<div class="card-body">
+						<h3 class="h6 mb-2">
+							<i class="bi bi-credit-card me-1"></i>
+							Pago del anticipo
+						</h3>
+
+						<p class="text-muted small">
+							Si se ha dado una entrega, debes seleccionar un método de pago.
+						</p>
+
+						<div class="row g-3">
+							<div class="col-md-6">
+								<label class="form-label">Método de pago</label>
+								<select class="form-select" id="metodoPagoSelect" onchange="updatePaymentMethod()">
+									<option value="">Selecciona un método...</option>
+									<option value="cash">Efectivo</option>
+									<option value="debit_card">Tarjeta de débito</option>
+									<option value="credit_card">Tarjeta de crédito</option>
+									<option value="transfer">Transferencia bancaria</option>
+									<option value="no_deposit">Sin anticipo</option>
+								</select>
+							</div>
+
+							<div class="col-md-6 d-none" id="referenciaPagoBox">
+								<label class="form-label">Referencia / comprobante</label>
+								<input type="text" class="form-control" id="referenciaPagoInput"
+									   placeholder="Ej. voucher, comprobante, transacción" oninput="updatePaymentMethod()">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="alert alert-danger d-none" id="errorOrden" role="alert">
+					<i class="bi bi-exclamation-triangle me-1"></i>
+					<span id="errorOrdenTexto"></span>
+				</div>
+
+				<button class="btn btn-success w-100" onclick="confirmOrder()">
+					<i class="bi bi-send me-1"></i>
+					Confirmar orden
+				</button>
+			</div>
+		</div>
+	</div>
+</section>

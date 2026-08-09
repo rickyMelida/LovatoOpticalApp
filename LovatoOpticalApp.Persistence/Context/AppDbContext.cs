@@ -61,11 +61,7 @@ namespace LovatoOpticalApp.Persistence
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<Crystal>(entity =>
-            {
-                entity.OwnsOne(c => c.Prescription);
-                entity.OwnsMany(c => c.Treatments);
-            });
+            modelBuilder.Entity<Crystal>();
 
             modelBuilder.Entity<Order>(entity =>
             {

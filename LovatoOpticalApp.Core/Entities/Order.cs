@@ -30,7 +30,7 @@ namespace LovatoOpticalApp.Core.Entities
         [NotMapped]
         public decimal FramePrice => Frame?.SalePrice ?? 0;
         [NotMapped]
-        public decimal CrystalPrice => (CrystalLeft?.TotalPrice ?? 0) + (CrystalRight?.TotalPrice ?? 0);
+        public decimal CrystalPrice => (CrystalLeft?.SalePrice ?? 0) + (CrystalRight?.SalePrice ?? 0);
         [NotMapped]
         public decimal GlassesCasePrice => GlassesCase?.SalePrice ?? 0;
         [NotMapped]
@@ -96,23 +96,7 @@ namespace LovatoOpticalApp.Core.Entities
                 CrystalLeft    = CrystalLeft,
             };
 
-            // Pre-llenado desde prescripción del ojo derecho
-            if (CrystalRight?.Prescription is { } pr)
-            {
-                work.OD_ESF  = pr.Sphere.ToString("+0.00;-0.00");
-                work.OD_CIL  = pr.Cylinder.ToString("+0.00;-0.00");
-                work.OD_AXIS = pr.Axis.ToString();
-                work.OD_ADD  = pr.Addition?.ToString("+0.00;-0.00") ?? string.Empty;
-            }
-
-            // Pre-llenado desde prescripción del ojo izquierdo
-            if (CrystalLeft?.Prescription is { } pl)
-            {
-                work.OI_ESF  = pl.Sphere.ToString("+0.00;-0.00");
-                work.OI_CIL  = pl.Cylinder.ToString("+0.00;-0.00");
-                work.OI_AXIS = pl.Axis.ToString();
-                work.OI_ADD  = pl.Addition?.ToString("+0.00;-0.00") ?? string.Empty;
-            }
+            
 
             CrystalOrderWork = work;
             return work;

@@ -14,8 +14,8 @@ namespace LovatoOpticalApp.Persistence.Repository
             await _context.Orders
                 .Include(o => o.Customer)
                 .Include(o => o.Frame)
-                .Include(o => o.CrystalRight).ThenInclude(c => c!.Treatments)
-                .Include(o => o.CrystalLeft).ThenInclude(c => c!.Treatments)
+                .Include(o => o.CrystalRight)
+                .Include(o => o.CrystalLeft)
                 .Include(o => o.CrystalOrderWork)
                 .FirstOrDefaultAsync(o => o.Id == id);
 
