@@ -19,12 +19,12 @@ const validateStep = (n) => {
         return false;
     }
 
-	if (n === 4 && !state.order.crystal) {
+	if (n === 5 && !state.order.crystal) {
         showFeedback('Debe de cargar los datos del cristal antes de continuar.');
         return false;
     }
 
-    if (n === 5 && !state.order.lens) {
+    if (n === 6 && !state.order.lens) {
         showFeedback('Debe de imprimir el formulario para su posterior envio a laboratorio.');
         return false;
     }
@@ -39,7 +39,7 @@ export const goToStep = (dir) => {
 	handlerValidations(destination);
 
     if (dir === 1 && !validateStep(state.currentStep)) return;
-    if (destination < 1 || destination > 6) return;
+    if (destination < 1 || destination > 7) return;
 
     document.getElementById(`panel-${state.currentStep}`).classList.remove('active');
 
@@ -48,9 +48,9 @@ export const goToStep = (dir) => {
     document.getElementById(`panel-${state.currentStep}`).classList.add('active');
 
     document.getElementById('btnAtras').disabled = state.currentStep === 1;
-    document.getElementById('btnSiguiente').classList.toggle('d-none', state.currentStep === 6);
+    document.getElementById('btnSiguiente').classList.toggle('d-none', state.currentStep === 7);
 
     updateStepper();
 
-    if (state.currentStep === 6) buildSummary();
+    if (state.currentStep === 7) buildSummary();
 };

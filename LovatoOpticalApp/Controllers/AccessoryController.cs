@@ -15,16 +15,26 @@ namespace LovatoOpticalApp.Controllers
 			_accessoryService = accessoryService;
 		}
 
-		public AccessoryController(IFrameService frameService, IProductService productService) : base(frameService, productService)
-		{
-		}
-
 		[HttpGet]
 		public async Task<IActionResult> GetAccessories()
 		{
 			var accessories = await _accessoryService.GetAllAccessories();
 
 			return Ok(accessories);
+		}
+
+		[HttpGet]
+		public async Task<ActionResult<List<AccesoryResponseDto>>> SearchAccessory(string searchTerm)
+		{
+			if (string.IsNullOrWhiteSpace(searchTerm))
+				return BadRequest("El término de búsqueda no puede estar vacío.");
+
+			var accessory = await _accessoryService.SearchAccessory(searchTerm);
+
+			if (accessory == null)
+				return NotFound("Accesorio no encontrado.");
+
+			return Ok(accessory);
 		}
 
 		[HttpGet]

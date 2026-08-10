@@ -3,7 +3,6 @@ import { getCrystalData } from './Order.Crystal.js';
 
 
 export const handlerValidations = (step) => {
-	console.log({ step });
 	switch (step) {
 		case 5:
 			validateCrystalForm();

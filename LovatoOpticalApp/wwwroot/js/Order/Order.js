@@ -6,6 +6,8 @@ import { handlerCrystalForm } from "./Order.WorkOrder.js";
 import { updateDeposit, updatePaymentMethod } from './Order.Payment.js';
 import { buildSummary, confirmOrder } from './Order.Confirm.js';
 import { goToStep } from './Order.Nav.js';
+import { initializeAccessoryModule } from './Order.Accessory.js';
+import { aplicarFormatoGuarani } from '../Helper/Helper.js';
 
 /* ---------- EXPOSE GLOBAL FUNCTIONS (inline onclick) ---------- */
 window.searchPatient       = searchPatient;
@@ -32,4 +34,5 @@ window.goToStep          = goToStep;
 /* ---------- INIT ---------- */
 updateStepper();
 handlerCrystalForm();
-
+initializeAccessoryModule();
+document.querySelectorAll(".input-guarani").forEach(aplicarFormatoGuarani);

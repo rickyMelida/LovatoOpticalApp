@@ -2,76 +2,185 @@
 	<div class="col-lg-9">
 		<form id="crystalForm">
 
-			<div class="row g-3">
+			<!-- Opción de sincronización -->
+			<div class="row g-3 mb-4">
 				<div class="col-md-12">
-					<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Derecho (OD)</h6>
-					<div class="row">
-						<div class="col-md-12">
-							<label for="description-OD" class="form-label">
-								Descripción
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" id="sameCrystalBoth" name="SameCrystalBoth">
+						<label class="form-check-label" for="sameCrystalBoth">
+							<strong>Usar las mismas características para ambos ojos</strong>
+							<small class="text-muted d-block">Marca esta opción para evitar reescribir los datos si
+								ambos ojos tienen el mismo cristal</small>
 							</label>
-							<textarea class="form-control" id="description-OD" name="DescriptionOD" rows="3"
-									  placeholder="Descripción del cristal"></textarea>
 						</div>
+					</div>
+				</div>
 
-						<div class="col-md-6">
-							<label for="crystalPurchasePriceOD" class="form-label">
-								Precio Compra<span class="text-danger">*</span>
-							</label>
-							<div class="input-group">
-								<input type="text" class="form-control input-guarani" id="crystalPurchasePriceOD"
-									   name="PurchasePriceOD" placeholder="10.000" required>
+				<!-- CRISTAL OJO DERECHO (OD) -->
+				<div class="row g-3">
+					<div class="col-md-12">
+						<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Derecho (OD)</h6>
+						<div class="row">
+							<div class="col-md-6">
+								<label for="name-OD" class="form-label">
+									Nombre del cristal
+								</label>
+								<input type="text" class="form-control" id="name-OD" name="NameOD"
+									   placeholder="Nombre del cristal" />
 							</div>
-						</div>
 
-						<div class="col-md-6">
-							<label for="crystalSalePriceOD" class="form-label">
-								Precio Venta<span class="text-danger">*</span>
-							</label>
-							<div class="input-group">
-								<input type="text" class="form-control input-guarani" id="crystalSalePriceOD"
-									   name="SalePriceOD" placeholder="10.000" required>
+							<div class="col-md-6">
+								<label for="description-OD" class="form-label">
+									Descripción
+								</label>
+								<input type="text" class="form-control" id="description-OD" name="DescriptionOD"
+									   placeholder="Descripción del cristal" />
+							</div>
+
+							<div class="col-md-6">
+								<label for="crystalPurchasePriceOD" class="form-label">
+									Precio Compra<span class="text-danger">*</span>
+								</label>
+								<div class="input-group">
+									<input type="text" class="form-control input-guarani" id="crystalPurchasePriceOD"
+										   name="PurchasePriceOD" placeholder="10.000" required>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<label for="crystalSalePriceOD" class="form-label">
+									Precio Venta<span class="text-danger">*</span>
+								</label>
+								<div class="input-group">
+									<input type="text" class="form-control input-guarani" id="crystalSalePriceOD"
+										   name="SalePriceOD" placeholder="10.000" required>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="row g-3 mt-3">
-				<div class="col-md-12">
-					<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Izquierdo (OI)</h6>
-					<div class="row">
-						<div class="col-md-12">
-							<label for="description-OI" class="form-label">
-								Descripción
-							</label>
-							<textarea class="form-control" id="description-OI" name="DescriptionOI" rows="3"
-									  placeholder="Descripción del cristal"></textarea>
-						</div>
+				<!-- CRISTAL OJO IZQUIERDO (OI) -->
+				<div class="row g-3 mt-3" id="oiSection">
+					<div class="col-md-12">
+						<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Izquierdo (OI)</h6>
+						<div class="row">
 
-						<div class="col-md-6">
-							<label for="crystalPurchasePriceOI" class="form-label">
-								Precio Compra<span class="text-danger">*</span>
-							</label>
-							<div class="input-group">
-								<input type="text" class="form-control input-guarani" id="crystalPurchasePriceOI"
-									   name="PurchasePriceOI" placeholder="10.000" required>
+							<div class="col-md-6">
+								<label for="name-OI" class="form-label">
+									Nombre del cristal
+								</label>
+								<input type="text" class="form-control" id="name-OI" name="NameOI"
+									   placeholder="Nombre del cristal" />
 							</div>
-						</div>
 
-						<div class="col-md-6">
-							<label for="crystalSalePriceOI" class="form-label">
-								Precio Venta<span class="text-danger">*</span>
-							</label>
-							<div class="input-group">
-								<input type="text" class="form-control input-guarani" id="crystalSalePriceOI"
-									   name="SalePriceOI" placeholder="10.000" required>
+							<div class="col-md-6">
+								<label for="description-OI" class="form-label">
+									Descripción
+								</label>
+								<input type="text" class="form-control" id="description-OI" name="DescriptionOI"
+									   placeholder="Descripción del cristal" />
 							</div>
-						</div>
 
+							<div class="col-md-6">
+								<label for="crystalPurchasePriceOI" class="form-label">
+									Precio Compra<span class="text-danger">*</span>
+								</label>
+								<div class="input-group">
+									<input type="text" class="form-control input-guarani" id="crystalPurchasePriceOI"
+										   name="PurchasePriceOI" placeholder="10.000" required>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<label for="crystalSalePriceOI" class="form-label">
+									Precio Venta<span class="text-danger">*</span>
+								</label>
+								<div class="input-group">
+									<input type="text" class="form-control input-guarani" id="crystalSalePriceOI"
+										   name="SalePriceOI" placeholder="10.000" required>
+								</div>
+							</div>
+
+						</div>
 					</div>
 				</div>
-			</div>
-		</form>
-	</div>
-</section>
+			</form>
+		</div>
+	</section>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const sameCrystalCheckbox = document.getElementById('sameCrystalBoth');
+			const oiSection = document.getElementById('oiSection');
+
+			// Campos a sincronizar
+			const fieldsToSync = [
+				{ od: 'name-OD', oi: 'name-OI' },
+				{ od: 'description-OD', oi: 'description-OI' },
+				{ od: 'crystalPurchasePriceOD', oi: 'crystalPurchasePriceOI' },
+				{ od: 'crystalSalePriceOD', oi: 'crystalSalePriceOI' }
+			];
+
+			// Función para sincronizar campos
+			function syncFields() {
+				fieldsToSync.forEach(pair => {
+					const odField = document.getElementById(pair.od);
+					const oiField = document.getElementById(pair.oi);
+					oiField.value = odField.value;
+				});
+			}
+
+			// Función para deshabilitar/habilitar campos OI
+			function toggleOIFields(disabled) {
+				fieldsToSync.forEach(pair => {
+					const oiField = document.getElementById(pair.oi);
+					oiField.disabled = disabled;
+
+					// Cambiar apariencia visual
+					if (disabled) {
+						oiField.classList.add('bg-light');
+					} else {
+						oiField.classList.remove('bg-light');
+					}
+				});
+
+				// Cambiar apariencia del section
+				if (disabled) {
+					oiSection.classList.add('opacity-50');
+				} else {
+					oiSection.classList.remove('opacity-50');
+				}
+			}
+
+			// Event listener para el checkbox
+			sameCrystalCheckbox.addEventListener('change', function () {
+				if (this.checked) {
+					// Sincronizar y deshabilitar
+					syncFields();
+					toggleOIFields(true);
+				} else {
+					// Solo habilitar
+					toggleOIFields(false);
+				}
+			});
+
+			// Sincronizar en tiempo real mientras esté marcado
+			fieldsToSync.forEach(pair => {
+				const odField = document.getElementById(pair.od);
+				odField.addEventListener('input', function () {
+					if (sameCrystalCheckbox.checked) {
+						const oiField = document.getElementById(pair.oi);
+						oiField.value = this.value;
+					}
+				});
+			});
+		});
+	</script>
+
+	<style>
+		.opacity-50 {
+			opacity: 0.5;
+			pointer-events: none;
+		}
+	</style>

@@ -17,7 +17,6 @@ const handlerCrystalForm = () => {
         }
 
         state.order.crystal = getCrystalData();
-        console.log('Crystal form data:', state.order.crystal);
     });
 };
 
@@ -31,11 +30,13 @@ const getValue = (name) => {
 export const getCrystalData = () => {
 
     return {
+		NameOD: getValue('NameOD'),
         DescriptionOD: getValue('DescriptionOD'),
-        PurchasePriceOD: getValue('PurchasePriceOD'),
-        SalePriceOD: getValue('SalePriceOD'),
+        PurchasePriceOD: guaraniStringANumero(getValue('PurchasePriceOD')),
+        SalePriceOD: guaraniStringANumero(getValue('SalePriceOD')),
+		NameOI: getValue('NameOI'),
         DescriptionOI: getValue('DescriptionOI'),
-        PurchasePriceOI: getValue('PurchasePriceOI'),
-        SalePriceOI: getValue('SalePriceOI')
+        PurchasePriceOI: guaraniStringANumero(getValue('PurchasePriceOI')),
+        SalePriceOI: guaraniStringANumero(getValue('SalePriceOI'))
     };
 };

@@ -17,10 +17,6 @@ namespace LovatoOpticalApp.Core.Entities
         // Orden de trabajo enviada al laboratorio para fabricar los cristales
         public CrystalOrderWork CrystalOrderWork { get; set; }
 
-        // Estuche dedicado (obligatorio según el diagrama)
-        [NotMapped]
-        public Accessory GlassesCase { get; set; }
-
         // Accesorios opcionales (goma, hilo, paño, etc.)
         [NotMapped]
         public List<Accessory> Accessories { get; set; } = new();
@@ -32,11 +28,9 @@ namespace LovatoOpticalApp.Core.Entities
         [NotMapped]
         public decimal CrystalPrice => (CrystalLeft?.SalePrice ?? 0) + (CrystalRight?.SalePrice ?? 0);
         [NotMapped]
-        public decimal GlassesCasePrice => GlassesCase?.SalePrice ?? 0;
-        [NotMapped]
         public decimal AccessoriesPrice => Accessories.Sum(a => a.SalePrice);
         [NotMapped]
-        public decimal TotalPrice => FramePrice + CrystalPrice + GlassesCasePrice + AccessoriesPrice;
+        public decimal TotalPrice => FramePrice + CrystalPrice + AccessoriesPrice;
 
         public (bool IsValid, List<string> Errors) Validate()
         {
@@ -50,9 +44,6 @@ namespace LovatoOpticalApp.Core.Entities
 
             if (CrystalLeft == null && CrystalRight == null)
                 errors.Add("Se requiere al menos un cristal.");
-
-            if (GlassesCase == null)
-                errors.Add("El estuche es obligatorio.");
 
             return (!errors.Any(), errors);
         }
