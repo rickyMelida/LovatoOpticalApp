@@ -1,4 +1,5 @@
 ﻿import { state } from './Order.State.js';
+import { guaraniStringANumero } from '../Helper/Helper.js'
 
 const handlerCrystalForm = () => {
     const form = document.getElementById('crystalForm');
