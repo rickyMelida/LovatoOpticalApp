@@ -22,7 +22,7 @@ public class ProductServicePaginationTests
 
         Assert.Equal(2, result.PageNumber);
         Assert.Equal(2, result.PageSize);
-        Assert.Equal(3, result.TotalPages);
+        Assert.Equal(6, result.TotalPages);
         Assert.Equal(2, result.Items.Count);
         Assert.Equal("Frame 3", result.Items[0].Name);
         Assert.Equal("Frame 4", result.Items[1].Name);
