@@ -13,12 +13,12 @@ namespace LovatoOpticalApp.Controllers
         {
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 10)
         {
 			var paginationParams = new PaginationParams
 			{
-				PageNumber = 1,
-				PageSize = 10
+				PageNumber = pageNumber > 0 ? pageNumber : 1,
+				PageSize = pageSize > 0 ? pageSize : 10
 			};
 
 			var result = await _productService.GetProducts(paginationParams);
@@ -43,9 +43,13 @@ namespace LovatoOpticalApp.Controllers
 		}
 
         [HttpGet]
-        public async Task<IActionResult> SearchCatalog(string query)
+        public async Task<IActionResult> SearchCatalog(string query, int pageNumber = 1, int pageSize = 10)
         {
-            var parameters = new PaginationParams { PageNumber = 1, PageSize = 10 };
+            var parameters = new PaginationParams
+            {
+                PageNumber = pageNumber > 0 ? pageNumber : 1,
+                PageSize = pageSize > 0 ? pageSize : 10
+            };
 
             var products = String.IsNullOrEmpty(query)
                     ? await _productService.GetProducts(parameters)

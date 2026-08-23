@@ -13,13 +13,13 @@ namespace LovatoOpticalApp.Controllers
             _productService = productService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 10)
         {
             var paginationParams = new PaginationParams
-            {
-                PageNumber = 1,
-                PageSize = 10
-            };
+			{
+				PageNumber = pageNumber > 0 ? pageNumber : 1,
+				PageSize = pageSize > 0 ? pageSize : 10
+			};
 
             var result = await _productService.GetProducts(paginationParams);
             ViewData["Products"] = result;

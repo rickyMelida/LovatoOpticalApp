@@ -22,7 +22,7 @@ public class ProductServicePaginationTests
 
         Assert.Equal(2, result.PageNumber);
         Assert.Equal(2, result.PageSize);
-        Assert.Equal(3, result.TotalPages);
+        Assert.Equal(6, result.TotalPages);
         Assert.Equal(2, result.Items.Count);
         Assert.Equal("Frame 3", result.Items[0].Name);
         Assert.Equal("Frame 4", result.Items[1].Name);
@@ -40,7 +40,14 @@ public class ProductServicePaginationTests
                 CreateFrameDto("Frame 2"),
                 CreateFrameDto("Frame 3"),
                 CreateFrameDto("Frame 4"),
-                CreateFrameDto("Frame 5")
+                CreateFrameDto("Frame 5"),
+                CreateFrameDto("Frame 6"),
+                CreateFrameDto("Frame 7"),
+                CreateFrameDto("Frame 8"),
+                CreateFrameDto("Frame 9"),
+                CreateFrameDto("Frame 10"),
+                CreateFrameDto("Frame 11"),
+                CreateFrameDto("Frame 12")
             };
 
             return Task.FromResult(frames);

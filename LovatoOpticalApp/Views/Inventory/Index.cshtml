@@ -6,7 +6,7 @@
     var products = ViewData["Products"] as PagedResult<ProductResponse>
         ?? new PagedResult<ProductResponse>();
 
-    int numberOfFramesAvailable = products.Items.Where(e => e.Type == ProductTypeEnum.Frame).Sum(p => p.Quantity);
+    int numberOfFramesAvailable = products.TotalCount;
     int numberOfCrystalsAvailable = products.Items.Where(e => e.Type == ProductTypeEnum.Crystal).Sum(p => p.Quantity);
     int numberOfAccessoriesAvailable = products.Items.Where(e => e.Type == ProductTypeEnum.Accessory).Sum(p => p.Quantity);
 
@@ -56,7 +56,7 @@
 
 
 <div class="row mt-3 mb-2">
-    <h6>Cantidad de Productos <span class="badge text-bg-primary">@products.Items.Count</span></h6>
+    <h6>Cantidad de Productos <span class="badge text-bg-primary">@products.TotalCount</span></h6>
 </div>
 
 @if (products.Items.Count == 0)

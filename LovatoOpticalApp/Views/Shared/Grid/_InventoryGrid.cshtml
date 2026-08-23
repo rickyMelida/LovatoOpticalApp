@@ -5,7 +5,7 @@
 
 @{
     var products = ViewData["Products"] as PagedResult<ProductResponse> ?? new PagedResult<ProductResponse>();
-    int index = 1;
+    var startIndex = ((products.PageNumber - 1) * products.PageSize) + 1;
 }
 
 <div class="row">
@@ -24,6 +24,9 @@
                     </tr>
                 </thead>
                 <tbody>
+					@{
+						var rowIndex = 0;
+					}
                     @foreach (var product in products.Items)
                     {
                         string currentState = product.Quantity switch
@@ -33,8 +36,10 @@
                             _ => "<span class='text-success'>Con Stock</span>"
                         };
 
+						var displayIndex = startIndex + rowIndex;
+
                         <tr>
-                            <th scope="row">@index</th>
+                            <th scope="row">@displayIndex</th>
                             
                             <td>@product.Name</td>
                             <td>@ProductHelper.ConvertNumberToGuaraniCurrency(product.SalePrice)</td>
@@ -59,14 +64,14 @@
                             </td>
                         </tr>
 
-                        index++;
+                        rowIndex++;
                     }
                     
                 </tbody>
             </table>
         </div>
     </div>
-    @if (products.Items.Count > 10)
+    @if (products.TotalCount > 10)
     {
         <div class="col-md-12">
             <nav aria-label="Page navigation">
