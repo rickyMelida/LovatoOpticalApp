@@ -15,10 +15,6 @@ namespace LovatoOpticalApp.Controllers
 			_accessoryService = accessoryService;
 		}
 
-		public AccessoryController(IFrameService frameService, IProductService productService) : base(frameService, productService)
-		{
-		}
-
 		[HttpGet]
 		public async Task<IActionResult> GetAccessories()
 		{

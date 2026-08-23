@@ -40,7 +40,14 @@ public class ProductServicePaginationTests
                 CreateFrameDto("Frame 2"),
                 CreateFrameDto("Frame 3"),
                 CreateFrameDto("Frame 4"),
-                CreateFrameDto("Frame 5")
+                CreateFrameDto("Frame 5"),
+                CreateFrameDto("Frame 6"),
+                CreateFrameDto("Frame 7"),
+                CreateFrameDto("Frame 8"),
+                CreateFrameDto("Frame 9"),
+                CreateFrameDto("Frame 10"),
+                CreateFrameDto("Frame 11"),
+                CreateFrameDto("Frame 12")
             };
 
             return Task.FromResult(frames);

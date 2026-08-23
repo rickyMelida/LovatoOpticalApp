@@ -4,9 +4,10 @@
 
 @{
 	var products = ViewData["Products"] as PagedResult<ProductResponse> ?? new PagedResult<ProductResponse>();
-	int index = 1;
+	var startIndex = ((products.PageNumber - 1) * products.PageSize) + 1;
 }
 
+<input type="hidden" id="data-amount" data-amount="@products.TotalCount">
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive">
@@ -25,10 +26,14 @@
                     </tr>
                 </thead>
                 <tbody>
+					@{
+						var rowIndex = 0;
+					}
 					@foreach(var product in products.Items)
 					{
+						var displayIndex = startIndex + rowIndex;
 						<tr>
-							<th scope="row">@index</th>
+							<th scope="row">@displayIndex</th>
 							<td>@product.Name</td>
 							<td>@ProductHelper.ConvertNumberToGuaraniCurrency(product.PurchasePrice)</td>
 							<td>@ProductHelper.ConvertNumberToGuaraniCurrency(product.SalePrice)</td>
@@ -49,13 +54,13 @@
 							</td>
 						</tr>
 
-						index++;
+						rowIndex++;
 					}
                 </tbody>
             </table>
         </div>
     </div>
-	@if(products.Items.Count > 10)
+	@if(products.TotalCount > 10)
 	{
 		<div class="col-md-12">
 			<nav aria-label="Page navigation">

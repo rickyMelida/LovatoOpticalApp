@@ -4,21 +4,52 @@ import { formatToGuarani } from "../Helper/Helper.js";
 import { getProductDetails, showEditProductModal } from "./Catalog.Rules.js"
 import { showModal } from "../Common/ModalEvents.js"
 
+const catalogSearchState = {
+	query: '',
+	pageNumber: 1,
+	pageSize: 10
+};
+
+let debounceTimer = null;
+
 export const handlerGridModal = () => {
 	const inputCatalogSearch = document.getElementById('inputCatalogSearch');
 
+	if (!inputCatalogSearch) return;
+
+	inputCatalogSearch.value = catalogSearchState.query;
+
 	inputCatalogSearch.addEventListener('input', async () => {
 		const query = inputCatalogSearch.value.trim();
-		let debounceTimer;
+		catalogSearchState.query = query;
+		catalogSearchState.pageNumber = 1;
+
 		clearTimeout(debounceTimer);
-
-
 		debounceTimer = setTimeout(() => {
-			searchCatalogAsync(query);
+			searchCatalogAsync(query, catalogSearchState.pageNumber, catalogSearchState.pageSize);
 		}, 500);
 	});
 
-	attachGridEvents()
+	bindCatalogPagination();
+	attachGridEvents();
+}
+
+const bindCatalogPagination = () => {
+	const pageLinks = document.querySelectorAll('#catalogGridContainer .page-link');
+
+	pageLinks.forEach(link => {
+		link.addEventListener('click', (event) => {
+			event.preventDefault();
+
+			const url = new URL(link.href, window.location.origin);
+			const pageNumber = Number(url.searchParams.get('pageNumber')) || 1;
+			const pageSize = Number(url.searchParams.get('pageSize')) || 10;
+
+			catalogSearchState.pageNumber = pageNumber;
+			catalogSearchState.pageSize = pageSize;
+			searchCatalogAsync(catalogSearchState.query, pageNumber, pageSize);
+		});
+	});
 }
 
 
@@ -156,12 +187,18 @@ const renderAccessoryDetails = (accessoryDetails) => {
 
 }
 
-const searchCatalogAsync = async (query) => {
+const searchCatalogAsync = async (query, pageNumber = 1, pageSize = 10) => {
 	try {
-		const response = await fetch(`/Catalog/SearchCatalog?query=${query}`);
+		const response = await fetch(`/Catalog/SearchCatalog?query=${encodeURIComponent(query)}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
 		if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 		const html = await response.text();
 		document.getElementById('catalogGridContainer').innerHTML = html;
+
+		const dataAmount = document.getElementById('data-amount');
+		const totalResult = dataAmount.getAttribute('data-amount')
+		const totalResultLabel = document.getElementById('amount-of-product');
+		totalResultLabel.innerHTML = totalResult;
+
 		handlerGridModal();
 	} catch (error) {
 		console.error('Error buscando productos:', error);

@@ -1,7 +1,5 @@
 ﻿using LovatoOpticalApp.Application.DTOs;
-using LovatoOpticalApp.Application.DTOs.Common;
 using LovatoOpticalApp.Application.Interfaces;
-using LovatoOpticalApp.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LovatoOpticalApp.Controllers
@@ -14,11 +12,15 @@ namespace LovatoOpticalApp.Controllers
         {
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 10)
         {
-            var parameters = new PaginationParams { PageNumber = 1, PageSize = 10 };
+            var paginationParams = new PaginationParams
+			{
+				PageNumber = pageNumber > 0 ? pageNumber : 1,
+				PageSize = pageSize > 0 ? pageSize : 10
+			};
 
-            var customers = await _customerService.GetCustomers(parameters);
+            var customers = await _customerService.GetCustomers(paginationParams);
             ViewData["customers"] = customers;
 
             return View();
