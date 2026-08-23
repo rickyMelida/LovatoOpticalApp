@@ -1,0 +1,64 @@
+<section class="row justify-content-center panel" id="panel-2">
+	<div class="col-lg-9">
+		<div class="card shadow-sm border-0">
+			<div class="card-header bg-white">
+				<h2 class="h5 mb-1">Receta Óptica</h2>
+				<p class="text-muted small mb-0">
+					Usa una receta vigente o registra una nueva para esta orden.
+				</p>
+			</div>
+
+			<div class="card-body">
+				<div class="row g-3">
+					<div class="col-md-6">
+						<div class="card choice-card h-100" id="cardRecetaExistente"
+							 onclick="setPrescriptionMode('existing')">
+							<div class="card-body">
+								<i class="bi bi-clipboard2-pulse text-primary mb-2"></i>
+								<h3 class="h6">Usar receta vigente</h3>
+								<p class="text-muted small mb-0">
+									Buscar la última receta registrada del paciente.
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="card choice-card h-100" id="cardRecetaNueva" onclick="setPrescriptionMode('new')">
+							<div class="card-body">
+								<i class="bi bi-pencil-square text-primary mb-2"></i>
+								<h3 class="h6">Cargar receta nueva</h3>
+								<p class="text-muted small mb-0">
+									Ingresar valores OD / OI manualmente.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="bloqueRecetaExistente" class="mt-3 d-none">
+					<button class="btn btn-outline-primary" id="btn-get-vigent-recipe"
+							onclick="fetchCurrentPrescription()">
+						<i class="bi bi-arrow-repeat me-1"></i>
+						Obtener receta vigente
+					</button>
+
+					<div class="alert mt-3 d-none" id="recetaVigenteCard"></div>
+				</div>
+
+				<div id="bloqueRecetaNueva" class="mt-3 d-none">
+					<hr>
+					<form id="createRecipe">
+						@await Html.PartialAsync("Forms/_NewRecipe")
+
+						<button type="button" class="btn btn-primary mt-3" id="btnCreateRecipe"
+								onclick="createPrescription()">
+							<i class="bi bi-check-lg me-1"></i>
+							Guardar receta
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

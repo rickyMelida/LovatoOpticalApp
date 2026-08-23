@@ -7,6 +7,7 @@ namespace LovatoOpticalApp.Application.Interfaces
 	{
 		Task<List<AccesoryResponseDto>> GetAllAccessories();
 		Task<AccesoryResponseDto> GetAccessoryById(Guid id);
+		Task<List<AccesoryResponseDto>> SearchAccessory(string searchTerm);
 		Task<ApiServiceResponse> CreateAccessory(AccessoryRequestDto accessoryDto);
 		Task<ApiServiceResponse> UpdateAccessory(AccessoryRequestDto accessoryDto);
 		Task<ApiServiceResponse> DeleteAccessory(Guid id);

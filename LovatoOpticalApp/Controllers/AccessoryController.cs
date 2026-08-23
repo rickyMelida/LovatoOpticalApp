@@ -24,6 +24,20 @@ namespace LovatoOpticalApp.Controllers
 		}
 
 		[HttpGet]
+		public async Task<ActionResult<List<AccesoryResponseDto>>> SearchAccessory(string searchTerm)
+		{
+			if (string.IsNullOrWhiteSpace(searchTerm))
+				return BadRequest("El término de búsqueda no puede estar vacío.");
+
+			var accessory = await _accessoryService.SearchAccessory(searchTerm);
+
+			if (accessory == null)
+				return NotFound("Accesorio no encontrado.");
+
+			return Ok(accessory);
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> GetAccessoryById(string id)
 		{
 			if (!Guid.TryParse(id, out Guid guidId))

@@ -37,12 +37,6 @@ namespace LovatoOpticalApp.Core.Entities
             return this;
         }
 
-        public OrderBuilder WithGlassesCase(Accessory glassesCase)
-        {
-            _order.GlassesCase = glassesCase;
-            return this;
-        }
-
         public OrderBuilder AddAccessory(Accessory accessory)
         {
             _order.Accessories.Add(accessory);

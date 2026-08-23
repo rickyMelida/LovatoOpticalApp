@@ -17,10 +17,6 @@ namespace LovatoOpticalApp.Core.Entities
         // Orden de trabajo enviada al laboratorio para fabricar los cristales
         public CrystalOrderWork CrystalOrderWork { get; set; }
 
-        // Estuche dedicado (obligatorio según el diagrama)
-        [NotMapped]
-        public Accessory GlassesCase { get; set; }
-
         // Accesorios opcionales (goma, hilo, paño, etc.)
         [NotMapped]
         public List<Accessory> Accessories { get; set; } = new();
@@ -30,13 +26,11 @@ namespace LovatoOpticalApp.Core.Entities
         [NotMapped]
         public decimal FramePrice => Frame?.SalePrice ?? 0;
         [NotMapped]
-        public decimal CrystalPrice => (CrystalLeft?.TotalPrice ?? 0) + (CrystalRight?.TotalPrice ?? 0);
-        [NotMapped]
-        public decimal GlassesCasePrice => GlassesCase?.SalePrice ?? 0;
+        public decimal CrystalPrice => (CrystalLeft?.SalePrice ?? 0) + (CrystalRight?.SalePrice ?? 0);
         [NotMapped]
         public decimal AccessoriesPrice => Accessories.Sum(a => a.SalePrice);
         [NotMapped]
-        public decimal TotalPrice => FramePrice + CrystalPrice + GlassesCasePrice + AccessoriesPrice;
+        public decimal TotalPrice => FramePrice + CrystalPrice + AccessoriesPrice;
 
         public (bool IsValid, List<string> Errors) Validate()
         {
@@ -50,9 +44,6 @@ namespace LovatoOpticalApp.Core.Entities
 
             if (CrystalLeft == null && CrystalRight == null)
                 errors.Add("Se requiere al menos un cristal.");
-
-            if (GlassesCase == null)
-                errors.Add("El estuche es obligatorio.");
 
             return (!errors.Any(), errors);
         }
@@ -96,23 +87,7 @@ namespace LovatoOpticalApp.Core.Entities
                 CrystalLeft    = CrystalLeft,
             };
 
-            // Pre-llenado desde prescripción del ojo derecho
-            if (CrystalRight?.Prescription is { } pr)
-            {
-                work.OD_ESF  = pr.Sphere.ToString("+0.00;-0.00");
-                work.OD_CIL  = pr.Cylinder.ToString("+0.00;-0.00");
-                work.OD_AXIS = pr.Axis.ToString();
-                work.OD_ADD  = pr.Addition?.ToString("+0.00;-0.00") ?? string.Empty;
-            }
-
-            // Pre-llenado desde prescripción del ojo izquierdo
-            if (CrystalLeft?.Prescription is { } pl)
-            {
-                work.OI_ESF  = pl.Sphere.ToString("+0.00;-0.00");
-                work.OI_CIL  = pl.Cylinder.ToString("+0.00;-0.00");
-                work.OI_AXIS = pl.Axis.ToString();
-                work.OI_ADD  = pl.Addition?.ToString("+0.00;-0.00") ?? string.Empty;
-            }
+            
 
             CrystalOrderWork = work;
             return work;

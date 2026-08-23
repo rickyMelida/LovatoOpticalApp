@@ -50,6 +50,19 @@ namespace LovatoOpticalApp.Application.Services
 			return _mapper.Map<List<AccesoryResponseDto>>(accessories);
 		}
 
+		public async Task<List<AccesoryResponseDto>> SearchAccessory(string searchTerm)
+		{
+			var accessories = await _repository.GetAllAsync();
+			var accessory = accessories.Where(a =>
+				a.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+				(a.Description != null && a.Description.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))).ToList();
+
+			if (accessory == null)
+				return null;
+
+			return _mapper.Map<List<AccesoryResponseDto>>(accessory);
+		}
+
 		public async Task<ApiServiceResponse> UpdateAccessory(AccessoryRequestDto accessoryDto)
 		{
 			var accessory = await _repository.GetByIdAsync(accessoryDto.Id);

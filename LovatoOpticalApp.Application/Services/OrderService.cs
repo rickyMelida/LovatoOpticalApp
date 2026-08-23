@@ -38,20 +38,10 @@ namespace LovatoOpticalApp.Application.Services
             var frame = await _frameRepository.GetByIdAsync(request.FrameId)
                 ?? throw new KeyNotFoundException($"Armazón {request.FrameId} no encontrado.");
 
-            var glassesCase = await _glassesCaseRepository.GetByIdAsync(request.GlassesCaseId)
-                ?? throw new KeyNotFoundException($"Estuche {request.GlassesCaseId} no encontrado.");
 
             // 2. Recuperar cristales (opcionales por ojo)
             Crystal? crystalRight = null;
             Crystal? crystalLeft  = null;
-
-            if (request.CrystalRightId.HasValue)
-                crystalRight = await _crystalRepository.GetByIdAsync(request.CrystalRightId.Value)
-                    ?? throw new KeyNotFoundException($"Cristal derecho {request.CrystalRightId} no encontrado.");
-
-            if (request.CrystalLeftId.HasValue)
-                crystalLeft = await _crystalRepository.GetByIdAsync(request.CrystalLeftId.Value)
-                    ?? throw new KeyNotFoundException($"Cristal izquierdo {request.CrystalLeftId} no encontrado.");
 
             // 3. Construir la Order con las reglas del dominio
             var order = new OrderBuilder()
@@ -59,7 +49,6 @@ namespace LovatoOpticalApp.Application.Services
                 .WithFrame(frame)
                 .WithRightCrystal(crystalRight!)
                 .WithLeftCrystal(crystalLeft!)
-                .WithGlassesCase(glassesCase)
                 .WithObservations(request.Observations ?? string.Empty)
                 .Build();
 

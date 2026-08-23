@@ -1,0 +1,330 @@
+<section class="row justify-content-center panel" id="panel-5">
+	<div class="col-lg-9">
+		<h5 class="mb-4">Accesorios Ópticos</h5>
+
+		<!-- Selector de accesorios con búsqueda -->
+		<div class="row g-3 mb-4">
+			<div class="col-md-8">
+				<label for="accessorySearch" class="form-label">
+					Buscar Accesorio
+				</label>
+				<div class="position-relative">
+					<input type="text" class="form-control" id="accessorySearch"
+						   placeholder="Escribe para buscar accesorios..." autocomplete="off">
+					<small class="text-muted d-block mt-1">Busca por nombre o categoría</small>
+
+					<!-- Dropdown de resultados -->
+					<div class="list-group position-absolute w-100 mt-1" id="accessorySuggestions"
+						 style="display: none; z-index: 1000; max-height: 300px; overflow-y: auto;">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 d-flex align-items-center">
+				<button type="button" class="btn btn-primary w-100" id="addAccessoryBtn" disabled>
+					<i class="fas fa-plus"></i> Agregar Accesorio
+				</button>
+			</div>
+		</div>
+
+		<!-- Tabla de accesorios seleccionados -->
+		<div class="row g-3">
+			<div class="col-md-12">
+				<h6 class="text-muted text-uppercase small mb-3">Accesorios Agregados</h6>
+
+				<div class="table-responsive">
+					<table class="table table-hover" id="accessoriesTable">
+						<thead class="table-light">
+							<tr>
+								<th style="width: 50%">Accesorio</th>
+								<th class="text-end" style="width: 25%">Precio Unit.</th>
+								<th class="text-center" style="width: 15%">Cantidad</th>
+								<th class="text-end" style="width: 10%">Acción</th>
+							</tr>
+						</thead>
+						<tbody id="accessoriesTableBody">
+							<!-- Se llenarán dinámicamente los accesorios -->
+						</tbody>
+					</table>
+				</div>
+
+				<!-- Resumen de precios -->
+				<div class="row g-3 mt-3">
+					<div class="col-md-12">
+						<div class="card bg-light">
+							<div class="card-body">
+								<div class="row text-end">
+									<div class="col-md-6">
+										<p class="mb-0">Subtotal Accesorios:</p>
+									</div>
+									<div class="col-md-6">
+										<p class="mb-0 fw-bold" id="subtotalAccessories">$0</p>
+									</div>
+								</div>
+								<hr class="my-2">
+								<div class="row text-end">
+									<div class="col-md-6">
+										<p class="mb-0 h5">Total Accesorios:</p>
+									</div>
+									<div class="col-md-6">
+										<p class="mb-0 h5 text-primary fw-bold" id="totalAccessories">$0</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	console.log('Cargando módulo de accesorios...');
+	/*
+	document.addEventListener('DOMContentLoaded', function () {
+		let selectedAccessories = {};
+		let accessoryCounter = 0;
+		let selectedAccessoryFromSearch = null;
+		let debounceTimer = null;
+
+		
+		const searchInput = document.getElementById('accessorySearch');
+		const suggestionsList = document.getElementById('accessorySuggestions');
+		const addAccessoryBtn = document.getElementById('addAccessoryBtn');
+		const accessoriesTableBody = document.getElementById('accessoriesTableBody');
+
+		async function searchAccessories(query) {
+			if (!query || query.trim().length < 2)
+				return [];
+
+			const searchTerm = query.toLowerCase();
+			const result = await fetch(`/Catalog/SearchAccessory?searchTerm=${encodeURIComponent(query)}`);
+			const results = await result.json();
+
+			return results;
+		}
+
+		searchInput.addEventListener('input', function (e) {
+			const query = e.target.value.trim();
+
+			clearTimeout(debounceTimer);
+
+			if (!query) {
+				suggestionsList.style.display = 'none';
+				selectedAccessoryFromSearch = null;
+				addAccessoryBtn.disabled = true;
+				return;
+			}
+
+			debounceTimer = setTimeout(async () => {
+				try {
+					const results = await searchAccessories(query);
+					displaySuggestions(results);
+				} catch (error) {
+					console.error('Error en búsqueda:', error);
+					suggestionsList.innerHTML = `
+					<div class="list-group-item text-danger">
+						<small>Error al buscar accesorios</small>
+					</div>
+				`;
+				}
+			}, 300);
+		});
+
+		function displaySuggestions(results) {
+			if (results.length === 0) {
+				suggestionsList.innerHTML = `
+				<div class="list-group-item text-muted">
+					<small>No se encontraron accesorios</small>
+				</div>
+			`;
+				suggestionsList.style.display = 'block';
+				return;
+			}
+
+			suggestionsList.innerHTML = '';
+
+			results.forEach(accessory => {
+				const suggestionItem = document.createElement('button');
+				suggestionItem.type = 'button';
+				suggestionItem.className = 'list-group-item list-group-item-action';
+				suggestionItem.innerHTML = `
+				<div class="d-flex justify-content-between align-items-start">
+					<div>
+						<strong>${accessory.name}</strong>
+						<br>
+						<small class="text-muted">Accesorio</small>
+					</div>
+					<span class="badge bg-primary">Gs.${accessory.salePrice.toLocaleString('es-PY')}</span>
+				</div>
+			`;
+
+				suggestionItem.addEventListener('click', function (e) {
+					e.preventDefault();
+					selectAccessory(accessory);
+				});
+
+				suggestionsList.appendChild(suggestionItem);
+			});
+
+			suggestionsList.style.display = 'block';
+		}
+
+		function selectAccessory(accessory) {
+			selectedAccessoryFromSearch = accessory;
+			searchInput.value = accessory.name;
+			suggestionsList.style.display = 'none';
+			addAccessoryBtn.disabled = false;
+		}
+
+
+		addAccessoryBtn.addEventListener('click', function () {
+			if (!selectedAccessoryFromSearch) {
+				alert('Por favor selecciona un accesorio válido');
+				return;
+			}
+
+			const accessory = selectedAccessoryFromSearch;
+			const uniqueId = `acc-${accessory.id}-${Date.now()}`;
+
+			console.log('Agregando accesorio:', accessory);
+
+			// Verificar si el accesorio ya existe en la lista
+			let existingKey = null;
+			for (let key in selectedAccessories) {
+				if (selectedAccessories[key].id === accessory.id) {
+					existingKey = key;
+					break;
+				}
+			}
+
+			if (existingKey) {
+				// Incrementar cantidad si ya existe
+				selectedAccessories[existingKey].quantity++;
+			} else {
+				// Agregar nuevo accesorio
+				selectedAccessories[uniqueId] = {
+					id: accessory.id,
+					name: accessory.name,
+					price: accessory.salePrice,
+					description: accessory.description,
+					quantity: 1
+				};
+			}
+
+			// Limpiar input y desactivar botón
+			searchInput.value = '';
+			addAccessoryBtn.disabled = true;
+			selectedAccessoryFromSearch = null;
+
+			// Actualizar tabla
+			updateAccessoriesTable();
+		});
+
+		// Permitir agregar con Enter
+		searchInput.addEventListener('keypress', function (e) {
+			if (e.key === 'Enter' && selectedAccessoryFromSearch) {
+				addAccessoryBtn.click();
+			}
+		});
+
+		// Cerrar sugerencias al hacer click afuera
+		document.addEventListener('click', function (e) {
+			if (!e.target.closest('#accessorySearch') && !e.target.closest('#accessorySuggestions')) {
+				suggestionsList.style.display = 'none';
+			}
+		});
+
+		// ========================================
+		// ACTUALIZAR TABLA DE ACCESORIOS
+		// ========================================
+		function updateAccessoriesTable() {
+			accessoriesTableBody.innerHTML = '';
+
+			if (Object.keys(selectedAccessories).length === 0) {
+				accessoriesTableBody.innerHTML = `
+				<tr>
+					<td colspan="4" class="text-center text-muted py-4">
+						No hay accesorios agregados. Busca uno para comenzar.
+					</td>
+				</tr>
+			`;
+				updateTotals();
+				return;
+			}
+
+			for (let key in selectedAccessories) {
+				const item = selectedAccessories[key];
+				console.log('Actualizando tabla con accesorio:', item);
+				const subtotal = item.salePrice * item.quantity;
+
+				const row = document.createElement('tr');
+				row.innerHTML = `
+				<td>
+					<strong>${item.name}</strong>
+					<br>
+					<small class="text-muted">Accesorio</small>
+				</td>
+				<td class="text-end">Gs. ${item.price.toLocaleString('es-PY')}</td>
+				<td>
+					<div class="input-group input-group-sm">
+						<button class="btn btn-outline-secondary" type="button" onclick="window.decreaseQuantity('${key}')">-</button>
+						<input type="text" class="form-control text-center" value="${item.quantity}" readonly style="width: 50px;">
+						<button class="btn btn-outline-secondary" type="button" onclick="window.increaseQuantity('${key}')">+</button>
+					</div>
+				</td>
+				<td class="text-end">
+					<button class="btn btn-sm" onclick="window.removeAccessory('${key}')">
+						<i class="bi bi-trash text-danger"></i>
+					</button>
+				</td>
+			`;
+				accessoriesTableBody.appendChild(row);
+			}
+
+			updateTotals();
+		}
+
+		// ========================================
+		// FUNCIONES GLOBALES
+		// ========================================
+		window.increaseQuantity = function (key) {
+			selectedAccessories[key].quantity++;
+			updateAccessoriesTable();
+		};
+
+		window.decreaseQuantity = function (key) {
+			if (selectedAccessories[key].quantity > 1) {
+				selectedAccessories[key].quantity--;
+			} else {
+				removeAccessory(key);
+				return;
+			}
+			updateAccessoriesTable();
+		};
+
+		window.removeAccessory = function (key) {
+			delete selectedAccessories[key];
+			updateAccessoriesTable();
+		};
+
+		// ========================================
+		// ACTUALIZAR TOTALES
+		// ========================================
+		function updateTotals() {
+			let total = 0;
+
+			for (let key in selectedAccessories) {
+				const item = selectedAccessories[key];
+				total += item.price * item.quantity;
+			}
+
+			document.getElementById('subtotalAccessories').textContent = `Gs. ${total.toLocaleString('es-PY')}`;
+			document.getElementById('totalAccessories').textContent = `Gs. ${total.toLocaleString('es-PY')}`;
+		}
+
+		// Inicializar tabla vacía
+		updateAccessoriesTable();
+	});
+	*/
+</script>

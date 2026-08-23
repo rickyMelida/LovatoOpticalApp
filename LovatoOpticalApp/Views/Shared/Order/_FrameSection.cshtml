@@ -1,0 +1,55 @@
+<section class="row justify-content-center panel" id="panel-3">
+	<div class="col-lg-9">
+		<div class="card shadow-sm border-0">
+			<div class="card-header bg-white">
+				<h2 class="h5 mb-1">Selección de armazón</h2>
+				<p class="text-muted small mb-0">
+					Elige un armazón del inventario o registra que el cliente trae el suyo propio.
+				</p>
+			</div>
+
+			<div class="card-body">
+				<div class="row g-3">
+					<div class="col-md-6">
+						<div class="card choice-card h-100" id="cardArmazonInventario"
+							 onclick="setFrameMode('inventory')">
+							<div class="card-body">
+								<i class="bi bi-boxes text-primary mb-2"></i>
+								<h3 class="h6">Armazón de inventario</h3>
+								<p class="text-muted small mb-0">
+									Seleccionar desde el catálogo disponible.
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="card choice-card h-100" id="cardArmazonPropio" onclick="setFrameMode('own')">
+							<div class="card-body">
+								<i class="bi bi-eyeglasses text-primary mb-2"></i>
+								<h3 class="h6">Armazón propio del cliente</h3>
+								<p class="text-muted small mb-0">
+									El cliente ya trae su montura.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="bloqueArmazonInventario" class="mt-3 d-none">
+					<label class="form-label">Armazón</label>
+					<select class="form-select" id="armazonSelect" onchange="selectFrame()">
+						<option value="">Selecciona un armazón...</option>
+					</select>
+
+					<div class="alert mt-3 d-none" id="armazonInfoCard"></div>
+				</div>
+
+				<div id="bloqueArmazonPropio" class="alert alert-success mt-3 d-none">
+					<i class="bi bi-check-circle me-1"></i>
+					Se registraró como <strong>armazón propio del cliente</strong>, sin descuento de stock.
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

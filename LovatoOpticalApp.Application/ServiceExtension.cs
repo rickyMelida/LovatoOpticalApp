@@ -40,6 +40,7 @@ namespace LovatoOpticalApp.Application
 				cfg.AddProfile<FrameProfile>();
 				cfg.AddProfile<ProductProfile>();
 				cfg.AddProfile<AccessoryProfile>();
+				cfg.AddProfile<CrystalMappingProfile>();
 			});
 		}
 	}

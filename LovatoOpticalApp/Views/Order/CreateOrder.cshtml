@@ -24,7 +24,7 @@
         <div class="col-lg-9">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between text-center overflow-auto gap-3" id="stepper">
+                    <div class="d-flex justify-content-between text-center overflow-auto gap-1" id="stepper">
                         <div class="step-item" data-step="1">
                             <span class="badge rounded-circle text-bg-primary step-badge mb-2">1</span>
                             <div class="small fw-semibold">Cliente</div>
@@ -45,8 +45,18 @@
                             <div class="small fw-semibold text-muted">Cristal</div>
                         </div>
 
-                        <div class="step-item" data-step="5">
+						<div class="step-item" data-step="5">
                             <span class="badge rounded-circle text-bg-secondary step-badge mb-2">5</span>
+                            <div class="small fw-semibold text-muted">Accesorios</div>
+                        </div>
+
+						<div class="step-item" data-step="6">
+                            <span class="badge rounded-circle text-bg-secondary step-badge mb-2">6</span>
+                            <div class="small fw-semibold text-muted">Orden  de trabajo</div>
+                        </div>
+
+                        <div class="step-item" data-step="7">
+                            <span class="badge rounded-circle text-bg-secondary step-badge mb-2">7</span>
                             <div class="small fw-semibold text-muted">Confirmar</div>
                         </div>
                     </div>
@@ -63,279 +73,26 @@
     </div>
 
     <!-- STEP 1 -->
-    <section class="row justify-content-center panel active" id="panel-1">  
-        <div class="col-lg-9">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white">
-                    <h2 class="h5 mb-1">Buscar cliente</h2>
-                    <p class="text-muted small mb-0">
-                        Ingresa el documento del paciente para verificar si ya existe en el sistema.
-                    </p>
-                </div>
-
-                <div class="card-body">
-                    <div class="row g-2">
-                        <div class="col-md-8">
-                            <label class="form-label">Documento</label>
-                            <input type="text" class="form-control" id="docInput" placeholder="Ej. 12345678">
-                        </div>
-
-                        <div class="col-md-4 d-grid align-items-end">
-                            <button class="btn btn-outline-primary mt-md-4" id="btn-search" onclick="searchPatient()">
-                                <i class="bi bi-search me-1"></i>
-                                Buscar
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="alert alert-success mt-3 d-none" id="pacienteEncontrado">
-                        <div class="d-flex justify-content-between align-items-start gap-3">
-                            <div>
-                                <strong id="pacNombre"></strong><br>
-                                <span class="small">Documento: <span id="pacDoc"></span></span>
-                            </div>
-                            <span class="badge text-bg-success">Cliente existente</span>
-                        </div>
-                    </div>
-
-                    <div class="alert alert-danger mt-3 d-none" id="pacienteNoEncontrado">
-                        <strong>No se encontró ningún cliente con ese documento.</strong>
-                        <div class="small">Completa los datos para registrarlo.</div>
-                    </div>
-
-                    <div id="formNuevoPaciente" class="mt-3 d-none">
-                        <hr>
-
-                        <h3 class="h6 mb-3">Registrar nuevo cliente</h3>
-
-                        <div class="row g-3">
-                            <form id="newCustomerForm">
-                                @await Html.PartialAsync("Forms/_NewCustomer")
-                            </form>
-                        </div>
-
-                        <button class="btn btn-primary mt-3 float-start" id="btnCreateCustomer" onclick="createPatient()">
-                            <i class="bi bi-person-plus me-1"></i>
-                            Crear cliente
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @await Html.PartialAsync("Order/_CustomerSection")
 
     <!-- STEP 2 -->
-    <section class="row justify-content-center panel" id="panel-2">
-        <div class="col-lg-9">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white">
-                    <h2 class="h5 mb-1">Receta Óptica</h2>
-                    <p class="text-muted small mb-0">
-                        Usa una receta vigente o registra una nueva para esta orden.
-                    </p>
-                </div>
-
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="card choice-card h-100" id="cardRecetaExistente"
-                                 onclick="setPrescriptionMode('existing')">
-                                <div class="card-body">
-                                    <i class="bi bi-clipboard2-pulse text-primary mb-2"></i>
-                                    <h3 class="h6">Usar receta vigente</h3>
-                                    <p class="text-muted small mb-0">
-                                        Buscar la última receta registrada del paciente.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="card choice-card h-100" id="cardRecetaNueva"
-                                 onclick="setPrescriptionMode('new')">
-                                <div class="card-body">
-                                    <i class="bi bi-pencil-square text-primary mb-2"></i>
-                                    <h3 class="h6">Cargar receta nueva</h3>
-                                    <p class="text-muted small mb-0">
-                                        Ingresar valores OD / OI manualmente.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="bloqueRecetaExistente" class="mt-3 d-none">
-                        <button class="btn btn-outline-primary" id="btn-get-vigent-recipe" onclick="fetchCurrentPrescription()">
-                            <i class="bi bi-arrow-repeat me-1"></i>
-                            Obtener receta vigente
-                        </button>
-
-                        <div class="alert mt-3 d-none" id="recetaVigenteCard"></div>
-                    </div>
-
-                    <div id="bloqueRecetaNueva" class="mt-3 d-none">
-                        <hr>
-                        <form id="createRecipe">
-                            @await Html.PartialAsync("Forms/_NewRecipe")
-
-                            <button type="button" class="btn btn-primary mt-3" id="btnCreateRecipe" onclick="createPrescription()">
-                                <i class="bi bi-check-lg me-1"></i>
-                                Guardar receta
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @await Html.PartialAsync("Order/_RecipeSection")
 
     <!-- STEP 3 -->
-    <section class="row justify-content-center panel" id="panel-3">
-        <div class="col-lg-9">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white">
-                    <h2 class="h5 mb-1">Selección de armazón</h2>
-                    <p class="text-muted small mb-0">
-                        Elige un armazón del inventario o registra que el cliente trae el suyo propio.
-                    </p>
-                </div>
-
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="card choice-card h-100" id="cardArmazonInventario"
-                                 onclick="setFrameMode('inventory')">
-                                <div class="card-body">
-                                    <i class="bi bi-boxes text-primary mb-2"></i>
-                                    <h3 class="h6">Armazón de inventario</h3>
-                                    <p class="text-muted small mb-0">
-                                        Seleccionar desde el catálogo disponible.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="card choice-card h-100" id="cardArmazonPropio"
-                                 onclick="setFrameMode('own')">
-                                <div class="card-body">
-                                    <i class="bi bi-eyeglasses text-primary mb-2"></i>
-                                    <h3 class="h6">Armazón propio del cliente</h3>
-                                    <p class="text-muted small mb-0">
-                                        El cliente ya trae su montura.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="bloqueArmazonInventario" class="mt-3 d-none">
-                        <label class="form-label">Armazón</label>
-                        <select class="form-select" id="armazonSelect" onchange="selectFrame()">
-                            <option value="">Selecciona un armazón...</option>
-                        </select>
-
-                        <div class="alert mt-3 d-none" id="armazonInfoCard"></div>
-                    </div>
-
-                    <div id="bloqueArmazonPropio" class="alert alert-success mt-3 d-none">
-                        <i class="bi bi-check-circle me-1"></i>
-                        Se registraró como <strong>armazón propio del cliente</strong>, sin descuento de stock.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    @await Html.PartialAsync("Order/_FrameSection")
 
     <!-- STEP 4 -->
-    <section class="row justify-content-center panel" id="panel-4">
-        <div class="col-lg-9">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white">
-                    <h2 class="h5 mb-1">Cristal y accesorios</h2>
-                    <p class="text-muted small mb-0">
-                        Selecciona el tipo de cristal, accesorios opcionales y anticipo.
-                    </p>
-                </div>
+    @await Html.PartialAsync("Order/_CrystalSection")
 
-                <div class="card-body">
-                    <h3 class="h6">Cristal</h3>
-                    @await Html.PartialAsync("Forms/_CrystalTechnicalInfo")
-                    @await Html.PartialAsync("Templates/_CrystalOrderWork")
-                </div>
-            </div>
-        </div>
-    </section>
+	 <!-- STEP 5 -->
+    @await Html.PartialAsync("Order/_AccessorySection")
 
-    <!-- STEP 5 -->
-    <section class="row justify-content-center panel" id="panel-5">
-        <div class="col-lg-9">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white">
-                    <h2 class="h5 mb-1">Confirmar orden de trabajo</h2>
-                    <p class="text-muted small mb-0">
-                        Revisa el resumen, registra el método de pago y confirma la orden.
-                    </p>
-                </div>
+	<!-- STEP 6 -->
+    @await Html.PartialAsync("Order/_WorkOrderSection")
 
-                <div class="card-body">
-                    <div id="resumenOrden" class="mb-4"></div>
-
-                    <div class="card bg-light border mb-4">
-                        <div class="card-body">
-                            <h3 class="h6 mb-2">
-                                <i class="bi bi-credit-card me-1"></i>
-                                Pago del anticipo
-                            </h3>
-
-                            <p class="text-muted small">
-                                Si se ha dado una entrega, debes seleccionar un método de pago.
-                            </p>
-
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Método de pago</label>
-                                    <select class="form-select" id="metodoPagoSelect"
-                                            onchange="updatePaymentMethod()">
-                                        <option value="">Selecciona un método...</option>
-                                        <option value="cash">Efectivo</option>
-                                        <option value="debit_card">Tarjeta de d�bito</option>
-                                        <option value="credit_card">Tarjeta de crédito</option>
-                                        <option value="transfer">Transferencia bancaria</option>
-                                        <option value="no_deposit">Sin anticipo</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6 d-none" id="referenciaPagoBox">
-                                    <label class="form-label">Referencia / comprobante</label>
-                                    <input type="text" class="form-control" id="referenciaPagoInput"
-                                           placeholder="Ej. voucher, comprobante, transacción"
-                                           oninput="updatePaymentMethod()">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="alert alert-danger d-none" id="errorOrden" role="alert">
-                        <i class="bi bi-exclamation-triangle me-1"></i>
-                        <span id="errorOrdenTexto"></span>
-                    </div>
-
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" id="simularError">
-                        <label class="form-check-label small text-muted" for="simularError">
-                            Simular falla de stock / base de datos demo
-                        </label>
-                    </div>
-
-                    <button class="btn btn-success w-100" onclick="confirmOrder()">
-                        <i class="bi bi-send me-1"></i>
-                        Confirmar orden
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- STEP 7 -->
+    @await Html.PartialAsync("Order/_ConfirmSection")
+    
 
     <!-- NAV ACTIONS -->
     <div class="row justify-content-center mt-4">
