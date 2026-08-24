@@ -1,0 +1,18 @@
+<section class="row justify-content-center panel" id="panel-6">
+	<div class="col-lg-9">
+		<div class="card shadow-sm border-0">
+			<div class="card-header bg-white">
+				<h2 class="h5 mb-1">Cristal y accesorios</h2>
+				<p class="text-muted small mb-0">
+					Selecciona el tipo de cristal, accesorios opcionales y anticipo.
+				</p>
+			</div>
+
+			<div class="card-body">
+				<h3 class="h6">Cristal</h3>
+				@await Html.PartialAsync("Forms/_CrystalTechnicalInfo")
+				@await Html.PartialAsync("Templates/_CrystalOrderWork")
+			</div>
+		</div>
+	</div>
+</section>

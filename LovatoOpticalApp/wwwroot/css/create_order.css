@@ -1,78 +1,111 @@
-﻿.app-brand-icon {
-    width: 28px;
-    height: 28px;
-    border: 3px solid #ffc107;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
+﻿﻿.app-brand-icon {
+	width: 28px;
+	height: 28px;
+	border: 3px solid #ffc107;
+	border-radius: 50%;
+	display: inline-block;
+	position: relative;
 }
 
 .app-brand-icon::after {
-    content: "";
-    width: 10px;
-    height: 3px;
-    background-color: #ffc107;
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translateY(-50%);
+	content: "";
+	width: 10px;
+	height: 3px;
+	background-color: #ffc107;
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	transform: translateY(-50%);
 }
 
 .step-item {
-    min-width: 120px;
+	min-width: 120px;
 }
 
 .step-badge {
-    width: 32px;
-    height: 32px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+	width: 32px;
+	height: 32px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .panel {
-    display: none;
+	display: none;
 }
 
 .panel.active {
-    display: flex;
+	display: flex;
 }
 
 .choice-card {
-    cursor: pointer;
-    transition: border-color .15s ease, box-shadow .15s ease;
+	cursor: pointer;
+	transition: border-color .15s ease, box-shadow .15s ease;
 }
 
 .choice-card:hover {
-    border-color: var(--bs-primary);
+	border-color: var(--bs-primary);
 }
 
 .choice-card.selected {
-    border-color: var(--bs-primary);
-    box-shadow: 0 0 0 .2rem rgba(13, 110, 253, .15);
-    background-color: #f8fbff;
+	border-color: var(--bs-primary);
+	box-shadow: 0 0 0 .2rem rgba(13, 110, 253, .15);
+	background-color: #f8fbff;
 }
 
 .item-selectable {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .item-selectable.selected {
-    border-color: var(--bs-primary);
-    background-color: #f8fbff;
+	border-color: var(--bs-primary);
+	background-color: #f8fbff;
 }
 
 .ticket {
-    max-width: 390px;
-    margin: 0 auto;
-    background-color: #fff;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: .85rem;
-    border-radius: .5rem;
-    padding: 1.5rem;
+	max-width: 390px;
+	margin: 0 auto;
+	background-color: #fff;
+	font-family: 'JetBrains Mono', monospace;
+	font-size: .85rem;
+	border-radius: .5rem;
+	padding: 1.5rem;
 }
 
 .ticket hr {
-    border-top: 1px dashed #adb5bd;
-    opacity: 1;
+	border-top: 1px dashed #adb5bd;
+	opacity: 1;
+}
+
+#accessorySuggestions {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	border: 1px solid #dee2e6;
+}
+
+#accessorySuggestions .list-group-item {
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	padding: 0.75rem 1rem;
+}
+
+#accessorySuggestions .list-group-item:first-child {
+	border-top: none;
+}
+
+#accessorySuggestions .list-group-item:hover {
+	background-color: #f8f9fa;
+}
+
+.input-group-sm {
+	max-width: 120px;
+}
+
+#accessoriesTable tbody tr:hover {
+	background-color: rgba(0, 123, 255, 0.05);
+}
+
+.btn-sm {
+	padding: 0.25rem 0.5rem;
+	font-size: 0.875rem;
 }
