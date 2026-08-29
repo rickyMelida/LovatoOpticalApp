@@ -72,6 +72,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link @(currentController == "OrderWork" ? "active" : "")" asp-area="" asp-controller="OrderWork" asp-action="Index">
+                    <i class="bi bi-clipboard-check"></i>
+                    <span class="link-text">Order de Trabajo</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link @(currentController == "Invoice" ? "active" : "")" asp-area="" asp-controller="Invoice" asp-action="Index">
                     <i class="bi bi-receipt"></i>
                     <span class="link-text">Facturas</span>

@@ -1,8 +1,7 @@
 ﻿import { updateStepper } from './Order.UI.js';
-import { searchPatient, createPatient } from './Order.Customer.js';
+import { searchPatient, createPatient, showNewPatientForm } from './Order.Customer.js';
 import { setPrescriptionMode, fetchCurrentPrescription, createPrescription } from './Order.Recipe.js';
 import { setFrameMode, selectFrame } from './Order.Frame.js';
-import { handlerCrystalForm } from "./Order.WorkOrder.js";
 import { updateDeposit, updatePaymentMethod } from './Order.Payment.js';
 import { buildSummary, confirmOrder } from './Order.Confirm.js';
 import { goToStep } from './Order.Nav.js';
@@ -12,6 +11,7 @@ import { aplicarFormatoGuarani } from '../Helper/Helper.js';
 /* ---------- EXPOSE GLOBAL FUNCTIONS (inline onclick) ---------- */
 window.searchPatient       = searchPatient;
 window.createPatient        = createPatient;
+window.showNewPatientForm  = showNewPatientForm;
 
 window.setPrescriptionMode        = setPrescriptionMode;
 window.fetchCurrentPrescription = fetchCurrentPrescription;
@@ -33,6 +33,5 @@ window.goToStep          = goToStep;
 
 /* ---------- INIT ---------- */
 updateStepper();
-handlerCrystalForm();
 initializeAccessoryModule();
 document.querySelectorAll(".input-guarani").forEach(aplicarFormatoGuarani);

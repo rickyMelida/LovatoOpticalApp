@@ -52,12 +52,9 @@ public class Phase2_OrderBuilderTests
             .WithFrame(OrderTestFixture.DefaultFrame())
             .WithRightCrystal(right)
             .WithLeftCrystal(left)
-            .WithGlassesCase(OrderTestFixture.DefaultGlassesCase())
             .Build();
 
         Assert.NotSame(order.CrystalRight, order.CrystalLeft);
-        Assert.Equal(-2.50m, order.CrystalRight!.Prescription!.Sphere);
-        Assert.Equal(-1.75m, order.CrystalLeft!.Prescription!.Sphere);
     }
 
     [Fact]
@@ -69,19 +66,9 @@ public class Phase2_OrderBuilderTests
             .ForCustomer(OrderTestFixture.DefaultCustomer())
             .WithFrame(OrderTestFixture.DefaultFrame())
             .WithSameCrystals(crystal)
-            .WithGlassesCase(OrderTestFixture.DefaultGlassesCase())
             .Build();
 
         Assert.Same(order.CrystalRight, order.CrystalLeft);
-    }
-
-    [Fact]
-    public void Build_AssignsGlassesCaseAsDedicatedField()
-    {
-        var order = OrderTestFixture.BuildValidOrder();
-
-        Assert.NotNull(order.GlassesCase);
-        Assert.Equal("Estuche Rígido Premium", order.GlassesCase.Name);
     }
 
     [Fact]
@@ -101,7 +88,6 @@ public class Phase2_OrderBuilderTests
             new OrderBuilder()
                 .WithFrame(OrderTestFixture.DefaultFrame())
                 .WithSameCrystals(OrderTestFixture.DefaultCrystal())
-                .WithGlassesCase(OrderTestFixture.DefaultGlassesCase())
                 .Build());
 
         Assert.Contains("cliente", ex.Message);
@@ -114,7 +100,6 @@ public class Phase2_OrderBuilderTests
             new OrderBuilder()
                 .ForCustomer(OrderTestFixture.DefaultCustomer())
                 .WithSameCrystals(OrderTestFixture.DefaultCrystal())
-                .WithGlassesCase(OrderTestFixture.DefaultGlassesCase())
                 .Build());
 
         Assert.Contains("armazón", ex.Message);
@@ -127,7 +112,6 @@ public class Phase2_OrderBuilderTests
             new OrderBuilder()
                 .ForCustomer(OrderTestFixture.DefaultCustomer())
                 .WithFrame(OrderTestFixture.DefaultFrame())
-                .WithGlassesCase(OrderTestFixture.DefaultGlassesCase())
                 .Build());
 
         Assert.Contains("cristal", ex.Message);
@@ -177,7 +161,6 @@ public class Phase2_OrderBuilderTests
             .ForCustomer(OrderTestFixture.DefaultCustomer())
             .WithFrame(OrderTestFixture.DefaultFrame(200m))
             .WithSameCrystals(OrderTestFixture.DefaultCrystal(85m))
-            .WithGlassesCase(OrderTestFixture.DefaultGlassesCase(15m))
             .Build();
 
         Assert.Equal(200m + 85m + 85m + 15m, order.TotalPrice);
@@ -187,40 +170,10 @@ public class Phase2_OrderBuilderTests
     public void TotalPrice_CrystalPriceIncludesTreatments()
     {
         var crystal = OrderTestFixture.DefaultCrystal(85m);
-        crystal.AddTreatment(OrderTestFixture.AntiReflectiveTreatment(30m));
-        crystal.AddTreatment(OrderTestFixture.BlueFilterTreatment(20m));
 
         // TotalPrice del cristal = 85 + 30 + 20 = 135
-        Assert.Equal(135m, crystal.TotalPrice);
+        Assert.Equal(135m, crystal.SalePrice);
     }
 
-    // ── Crystal: receta y tratamientos ──────────────────────────────────────
 
-    [Fact]
-    public void Crystal_WithoutPrescription_IsNullByDefault()
-    {
-        var crystal = OrderTestFixture.DefaultCrystal();
-        Assert.Null(crystal.Prescription);
-    }
-
-    [Fact]
-    public void Crystal_WithPrescription_StoresPrescriptionValues()
-    {
-        var prescription = new OpticalPrescription(-2.50m, -0.75m, 180);
-        var crystal = OrderTestFixture.DefaultCrystal(prescription: prescription);
-
-        Assert.Equal(-2.50m, crystal.Prescription!.Sphere);
-        Assert.Equal(-0.75m, crystal.Prescription.Cylinder);
-        Assert.Equal(180, crystal.Prescription.Axis);
-    }
-
-    [Fact]
-    public void Crystal_AddTreatment_ReturnsSameInstanceForFluentChaining()
-    {
-        var crystal = OrderTestFixture.DefaultCrystal();
-        var returned = crystal.AddTreatment(OrderTestFixture.AntiReflectiveTreatment());
-
-        Assert.Same(crystal, returned);
-        Assert.Single(crystal.Treatments);
-    }
 }

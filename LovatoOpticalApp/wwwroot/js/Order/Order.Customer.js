@@ -38,10 +38,17 @@ export const searchPatient = async () => {
     } else {
         state.order.patient = null;
         notFound.classList.remove('d-none');
-        newPatientForm.classList.remove('d-none');
     }
 
     enableLargeButton(btnSearch, false);
+};
+
+export const showNewPatientForm = () => {
+    const notFound = document.getElementById('pacienteNoEncontrado');
+    const newPatientForm = document.getElementById('formNuevoPaciente');
+
+    if (notFound) notFound.classList.add('d-none');
+    if (newPatientForm) newPatientForm.classList.remove('d-none');
 };
 
 const findCustomerByDocument = async (documentId) => {

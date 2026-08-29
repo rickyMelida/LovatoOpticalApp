@@ -1,6 +1,5 @@
 using LovatoOpticalApp.Application.DTOs.Order;
 using LovatoOpticalApp.Application.Interfaces;
-using LovatoOpticalApp.Core;
 using LovatoOpticalApp.Core.Entities;
 using LovatoOpticalApp.Persistence;
 using LovatoOpticalApp.Persistence.Interfaces;
@@ -13,20 +12,17 @@ namespace LovatoOpticalApp.Application.Services
         private readonly ICustomerRepository _customerRepository;
         private readonly IProductRepository<Frame> _frameRepository;
         private readonly ICrystalRepository _crystalRepository;
-        private readonly IGlassesCaseRepository _glassesCaseRepository;
 
         public OrderService(
             IOrderRepository orderRepository,
             ICustomerRepository customerRepository,
             IProductRepository<Frame> frameRepository,
-            ICrystalRepository crystalRepository,
-            IGlassesCaseRepository glassesCaseRepository)
+            ICrystalRepository crystalRepository)
         {
             _orderRepository      = orderRepository;
             _customerRepository   = customerRepository;
             _frameRepository      = frameRepository;
             _crystalRepository    = crystalRepository;
-            _glassesCaseRepository = glassesCaseRepository;
         }
 
         public async Task<OrderResponseDto> CreateOrder(CreateOrderRequestDto request)
@@ -38,20 +34,9 @@ namespace LovatoOpticalApp.Application.Services
             var frame = await _frameRepository.GetByIdAsync(request.FrameId)
                 ?? throw new KeyNotFoundException($"Armazón {request.FrameId} no encontrado.");
 
-            var glassesCase = await _glassesCaseRepository.GetByIdAsync(request.GlassesCaseId)
-                ?? throw new KeyNotFoundException($"Estuche {request.GlassesCaseId} no encontrado.");
-
             // 2. Recuperar cristales (opcionales por ojo)
             Crystal? crystalRight = null;
             Crystal? crystalLeft  = null;
-
-            if (request.CrystalRightId.HasValue)
-                crystalRight = await _crystalRepository.GetByIdAsync(request.CrystalRightId.Value)
-                    ?? throw new KeyNotFoundException($"Cristal derecho {request.CrystalRightId} no encontrado.");
-
-            if (request.CrystalLeftId.HasValue)
-                crystalLeft = await _crystalRepository.GetByIdAsync(request.CrystalLeftId.Value)
-                    ?? throw new KeyNotFoundException($"Cristal izquierdo {request.CrystalLeftId} no encontrado.");
 
             // 3. Construir la Order con las reglas del dominio
             var order = new OrderBuilder()
@@ -59,7 +44,6 @@ namespace LovatoOpticalApp.Application.Services
                 .WithFrame(frame)
                 .WithRightCrystal(crystalRight!)
                 .WithLeftCrystal(crystalLeft!)
-                .WithGlassesCase(glassesCase)
                 .WithObservations(request.Observations ?? string.Empty)
                 .Build();
 

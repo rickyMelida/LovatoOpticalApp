@@ -21,7 +21,6 @@ namespace LovatoOpticalApp.Persistence
         public DbSet<Frame> Frames { get; set; }
         public DbSet<Crystal> Crystals { get; set; }
         public DbSet<Accessory> Accessories { get; set; }
-        public DbSet<GlassesCase> GlassesCases { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
@@ -61,12 +60,7 @@ namespace LovatoOpticalApp.Persistence
                       .OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<Crystal>(entity =>
-            {
-                entity.OwnsOne(c => c.Prescription);
-                entity.OwnsMany(c => c.Treatments);
-            });
-
+            modelBuilder.Entity<Crystal>();
             modelBuilder.Entity<Order>(entity =>
             {
                 entity.HasOne(o => o.CrystalLeft)

@@ -6,12 +6,9 @@ namespace LovatoOpticalApp.Application.DTOs.Order
     {
         [Required] 
         public Guid CustomerId { get; set; }
-        [Required] 
         public Guid FrameId { get; set; }
         public Guid? CrystalRightId { get; set; }
         public Guid? CrystalLeftId { get; set; }
-        [Required] 
-        public Guid GlassesCaseId { get; set; }
         public string? Observations { get; set; }
 
         [Required] 

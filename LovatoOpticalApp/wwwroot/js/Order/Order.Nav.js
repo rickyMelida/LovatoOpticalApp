@@ -20,37 +20,32 @@ const validateStep = (n) => {
     }
 
 	if (n === 5 && !state.order.crystal) {
-        showFeedback('Debe de cargar los datos del cristal antes de continuar.');
-        return false;
-    }
+		showFeedback('Debe de cargar los datos del cristal antes de continuar.');
+		return false;
+	}
 
-    if (n === 6 && !state.order.lens) {
-        showFeedback('Debe de imprimir el formulario para su posterior envio a laboratorio.');
-        return false;
-    }
-
-    return true;
+	return true;
 };
 
 export const goToStep = (dir) => {
-    const destination = state.currentStep + dir;
+	const destination = state.currentStep + dir;
 
-    hideFeedback();
+	hideFeedback();
 	handlerValidations(destination);
 
-    if (dir === 1 && !validateStep(state.currentStep)) return;
-    if (destination < 1 || destination > 7) return;
+	if (dir === 1 && !validateStep(state.currentStep)) return;
+	if (destination < 1 || destination > 6) return;
 
-    document.getElementById(`panel-${state.currentStep}`).classList.remove('active');
+	document.getElementById(`panel-${state.currentStep}`).classList.remove('active');
 
-    state.currentStep = destination;
+	state.currentStep = destination;
 
-    document.getElementById(`panel-${state.currentStep}`).classList.add('active');
+	document.getElementById(`panel-${state.currentStep}`).classList.add('active');
 
-    document.getElementById('btnAtras').disabled = state.currentStep === 1;
-    document.getElementById('btnSiguiente').classList.toggle('d-none', state.currentStep === 7);
+	document.getElementById('btnAtras').disabled = state.currentStep === 1;
+	document.getElementById('btnSiguiente').classList.toggle('d-none', state.currentStep === 6);
 
-    updateStepper();
+	updateStepper();
 
-    if (state.currentStep === 7) buildSummary();
+	if (state.currentStep === 6) buildSummary();
 };

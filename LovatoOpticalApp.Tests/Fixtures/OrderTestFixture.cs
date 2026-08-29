@@ -34,15 +34,10 @@ public static class OrderTestFixture
     public static Crystal DefaultCrystal(decimal salePrice = 85.00m, OpticalPrescription? prescription = null) =>
         new(
             name: "Blanco Reflex",
-            technicalCharacteristics: "+2.50 -1.25 180°",
             purchasePrice: 40.00m,
             salePrice: salePrice,
             quantity: 20,
-            minimumQuantity: 2,
-            prescription: prescription);
-
-    public static GlassesCase DefaultGlassesCase(decimal salePrice = 15.00m) =>
-        new("Estuche Rígido Premium", 8.00m, salePrice, isOptional: false, minimumQuantity: 1);
+            minimumQuantity: 2);
 
     public static Accessory DefaultAccessory(string name = "Goma para patillas", decimal salePrice = 3.50m) =>
         new(name, 1.50m, salePrice, isOptional: true, quantity: 50, minimumQuantity: 5);
@@ -71,17 +66,14 @@ public static class OrderTestFixture
     public static Order BuildValidOrder()
     {
         var rightCrystal = DefaultCrystal(85.00m, RightEyePrescription());
-        rightCrystal.AddTreatment(AntiReflectiveTreatment(30.00m));
 
         var leftCrystal = DefaultCrystal(85.00m, LeftEyePrescription());
-        leftCrystal.AddTreatment(AntiReflectiveTreatment(30.00m));
 
         return new OrderBuilder()
             .ForCustomer(DefaultCustomer())
             .WithFrame(DefaultFrame(200.00m))
             .WithRightCrystal(rightCrystal)
             .WithLeftCrystal(leftCrystal)
-            .WithGlassesCase(DefaultGlassesCase(15.00m))
             .AddAccessory(DefaultAccessory("Goma para patillas", 3.50m))
             .AddAccessory(DefaultAccessory("Paño microfibra", 3.50m))
             .Build();

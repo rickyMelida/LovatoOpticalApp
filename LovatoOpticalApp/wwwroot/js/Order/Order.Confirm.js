@@ -40,7 +40,7 @@ export const buildSummary = () => {
 
                     <div class="col-md-6">
                         <div class="text-muted">Cristal</div>
-                        <strong>${state.order.lens.name}</strong>
+                        <strong>${state.order.crystal?.name ?? ''}</strong>
                     </div>
 
                     <div class="col-md-6">
@@ -149,7 +149,7 @@ export const confirmOrder = () => {
         <div>Cliente: ${state.order.patient.name}</div>
         <div>Documento: ${state.order.patient.documentId}</div>
         <div>Armazón: ${frameLabel}</div>
-        <div>Cristal: ${state.order.lens.name}</div>
+        <div>Cristal: ${state.order.crystal?.name ?? ''}</div>
         ${state.order.accessories.map(x => `<div>Accesorio: ${x.name}</div>`).join('')}
 
         <hr>

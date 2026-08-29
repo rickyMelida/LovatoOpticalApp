@@ -12,12 +12,10 @@ namespace LovatoOpticalApp.Persistence.Repository
 
         public async Task<Crystal?> GetByIdAsync(Guid id) =>
             await _context.Crystals
-                .Include(c => c.Treatments)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
         public async Task<IEnumerable<Crystal>> GetAllAsync() =>
             await _context.Crystals
-                .Include(c => c.Treatments)
                 .ToListAsync();
     }
 }

@@ -20,7 +20,6 @@ namespace LovatoOpticalApp.Application
 			services.AddScoped<ICustomerRepository, CustomerRepository>();
 			services.AddScoped<IRecipeRepository, RecipeRepository>();
 			services.AddScoped<ICrystalRepository, CrystalRepository>();
-			services.AddScoped<IGlassesCaseRepository, GlassesCaseRepository>();
 			services.AddScoped<IOrderRepository, OrderRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 

@@ -2,6 +2,7 @@
 
 export const showFeedback = (message, type = 'warning') => {
     const feedback = document.getElementById('feedbackGlobal');
+    if (!feedback) return;
 
     feedback.className = `alert alert-${type}`;
     feedback.textContent = message;
@@ -11,7 +12,9 @@ export const showFeedback = (message, type = 'warning') => {
 };
 
 export const hideFeedback = () => {
-    document.getElementById('feedbackGlobal').classList.add('d-none');
+    const feedback = document.getElementById('feedbackGlobal');
+    if (!feedback) return;
+    feedback.classList.add('d-none');
 };
 
 export const updateStepper = () => {
@@ -19,6 +22,8 @@ export const updateStepper = () => {
         const step = Number(item.dataset.step);
         const badge = item.querySelector('.step-badge');
         const label = item.querySelector('.small');
+
+        if (!badge || !label) return;
 
         badge.className = 'badge rounded-circle step-badge mb-2';
         label.className = 'small fw-semibold';

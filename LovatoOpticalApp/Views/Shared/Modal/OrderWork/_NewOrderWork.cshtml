@@ -1,0 +1,38 @@
+<div class="modal fade" id="newOrderWorkModal" tabindex="-1" aria-labelledby="newOrderWorkModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-md-down modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="newOrderWorkModalLabel">
+                    <i class="bi bi-plus-circle me-2"></i>Nueva Orden de Trabajo
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning d-none" id="feedbackGlobal" role="alert"></div>
+
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-white">
+                        <span class="form-section-title"><i class="bi bi-person me-2"></i>Cliente</span>
+                        <p class="text-muted small mb-0">
+                            Ingresa el documento del paciente para verificar si ya existe o registrar uno nuevo.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        @await Html.PartialAsync("Forms/_PatientSearch")
+                    </div>
+                </div>
+
+                @await Html.PartialAsync("Forms/_CrystalTechnicalInfo")
+                @await Html.PartialAsync("Templates/_CrystalOrderWork")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg me-1"></i>Cancelar
+                </button>
+                <button type="submit" form="workOrderForm" class="btn btn-primary">
+                    <i class="bi bi-file-earmark-pdf me-1"></i>Imprimir
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
