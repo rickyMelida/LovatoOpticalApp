@@ -80,24 +80,11 @@ namespace LovatoOpticalApp.Persistence
                 entity.HasOne(o => o.Customer)
                       .WithMany()
                       .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(o => o.CrystalOrderWork)
-                      .WithOne(c => c.Order)
-                      .HasForeignKey<CrystalOrderWork>(c => c.OrderId)
-                      .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<CrystalOrderWork>(entity =>
             {
-                entity.HasOne(c => c.CrystalRight)
-                      .WithMany()
-                      .HasForeignKey(c => c.CrystalRightId)
-                      .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(c => c.CrystalLeft)
-                      .WithMany()
-                      .HasForeignKey(c => c.CrystalLeftId)
-                      .OnDelete(DeleteBehavior.Restrict);
+               
             });
         }
     }

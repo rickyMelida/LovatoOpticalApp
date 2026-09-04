@@ -53,32 +53,7 @@ namespace LovatoOpticalApp.Application.Services
             // 5. Generar y completar la orden de trabajo para el laboratorio
             var workDto = request.CrystalOrderWork;
 
-            new CrystalOrderWorkBuilder(order.GenerateCrystalOrderWork())
-                .WithMaterial(workDto.Material, workDto.Index)
-                .WithTreatmentNotes(workDto.TreatmentNotes ?? string.Empty)
-                .WithRightEye(
-                    workDto.OD_ESF    ?? string.Empty,
-                    workDto.OD_CIL    ?? string.Empty,
-                    workDto.OD_AXIS   ?? string.Empty,
-                    workDto.OD_ADD    ?? string.Empty,
-                    workDto.OD_DNP    ?? string.Empty,
-                    workDto.OD_HEIGHT ?? string.Empty)
-                .WithLeftEye(
-                    workDto.OI_ESF    ?? string.Empty,
-                    workDto.OI_CIL    ?? string.Empty,
-                    workDto.OI_AXIS   ?? string.Empty,
-                    workDto.OI_ADD    ?? string.Empty,
-                    workDto.OI_DNP    ?? string.Empty,
-                    workDto.OI_HEIGHT ?? string.Empty)
-                .WithFrameMeasurements(
-                    workDto.Mounting,
-                    workDto.Horizontal,
-                    workDto.Vertical,
-                    workDto.MajorDiagonal,
-                    workDto.Bridge,
-                    workDto.PantoscopicAngle ?? string.Empty,
-                    workDto.PanoramicAngle   ?? string.Empty)
-                .Build();
+           
 
             // 6. Persistir
             await _orderRepository.AddAsync(order);

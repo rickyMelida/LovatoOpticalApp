@@ -64,32 +64,5 @@ namespace LovatoOpticalApp.Core.Entities
 
             State = StateEnum.Confirmed;
         }
-
-        /// <summary>
-        /// Genera la <see cref="CrystalOrderWork"/> para enviar al laboratorio.
-        /// Pre-llena los campos ópticos desde las prescripciones de los cristales si están disponibles.
-        /// Solo se puede generar si la orden está confirmada.
-        /// </summary>
-        public CrystalOrderWork GenerateCrystalOrderWork()
-        {
-            if (State == StateEnum.Drafts)
-                throw new InvalidOperationException(
-                    "Confirma la orden antes de generar la orden de trabajo para el laboratorio.");
-
-            var work = new CrystalOrderWork
-            {
-                OrderId = Id,
-                Order = this,
-                CrystalRightId = CrystalRight?.Id,
-                CrystalRight = CrystalRight,
-                CrystalLeftId = CrystalLeft?.Id,
-                CrystalLeft = CrystalLeft,
-            };
-
-
-
-            CrystalOrderWork = work;
-            return work;
-        }
     }
 }

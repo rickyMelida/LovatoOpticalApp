@@ -4,33 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LovatoOpticalApp.Core
 {
-    /// <summary>
-    /// Orden de trabajo enviada al laboratorio para la fabricación de los cristales de un pedido.
-    /// Contiene las especificaciones ópticas y físicas necesarias para que el laboratorio procese ambos ojos.
-    /// </summary>
     public class CrystalOrderWork
     {
         // --- Identidad ---
         public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public CrystalOrderWorkStateEnum State { get; set; } = CrystalOrderWorkStateEnum.Pending;
-
-        // --- Relación con la Orden ---
-        public Guid OrderId { get; set; }
-        public Order Order { get; set; }
-
-        // --- Cristales referenciados (pueden ser nulos si el ojo no aplica) ---
-        public Guid? CrystalRightId { get; set; }
-        public Crystal CrystalRight { get; set; }
-
-        public Guid? CrystalLeftId { get; set; }
-        public Crystal CrystalLeft { get; set; }
-
-        // --- Especificaciones del material ---
         public string Material { get; set; }
-        public string Index { get; set; }
-
-        // --- Tratamientos / instrucciones adicionales para el laboratorio ---
+        public int Index { get; set; }
         public string TreatmentNotes { get; set; }
 
         // --- Graduación Ojo Derecho (OD) ---
@@ -57,9 +38,6 @@ namespace LovatoOpticalApp.Core
         public string Bridge { get; set; }
         public string PantoscopicAngle { get; set; }
         public string PanoramicAngle { get; set; }
-
-        // --- Acceso directo al cliente a través de la Orden ---
-        [NotMapped]
-        public Entities.Customer Customer => Order?.Customer;
+        public string Observation { get; set; }
     }
 }

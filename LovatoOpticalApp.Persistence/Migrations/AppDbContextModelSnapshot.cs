@@ -36,19 +36,12 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid?>("CrystalLeftId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("CrystalRightId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Horizontal")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Index")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Index")
+                        .HasColumnType("integer");
 
                     b.Property<string>("MajorDiagonal")
                         .IsRequired()
@@ -110,8 +103,9 @@ namespace LovatoOpticalApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("Observation")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("PanoramicAngle")
                         .IsRequired()
@@ -134,13 +128,6 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CrystalLeftId");
-
-                    b.HasIndex("CrystalRightId");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
                     b.ToTable("CrystalOrderWorks", "lovato");
                 });
 
@@ -153,11 +140,6 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("character varying(13)");
 
                     b.Property<bool>("IsOptional")
                         .HasColumnType("boolean");
@@ -184,10 +166,6 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Accessories", "lovato");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Accessory");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Crystal", b =>
@@ -195,6 +173,10 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("MinimumQuantity")
                         .HasColumnType("integer");
@@ -212,9 +194,8 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.Property<decimal>("SalePrice")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("TechnicalCharacteristics")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -376,16 +357,19 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CrystalLeftId")
+                    b.Property<Guid?>("CrystalLeftId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CrystalRightId")
+                    b.Property<Guid>("CrystalOrderWorkId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CrystalRightId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("FrameId")
+                    b.Property<Guid?>("FrameId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Observations")
@@ -398,6 +382,8 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CrystalLeftId");
+
+                    b.HasIndex("CrystalOrderWorkId");
 
                     b.HasIndex("CrystalRightId");
 
@@ -643,97 +629,6 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.ToTable("Users", "lovato");
                 });
 
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.GlassesCase", b =>
-                {
-                    b.HasBaseType("LovatoOpticalApp.Core.Entities.Accessory");
-
-                    b.HasDiscriminator().HasValue("GlassesCase");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.CrystalOrderWork", b =>
-                {
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Crystal", "CrystalLeft")
-                        .WithMany()
-                        .HasForeignKey("CrystalLeftId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Crystal", "CrystalRight")
-                        .WithMany()
-                        .HasForeignKey("CrystalRightId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Order", "Order")
-                        .WithOne("CrystalOrderWork")
-                        .HasForeignKey("LovatoOpticalApp.Core.CrystalOrderWork", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CrystalLeft");
-
-                    b.Navigation("CrystalRight");
-
-                    b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Crystal", b =>
-                {
-                    b.OwnsMany("LovatoOpticalApp.Core.ValueObjects.CrystalTreatment", "Treatments", b1 =>
-                        {
-                            b1.Property<Guid>("CrystalId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<Guid>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("uuid");
-
-                            b1.Property<string>("Description")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<decimal>("Price")
-                                .HasColumnType("numeric");
-
-                            b1.Property<int>("Type")
-                                .HasColumnType("integer");
-
-                            b1.HasKey("CrystalId", "Id");
-
-                            b1.ToTable("CrystalTreatment", "lovato");
-
-                            b1.WithOwner()
-                                .HasForeignKey("CrystalId");
-                        });
-
-                    b.OwnsOne("LovatoOpticalApp.Core.ValueObjects.OpticalPrescription", "Prescription", b1 =>
-                        {
-                            b1.Property<Guid>("CrystalId")
-                                .HasColumnType("uuid");
-
-                            b1.Property<decimal?>("Addition")
-                                .HasColumnType("numeric");
-
-                            b1.Property<int>("Axis")
-                                .HasColumnType("integer");
-
-                            b1.Property<decimal>("Cylinder")
-                                .HasColumnType("numeric");
-
-                            b1.Property<decimal>("Sphere")
-                                .HasColumnType("numeric");
-
-                            b1.HasKey("CrystalId");
-
-                            b1.ToTable("Crystals", "lovato");
-
-                            b1.WithOwner()
-                                .HasForeignKey("CrystalId");
-                        });
-
-                    b.Navigation("Prescription");
-
-                    b.Navigation("Treatments");
-                });
-
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Invoice", b =>
                 {
                     b.HasOne("LovatoOpticalApp.Core.Entities.Order", "Order")
@@ -750,14 +645,18 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.HasOne("LovatoOpticalApp.Core.Entities.Crystal", "CrystalLeft")
                         .WithMany()
                         .HasForeignKey("CrystalLeftId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("LovatoOpticalApp.Core.CrystalOrderWork", "CrystalOrderWork")
+                        .WithMany()
+                        .HasForeignKey("CrystalOrderWorkId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LovatoOpticalApp.Core.Entities.Crystal", "CrystalRight")
                         .WithMany()
                         .HasForeignKey("CrystalRightId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("LovatoOpticalApp.Core.Entities.Customer", "Customer")
                         .WithMany()
@@ -768,10 +667,11 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.HasOne("LovatoOpticalApp.Core.Entities.Frame", "Frame")
                         .WithMany()
                         .HasForeignKey("FrameId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("CrystalLeft");
+
+                    b.Navigation("CrystalOrderWork");
 
                     b.Navigation("CrystalRight");
 
@@ -805,12 +705,6 @@ namespace LovatoOpticalApp.Persistence.Migrations
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Customer", b =>
                 {
                     b.Navigation("Recipes");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Order", b =>
-                {
-                    b.Navigation("CrystalOrderWork")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,98 @@
+@{
+    // Modal para ver detalle de una orden de trabajo. Se rellena por JS.
+}
+<div class="modal fade" id="orderWorkDetailModal" tabindex="-1" aria-labelledby="orderWorkDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="orderWorkDetailModalLabel">
+                    <i class="bi bi-eye me-2"></i>Detalle de Orden de Trabajo
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6"><strong>ID:</strong> <span id="d_id"></span></div>
+                    <div class="col-md-3"><strong>Fecha:</strong> <span id="d_createdAt"></span></div>
+                    <div class="col-md-3"><strong>Estado:</strong> <span id="d_state"></span></div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                    <div class="card-header bg-white"><strong>Material del lente</strong></div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6"><strong>Material:</strong> <span id="d_material"></span></div>
+                            <div class="col-md-6"><strong>Índice:</strong> <span id="d_index"></span></div>
+                            <div class="col-12"><strong>Filtro y/o tratamientos:</strong> <span id="d_treatmentNotes"></span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                    <div class="card-header bg-white"><strong>Receta</strong></div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Ojo</th><th>Esf</th><th>Cil</th><th>Eje</th><th>Adic.</th><th>DNP</th><th>Altura</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="table-light">O.D.</th>
+                                        <td id="d_od_esf"></td>
+                                        <td id="d_od_cil"></td>
+                                        <td id="d_od_axis"></td>
+                                        <td id="d_od_add"></td>
+                                        <td id="d_od_dnp"></td>
+                                        <td id="d_od_height"></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light">O.I.</th>
+                                        <td id="d_oi_esf"></td>
+                                        <td id="d_oi_cil"></td>
+                                        <td id="d_oi_axis"></td>
+                                        <td id="d_oi_add"></td>
+                                        <td id="d_oi_dnp"></td>
+                                        <td id="d_oi_height"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm mb-3">
+                    <div class="card-header bg-white"><strong>Armazón</strong></div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4"><strong>Montaje:</strong> <span id="d_mounting"></span></div>
+                            <div class="col-md-2"><strong>Horiz.:</strong> <span id="d_horizontal"></span></div>
+                            <div class="col-md-2"><strong>Vert.:</strong> <span id="d_vertical"></span></div>
+                            <div class="col-md-2"><strong>Diag.:</strong> <span id="d_majorDiagonal"></span></div>
+                            <div class="col-md-2"><strong>Puente:</strong> <span id="d_bridge"></span></div>
+                            <div class="col-md-6"><strong>Áng. pantoscópico:</strong> <span id="d_pantoscopicAngle"></span></div>
+                            <div class="col-md-6"><strong>Áng. panorámico:</strong> <span id="d_panoramicAngle"></span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white"><strong>Observaciones</strong></div>
+                    <div class="card-body">
+                        <p class="mb-0" id="d_observation"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" id="btnReprintFromDetail">
+                    <i class="bi bi-printer me-1"></i>Reimprimir
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg me-1"></i>Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,14 +23,13 @@
                 </div>
 
                 @await Html.PartialAsync("Forms/_CrystalTechnicalInfo")
-                @await Html.PartialAsync("Templates/_CrystalOrderWork")
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                     <i class="bi bi-x-lg me-1"></i>Cancelar
                 </button>
-                <button type="submit" form="workOrderForm" class="btn btn-primary">
-                    <i class="bi bi-file-earmark-pdf me-1"></i>Imprimir
+                <button type="button" id="btnSaveOrderWork" class="btn btn-primary">
+                    <i class="bi bi-floppy me-1"></i>Guardar
                 </button>
             </div>
         </div>
