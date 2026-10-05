@@ -33,14 +33,14 @@ export const handlerCustomer = () => {
 }
 
 const saveRecipe = async (recipePayload, customerId) => {
-    const request = { ...recipePayload, customerId };
+    const request = { ...recipePayload, CustomerId: customerId };
    
     const result = await fetch('/Customer/CreateRecipe', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(request)
+        body: JSON.stringify({...request})
     });
 
     return result.json();

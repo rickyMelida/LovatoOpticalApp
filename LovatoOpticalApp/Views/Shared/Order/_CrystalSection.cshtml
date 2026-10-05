@@ -1,111 +1,212 @@
-<section class="row justify-content-center panel" id="panel-4">
+<style>
+	.checkbox-group {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.section-title {
+		font-size: 1.3rem;
+		font-weight: 600;
+		color: var(--primary-color);
+		margin-top: 1rem;
+		border-bottom: 3px solid var(--secondary-color);
+	}
+
+	.section-title:first-child {
+		margin-top: 0;
+	}
+
+	.checkbox-group {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.checkbox-item {
+		display: flex;
+		align-items: center;
+		padding: 0.8rem;
+		background: #f8f9fa;
+		border-radius: 8px;
+		transition: all 0.3s ease;
+	}
+
+	.checkbox-item:hover {
+		background: #e9ecef;
+	}
+
+	.checkbox-item input[type="checkbox"] {
+		width: 20px;
+		height: 20px;
+		margin-right: 0.8rem;
+		cursor: pointer;
+	}
+
+	.checkbox-item label {
+		margin: 0;
+		cursor: pointer;
+		font-weight: 500;
+	}
+</style>
+<section class="row justify-content-center panel" id="panel-3">
 	<div class="col-lg-9">
-		<form id="crystalForm">
+		<div class="card shadow-sm border-0">
+			<div class="card-header bg-white">
+				<h2 class="h5 mb-1">Receta Óptica</h2>
+				<p class="text-muted small mb-0">
+					Usa una receta vigente o registra una nueva para esta orden.
+				</p>
+			</div>
 
-			<!-- Opción de sincronización -->
-			<div class="row g-3 mb-4">
-				<div class="col-md-12">
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" id="sameCrystalBoth" name="SameCrystalBoth">
-						<label class="form-check-label" for="sameCrystalBoth">
-							<strong>Usar las mismas características para ambos ojos</strong>
-							<small class="text-muted d-block">Marca esta opción para evitar reescribir los datos si
-								ambos ojos tienen el mismo cristal</small>
-							</label>
-						</div>
-					</div>
+			<div class="card-body">
+
+				<div class="alert mt-3 alert-primary" id="recetaVigenteCard">
+					<strong>Receta vigente encontrada</strong><br>
+					<span class="small"><strong>OD LEJOS:</strong> +000 -050 65</span>
+					<span class="small"><strong>OD CERCA:</strong> +000</span>
+					<span class="small"><strong>OI LEJOS:</strong> +000 -050 85</span>
+					<span class="small"><strong>OI CERCA:</strong> +000</span> <br>
+					<span class="small">Fecha: 22-09-2026 · Dr. Juan Perez</span>
 				</div>
 
-				<!-- CRISTAL OJO DERECHO (OD) -->
-				<div class="row g-3">
+				<div class="row">
 					<div class="col-md-12">
-						<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Derecho (OD)</h6>
-						<div class="row">
-							<div class="col-md-6">
-								<label for="name-OD" class="form-label">
-									Nombre del cristal
-								</label>
-								<input type="text" class="form-control" id="name-OD" name="NameOD"
-									   placeholder="Nombre del cristal" />
-							</div>
-
-							<div class="col-md-6">
-								<label for="description-OD" class="form-label">
-									Descripción
-								</label>
-								<input type="text" class="form-control" id="description-OD" name="DescriptionOD"
-									   placeholder="Descripción del cristal" />
-							</div>
-
-							<div class="col-md-6">
-								<label for="crystalPurchasePriceOD" class="form-label">
-									Precio Compra<span class="text-danger">*</span>
-								</label>
-								<div class="input-group">
-									<input type="text" class="form-control input-guarani" id="crystalPurchasePriceOD"
-										   name="PurchasePriceOD" placeholder="10.000" required>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<label for="crystalSalePriceOD" class="form-label">
-									Precio Venta<span class="text-danger">*</span>
-								</label>
-								<div class="input-group">
-									<input type="text" class="form-control input-guarani" id="crystalSalePriceOD"
-										   name="SalePriceOD" placeholder="10.000" required>
-								</div>
-							</div>
-						</div>
+						<label for="cantidadOjos" class="form-label">¿Cuántos Ojos? *</label>
+						<select class="form-select" id="cantidadOjos" onchange="cambiarCantidadOjos()">
+							<option value="">Seleccionar cantidad</option>
+							<option value="od">Solo Ojo Derecho (OD)</option>
+							<option value="oi">Solo Ojo Izquierdo (OI)</option>
+							<option value="ambos">Ambos Ojos</option>
+						</select>
 					</div>
 				</div>
 
-				<!-- CRISTAL OJO IZQUIERDO (OI) -->
-				<div class="row g-3 mt-3" id="oiSection">
-					<div class="col-md-12">
-						<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Izquierdo (OI)</h6>
-						<div class="row">
+				<form id="crystalForm">
 
-							<div class="col-md-6">
-								<label for="name-OI" class="form-label">
-									Nombre del cristal
-								</label>
-								<input type="text" class="form-control" id="name-OI" name="NameOI"
-									   placeholder="Nombre del cristal" />
-							</div>
-
-							<div class="col-md-6">
-								<label for="description-OI" class="form-label">
-									Descripción
-								</label>
-								<input type="text" class="form-control" id="description-OI" name="DescriptionOI"
-									   placeholder="Descripción del cristal" />
-							</div>
-
-							<div class="col-md-6">
-								<label for="crystalPurchasePriceOI" class="form-label">
-									Precio Compra<span class="text-danger">*</span>
-								</label>
-								<div class="input-group">
-									<input type="text" class="form-control input-guarani" id="crystalPurchasePriceOI"
-										   name="PurchasePriceOI" placeholder="10.000" required>
+					<!-- Opción de sincronización -->
+					<div class="row g-3 mb-4">
+						<div class="col-md-12">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="sameCrystalBoth"
+									   name="SameCrystalBoth">
+								<label class="form-check-label" for="sameCrystalBoth">
+									<strong>Usar las mismas características para ambos ojos</strong>
+									<small class="text-muted d-block">Marca esta opción para evitar reescribir los datos
+										si
+										ambos ojos tienen el mismo cristal</small>
+									</label>
 								</div>
 							</div>
-
-							<div class="col-md-6">
-								<label for="crystalSalePriceOI" class="form-label">
-									Precio Venta<span class="text-danger">*</span>
-								</label>
-								<div class="input-group">
-									<input type="text" class="form-control input-guarani" id="crystalSalePriceOI"
-										   name="SalePriceOI" placeholder="10.000" required>
-								</div>
-							</div>
-
 						</div>
-					</div>
+
+						<!-- CRISTAL OJO DERECHO (OD) -->
+						<div class="row g-3">
+							<div class="col-md-12">
+								<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Derecho (OD)</h6>
+								<div class="row">
+									<div class="col-md-6">
+										<label for="name-OD" class="form-label">
+											Nombre del cristal
+										</label>
+										<select class="form-select" id="tipoCristalOD" onchange="cambiarTipoCristal('od')">
+											<option value="">Seleccionar tipo</option>
+											<option value="blanco">Blanco (Sin Graduación)</option>
+											<option value="simple">Visión Simple</option>
+											<option value="bifocal">Bifocal</option>
+											<option value="visión">Visión Lejana</option>
+											<option value="multifocal">Multifocal</option>
+										</select>
+									</div>
+
+									<div class="col-md-6">
+										<label for="description-OD" class="form-label">
+											Descripción
+										</label>
+										<input type="text" class="form-control" id="description-OD" name="DescriptionOD"
+											   placeholder="Descripción del cristal" />
+									</div>
+
+									<div class="section-title"><i class="fas fa-layer-group"></i> Recubrimiento</div>
+
+									<div class="checkbox-group">
+										<div class="checkbox-item">
+											<input type="checkbox" id="recubOD_blanco" onchange="calcular()">
+											<label for="recubOD_blanco">Blanco</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="recubOD_antirreflex" onchange="calcular()">
+											<label for="recubOD_antirreflex">Antirreflex</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="recubOD_fotocromatic" onchange="calcular()">
+											<label for="recubOD_fotocromatic">Fotocrómático</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="recubOD_filtro" onchange="calcular()">
+											<label for="recubOD_filtro">Filtro Luz Azul</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- CRISTAL OJO IZQUIERDO (OI) -->
+						<div class="row g-3">
+							<div class="col-md-12">
+								<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Izquierdo (OI)</h6>
+								<div class="row">
+									<div class="col-md-6">
+										<label for="name-OI" class="form-label">
+											Nombre del cristal
+										</label>
+										<select class="form-select" id="tipoCristalOI" onchange="cambiarTipoCristal('oi')">
+											<option value="">Seleccionar tipo</option>
+											<option value="blanco">Blanco (Sin Graduación)</option>
+											<option value="simple">Visión Simple</option>
+											<option value="bifocal">Bifocal</option>
+											<option value="visión">Visión Lejana</option>
+											<option value="multifocal">Multifocal</option>
+										</select>
+									</div>
+
+									<div class="col-md-6">
+										<label for="description-OI" class="form-label">
+											Descripción
+										</label>
+										<input type="text" class="form-control" id="description-OI" name="DescriptionOI"
+											   placeholder="Descripción del cristal" />
+									</div>
+
+									<div class="section-title"><i class="fas fa-layer-group"></i> Recubrimiento</div>
+
+									<div class="checkbox-group">
+										<div class="checkbox-item">
+											<input type="checkbox" id="recubOD_blanco" onchange="calcular()">
+											<label for="recubOD_blanco">Blanco</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="recubOD_antirreflex" onchange="calcular()">
+											<label for="recubOD_antirreflex">Antirreflex</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="recubOD_fotocromatic" onchange="calcular()">
+											<label for="recubOD_fotocromatic">Fotocrómático</label>
+										</div>
+										<div class="checkbox-item">
+											<input type="checkbox" id="recubOD_filtro" onchange="calcular()">
+											<label for="recubOD_filtro">Filtro Luz Azul</label>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+	
 				</div>
-			</form>
+			</div>
 		</div>
 	</section>
 

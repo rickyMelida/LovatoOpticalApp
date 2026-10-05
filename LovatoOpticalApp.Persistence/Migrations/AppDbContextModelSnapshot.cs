@@ -23,6 +23,39 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("CoveringCrystal", b =>
+                {
+                    b.Property<Guid>("CoveringsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CrystalsId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("CoveringsId", "CrystalsId");
+
+                    b.HasIndex("CrystalsId");
+
+                    b.ToTable("crystal_covering", "lovato");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Covering", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Coverings", "lovato");
+                });
+
             modelBuilder.Entity("LovatoOpticalApp.Core.CrystalOrderWork", b =>
                 {
                     b.Property<Guid>("Id")
@@ -627,6 +660,21 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", "lovato");
+                });
+
+            modelBuilder.Entity("CoveringCrystal", b =>
+                {
+                    b.HasOne("LovatoOpticalApp.Core.Covering", null)
+                        .WithMany()
+                        .HasForeignKey("CoveringsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LovatoOpticalApp.Core.Entities.Crystal", null)
+                        .WithMany()
+                        .HasForeignKey("CrystalsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Invoice", b =>

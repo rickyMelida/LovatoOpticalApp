@@ -37,12 +37,12 @@
 
                         <div class="step-item" data-step="3">
                             <span class="badge rounded-circle text-bg-secondary step-badge mb-2">3</span>
-                            <div class="small fw-semibold text-muted">Armazón</div>
+                            <div class="small fw-semibold text-muted">Cristal</div>
                         </div>
 
                         <div class="step-item" data-step="4">
                             <span class="badge rounded-circle text-bg-secondary step-badge mb-2">4</span>
-                            <div class="small fw-semibold text-muted">Cristal</div>
+                            <div class="small fw-semibold text-muted">Armazón</div>
                         </div>
 
 						<div class="step-item" data-step="5">
@@ -74,10 +74,10 @@
     @await Html.PartialAsync("Order/_RecipeSection")
 
     <!-- STEP 3 -->
-    @await Html.PartialAsync("Order/_FrameSection")
+    @await Html.PartialAsync("Order/_CrystalSection")
 
     <!-- STEP 4 -->
-    @await Html.PartialAsync("Order/_CrystalSection")
+    @await Html.PartialAsync("Order/_FrameSection")
 
 	 <!-- STEP 5 -->
 	@await Html.PartialAsync("Order/_AccessorySection")

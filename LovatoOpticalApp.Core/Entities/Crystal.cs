@@ -4,6 +4,7 @@ namespace LovatoOpticalApp.Core.Entities
 {
     public class Crystal : Product
     {
+		public List<Covering> Coverings { get; set; } = new();
         public Crystal(
             string name,
             decimal purchasePrice,
