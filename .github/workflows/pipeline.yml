@@ -39,8 +39,6 @@ jobs:
       #  env:
           # Variables solo para los tests
       #    ConnectionStrings__Default: ${{ secrets.TEST_DB_CONNECTION }}
-
-	  
   deploy-to-docker:
     runs-on: ubuntu-latest
     needs: build-and-push
