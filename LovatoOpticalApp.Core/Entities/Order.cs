@@ -10,8 +10,8 @@ namespace LovatoOpticalApp.Core.Entities
         public StateEnum State { get; set; } = StateEnum.Drafts;
         public Customer Customer { get; set; }
         public Frame? Frame { get; set; }
-        public Crystal? CrystalLeft { get; set; }
-        public Crystal? CrystalRight { get; set; }
+        //public Crystal? CrystalLeft { get; set; }
+        //public Crystal? CrystalRight { get; set; }
 
         // Orden de trabajo enviada al laboratorio para fabricar los cristales
         public CrystalOrderWork CrystalOrderWork { get; set; }
@@ -24,12 +24,12 @@ namespace LovatoOpticalApp.Core.Entities
 
         [NotMapped]
         public decimal FramePrice => Frame?.SalePrice ?? 0;
-        [NotMapped]
-        public decimal CrystalPrice => (CrystalLeft?.SalePrice ?? 0) + (CrystalRight?.SalePrice ?? 0);
+        ///[NotMapped]
+        //public decimal CrystalPrice => (CrystalLeft?.SalePrice ?? 0) + (CrystalRight?.SalePrice ?? 0);
         [NotMapped]
         public decimal AccessoriesPrice => Accessories.Sum(a => a.SalePrice);
-        [NotMapped]
-        public decimal TotalPrice => FramePrice + CrystalPrice + AccessoriesPrice;
+        ///[NotMapped]
+        //public decimal TotalPrice => FramePrice + CrystalPrice + AccessoriesPrice;
 
         public (bool IsValid, List<string> Errors) Validate()
         {
@@ -41,8 +41,8 @@ namespace LovatoOpticalApp.Core.Entities
             if (Frame == null)
                 errors.Add("El armazón es obligatorio.");
 
-            if (CrystalLeft == null && CrystalRight == null)
-                errors.Add("Se requiere al menos un cristal.");
+            //if (CrystalLeft == null && CrystalRight == null)
+            //    errors.Add("Se requiere al menos un cristal.");
 
             return (!errors.Any(), errors);
         }

@@ -31,7 +31,7 @@ public static class OrderTestFixture
             salePrice: salePrice,
             quantity: 10);
 
-    public static Crystal DefaultCrystal(decimal salePrice = 85.00m, OpticalPrescription? prescription = null) =>
+    public static CrystalType DefaultCrystal(decimal salePrice = 85.00m, OpticalPrescription? prescription = null) =>
         new(
             name: "Blanco Reflex",
             purchasePrice: 40.00m,

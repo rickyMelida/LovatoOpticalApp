@@ -1,0 +1,60 @@
+<div class="modal fade" id="multifocalModal" tabindex="-1" aria-labelledby="multifocalModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="multifocalModalLabel">
+					<i class="bi bi-eye me-2"></i>Precios de Multifocales
+				</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3">
+								<div>
+									<p class="text-muted mb-0">
+										Registra cada precio según la marca y la línea o gama del
+										cristal.
+									</p>
+								</div>
+								<button type="button" class="btn btn-outline-primary" id="agregar-multifocal">
+									<i class="bi bi-plus-lg"></i> Agregar multifocal
+								</button>
+							</div>
+							<div class="table-responsive mt-3">
+								<table class="table align-middle">
+									<thead>
+										<tr>
+											<th scope="col">Marca</th>
+											<th scope="col">Descripción</th>
+											<th scope="col">Precio</th>
+											<th scope="col"><span class="visually-hidden">Acciones</span></th>
+										</tr>
+									</thead>
+									<tbody id="multifocales-lista"></tbody>
+								</table>
+								<p class="text-muted mb-0" id="multifocales-vacio">Aún no se agregaron precios de
+									multifocales.</p>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="row g-3">
+								<div class="col-12 col-md-6">
+									<button type="submit" class="btn btn-primary w-100">
+										<i class="bi bi-floppy"></i> Guardar
+									</button>
+								</div>
+								<div class="col-12 col-md-6">
+									<button type="button" class="btn btn-danger w-100">
+										<i class="bi bi-arrow-counterclockwise"></i> Cancelar
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

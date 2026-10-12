@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Linq;
 
 namespace LovatoOpticalApp.Persistence
 {
@@ -8,17 +10,36 @@ namespace LovatoOpticalApp.Persistence
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            // Construye la configuración leyendo appsettings.json
-            // Ojo con la ruta base: dotnet ef corre desde el proyecto donde ejecutás el comando
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var configurationDirectory = new[]
+                {
+                    currentDirectory,
+                    Path.Combine(currentDirectory, "LovatoOpticalApp"),
+                    Path.Combine(currentDirectory, "..", "LovatoOpticalApp")
+                }
+                .Select(Path.GetFullPath)
+                .FirstOrDefault(path => File.Exists(Path.Combine(path, "appsettings.json")));
+
+            if (configurationDirectory is null)
+            {
+                throw new InvalidOperationException("No se encontró appsettings.json en el directorio actual ni en el proyecto LovatoOpticalApp.");
+            }
+
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true)
+                .SetBasePath(configurationDirectory)
+                .AddJsonFile("appsettings.json", optional: false)
                 .AddJsonFile("appsettings.Development.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
 
-            // Options "vacías": tu OnConfiguring se encarga de usar Npgsql con el connection string
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException("No se encontró la cadena ConnectionStrings:DefaultConnection en la configuración de diseño.");
+            }
+
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseNpgsql(connectionString);
 
             return new AppDbContext(optionsBuilder.Options, configuration);
         }

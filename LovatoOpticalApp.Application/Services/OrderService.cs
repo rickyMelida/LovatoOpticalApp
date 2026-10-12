@@ -11,18 +11,18 @@ namespace LovatoOpticalApp.Application.Services
         private readonly IOrderRepository _orderRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IProductRepository<Frame> _frameRepository;
-        private readonly ICrystalRepository _crystalRepository;
+        //private readonly ICrystalRepository _crystalRepository;
 
         public OrderService(
             IOrderRepository orderRepository,
             ICustomerRepository customerRepository,
-            IProductRepository<Frame> frameRepository,
-            ICrystalRepository crystalRepository)
+            IProductRepository<Frame> frameRepository)
+           // ICrystalRepository crystalRepository)
         {
             _orderRepository      = orderRepository;
             _customerRepository   = customerRepository;
             _frameRepository      = frameRepository;
-            _crystalRepository    = crystalRepository;
+            //_crystalRepository    = crystalRepository;
         }
 
         public async Task<OrderResponseDto> CreateOrder(CreateOrderRequestDto request)
@@ -35,15 +35,15 @@ namespace LovatoOpticalApp.Application.Services
                 ?? throw new KeyNotFoundException($"Armazón {request.FrameId} no encontrado.");
 
             // 2. Recuperar cristales (opcionales por ojo)
-            Crystal? crystalRight = null;
-            Crystal? crystalLeft  = null;
+            //Crystal? crystalRight = null;
+            // Crystal? crystalLeft  = null;
 
             // 3. Construir la Order con las reglas del dominio
             var order = new OrderBuilder()
                 .ForCustomer(customer)
                 .WithFrame(frame)
-                .WithRightCrystal(crystalRight!)
-                .WithLeftCrystal(crystalLeft!)
+                //.WithRightCrystal(crystalRight!)
+                //.WithLeftCrystal(crystalLeft!)
                 .WithObservations(request.Observations ?? string.Empty)
                 .Build();
 
@@ -81,7 +81,7 @@ namespace LovatoOpticalApp.Application.Services
             CustomerId         = order.Customer?.Id ?? Guid.Empty,
             CustomerName       = order.Customer?.Name ?? string.Empty,
             FrameName          = order.Frame?.Name ?? string.Empty,
-            TotalPrice         = order.TotalPrice,
+            TotalPrice         = 0,//order.TotalPrice,
             CrystalOrderWorkId = order.CrystalOrderWork?.Id,
         };
     }

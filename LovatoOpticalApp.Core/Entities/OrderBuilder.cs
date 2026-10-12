@@ -18,7 +18,7 @@ namespace LovatoOpticalApp.Core.Entities
             return this;
         }
 
-        public OrderBuilder WithRightCrystal(Crystal crystal)
+        /*public OrderBuilder WithRightCrystal(Crystal crystal)
         {
             _order.CrystalRight = crystal;
             return this;
@@ -36,6 +36,7 @@ namespace LovatoOpticalApp.Core.Entities
             _order.CrystalLeft = crystal;
             return this;
         }
+		*/
 
         public OrderBuilder AddAccessory(Accessory accessory)
         {

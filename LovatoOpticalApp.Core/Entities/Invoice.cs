@@ -21,7 +21,7 @@ namespace LovatoOpticalApp.Core.Entities
 
         // Fase 3: Facturación
         [NotMapped]
-        public decimal SubTotal => Order.TotalPrice;
+        public decimal SubTotal => 0;//Order.TotalPrice;
         [NotMapped]
         public decimal TotalDiscount => _discounts.Sum(d => d.Calculate(SubTotal));
         [NotMapped]

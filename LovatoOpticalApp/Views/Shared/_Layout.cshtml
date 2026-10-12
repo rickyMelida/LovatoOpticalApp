@@ -77,6 +77,12 @@
                     <span class="link-text">Order de Trabajo</span>
                 </a>
             </li>
+			<li class="nav-item">
+                <a class="nav-link @(currentController == "Crystal" ? "active" : "")" asp-area="" asp-controller="Crystal" asp-action="Index">
+					<i class="bi bi-cash-coin"></i>
+                    <span class="link-text">Precios Cristales</span>
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link @(currentController == "Invoice" ? "active" : "")" asp-area="" asp-controller="Invoice" asp-action="Index">
                     <i class="bi bi-receipt"></i>

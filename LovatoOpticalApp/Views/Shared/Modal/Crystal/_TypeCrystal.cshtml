@@ -1,0 +1,66 @@
+<div class="modal fade" id="typeCrystalSelectorModal" tabindex="-1" aria-labelledby="typeCrystalSelectorModalLabel"
+	 aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="typeCrystalSelectorModalLabel">
+					<i class="bi bi-eye me-2"></i>Selecciona el tipo de cristal a cargar
+				</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row g-3">
+					<div class="col-4">
+						<button type="button" class="btn btn-secondary" data-crystal="blankVisionSimpleModal"
+								style="width: 200px;">Blanco / Vision Simple</button>
+					</div>
+					<div class="col-4">
+						<button type="button" class="btn btn-secondary" data-crystal="bifocalModal"
+								style="width: 200px;">Bifocal</button>
+					</div>
+					<div class="col-4">
+						<button type="button" class="btn btn-secondary" data-crystal="multifocalModal"
+								style="width: 200px;">Multifocal</button>
+					</div>
+				</div>
+				<div class="row g-2 my-3">
+					<div class="col-6">
+						<button type="button" class="btn btn-info" data-crystal="coastPriceModal"
+								style="width: 300px;">Recubrimientos / Filtros</button>
+					</div>
+					<div class="col-6">
+						<button type="button" class="btn btn-info" data-crystal="pricePerAdditionModal"
+								style="width: 300px;">Precio por Adición</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	const buttons = document.querySelectorAll("#typeCrystalSelectorModal .btn");
+
+	buttons.forEach(button => {
+		button.addEventListener("click", () => {
+			const selectedType = button.getAttribute("data-crystal");
+			console.log("Tipo de cristal seleccionado:", selectedType);
+
+			showTypeCrystalSelectorModal(selectedType);
+			hideTypeCrystalSelectorModal("typeCrystalSelectorModal");
+			
+		});
+	});
+
+	function showTypeCrystalSelectorModal(elementId) {
+		const typeCrystalSelectorModal = new bootstrap.Modal(document.getElementById(elementId));
+		typeCrystalSelectorModal.show();
+	}
+
+	function hideTypeCrystalSelectorModal(elementId) {
+		const typeCrystalSelectorModal = bootstrap.Modal.getInstance(document.getElementById(elementId));
+		if (typeCrystalSelectorModal) {
+			typeCrystalSelectorModal.hide();
+		}
+	}
+</script>

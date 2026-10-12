@@ -2,6 +2,7 @@
 import { showFeedback, hideFeedback, updateStepper } from './Order.UI.js';
 import { buildSummary } from './Order.Confirm.js';
 import { handlerValidations } from './Order.Validations.js';
+import { initializeCrystalStep } from './Order.Crystal.js';
 
 const validateStep = (n) => {
     if (n === 1 && !state.order.patient) {
@@ -29,6 +30,11 @@ const validateStep = (n) => {
 
 export const goToStep = (dir) => {
 	const destination = state.currentStep + dir;
+	const stepsInitialized = {
+		3: initializeCrystalStep
+	}
+
+	stepsInitialized[destination]?.();
 
 	hideFeedback();
 	handlerValidations(destination);
@@ -46,6 +52,7 @@ export const goToStep = (dir) => {
 	document.getElementById('btnSiguiente').classList.toggle('d-none', state.currentStep === 6);
 
 	updateStepper();
+
 
 	if (state.currentStep === 6) buildSummary();
 };

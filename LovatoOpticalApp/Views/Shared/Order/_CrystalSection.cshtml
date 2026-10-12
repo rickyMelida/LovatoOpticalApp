@@ -1,4 +1,8 @@
 <style>
+	.opacity-50 {
+		opacity: 0.5;
+		pointer-events: none;
+	}
 	.checkbox-group {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -62,20 +66,13 @@
 			</div>
 
 			<div class="card-body">
-
-				<div class="alert mt-3 alert-primary" id="recetaVigenteCard">
-					<strong>Receta vigente encontrada</strong><br>
-					<span class="small"><strong>OD LEJOS:</strong> +000 -050 65</span>
-					<span class="small"><strong>OD CERCA:</strong> +000</span>
-					<span class="small"><strong>OI LEJOS:</strong> +000 -050 85</span>
-					<span class="small"><strong>OI CERCA:</strong> +000</span> <br>
-					<span class="small">Fecha: 22-09-2026 · Dr. Juan Perez</span>
+				<div class="alert mt-3 alert-primary" id="crystalRecipe">
 				</div>
 
-				<div class="row">
+				<div class="row mb-3">
 					<div class="col-md-12">
-						<label for="cantidadOjos" class="form-label">¿Cuántos Ojos? *</label>
-						<select class="form-select" id="cantidadOjos" onchange="cambiarCantidadOjos()">
+						<label for="amountEyes" class="form-label">¿Cuántos Ojos? *</label>
+						<select class="form-select" id="amountEyes" >
 							<option value="">Seleccionar cantidad</option>
 							<option value="od">Solo Ojo Derecho (OD)</option>
 							<option value="oi">Solo Ojo Izquierdo (OI)</option>
@@ -85,26 +82,9 @@
 				</div>
 
 				<form id="crystalForm">
-
-					<!-- Opción de sincronización -->
-					<div class="row g-3 mb-4">
-						<div class="col-md-12">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="sameCrystalBoth"
-									   name="SameCrystalBoth">
-								<label class="form-check-label" for="sameCrystalBoth">
-									<strong>Usar las mismas características para ambos ojos</strong>
-									<small class="text-muted d-block">Marca esta opción para evitar reescribir los datos
-										si
-										ambos ojos tienen el mismo cristal</small>
-									</label>
-								</div>
-							</div>
-						</div>
-
 						<!-- CRISTAL OJO DERECHO (OD) -->
-						<div class="row g-3">
-							<div class="col-md-12">
+						<div class="row g-3" id="crystal-od-section">
+							<div class="col-md-12 mt-5">
 								<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Derecho (OD)</h6>
 								<div class="row">
 									<div class="col-md-6">
@@ -133,28 +113,28 @@
 
 									<div class="checkbox-group">
 										<div class="checkbox-item">
-											<input type="checkbox" id="recubOD_blanco" onchange="calcular()">
+											<input type="checkbox" id="recubOD_blanco">
 											<label for="recubOD_blanco">Blanco</label>
 										</div>
 										<div class="checkbox-item">
-											<input type="checkbox" id="recubOD_antirreflex" onchange="calcular()">
+											<input type="checkbox" id="recubOD_antirreflex">
 											<label for="recubOD_antirreflex">Antirreflex</label>
 										</div>
 										<div class="checkbox-item">
-											<input type="checkbox" id="recubOD_fotocromatic" onchange="calcular()">
+											<input type="checkbox" id="recubOD_fotocromatic">
 											<label for="recubOD_fotocromatic">Fotocrómático</label>
 										</div>
 										<div class="checkbox-item">
-											<input type="checkbox" id="recubOD_filtro" onchange="calcular()">
+											<input type="checkbox" id="recubOD_filtro">
 											<label for="recubOD_filtro">Filtro Luz Azul</label>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-
+						<hr>
 						<!-- CRISTAL OJO IZQUIERDO (OI) -->
-						<div class="row g-3">
+						<div class="row g-3 mt-5" id="crystal-oi-section">
 							<div class="col-md-12">
 								<h6 class="text-muted text-uppercase small mb-3">Cristal Ojo Izquierdo (OI)</h6>
 								<div class="row">
@@ -162,7 +142,7 @@
 										<label for="name-OI" class="form-label">
 											Nombre del cristal
 										</label>
-										<select class="form-select" id="tipoCristalOI" onchange="cambiarTipoCristal('oi')">
+										<select class="form-select" id="tipoCristalOI" >
 											<option value="">Seleccionar tipo</option>
 											<option value="blanco">Blanco (Sin Graduación)</option>
 											<option value="simple">Visión Simple</option>
@@ -184,20 +164,20 @@
 
 									<div class="checkbox-group">
 										<div class="checkbox-item">
-											<input type="checkbox" id="recubOD_blanco" onchange="calcular()">
-											<label for="recubOD_blanco">Blanco</label>
+											<input type="checkbox" id="recubOI_blanco">
+											<label for="recubOI_blanco">Blanco</label>
 										</div>
 										<div class="checkbox-item">
-											<input type="checkbox" id="recubOD_antirreflex" onchange="calcular()">
-											<label for="recubOD_antirreflex">Antirreflex</label>
+											<input type="checkbox" id="recubOI_antirreflex">
+											<label for="recubOI_antirreflex">Antirreflex</label>
 										</div>
 										<div class="checkbox-item">
-											<input type="checkbox" id="recubOD_fotocromatic" onchange="calcular()">
-											<label for="recubOD_fotocromatic">Fotocrómático</label>
+											<input type="checkbox" id="recubOI_fotocromatic">
+											<label for="recubOI_fotocromatic">Fotocrómático</label>
 										</div>
 										<div class="checkbox-item">
-											<input type="checkbox" id="recubOD_filtro" onchange="calcular()">
-											<label for="recubOD_filtro">Filtro Luz Azul</label>
+											<input type="checkbox" id="recubOI_filtro">
+											<label for="recubOI_filtro">Filtro Luz Azul</label>
 										</div>
 									</div>
 								</div>
@@ -209,79 +189,4 @@
 			</div>
 		</div>
 	</section>
-
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			const sameCrystalCheckbox = document.getElementById('sameCrystalBoth');
-			const oiSection = document.getElementById('oiSection');
-
-			// Campos a sincronizar
-			const fieldsToSync = [
-				{ od: 'name-OD', oi: 'name-OI' },
-				{ od: 'description-OD', oi: 'description-OI' },
-				{ od: 'crystalPurchasePriceOD', oi: 'crystalPurchasePriceOI' },
-				{ od: 'crystalSalePriceOD', oi: 'crystalSalePriceOI' }
-			];
-
-			// Función para sincronizar campos
-			function syncFields() {
-				fieldsToSync.forEach(pair => {
-					const odField = document.getElementById(pair.od);
-					const oiField = document.getElementById(pair.oi);
-					oiField.value = odField.value;
-				});
-			}
-
-			// Función para deshabilitar/habilitar campos OI
-			function toggleOIFields(disabled) {
-				fieldsToSync.forEach(pair => {
-					const oiField = document.getElementById(pair.oi);
-					oiField.disabled = disabled;
-
-					// Cambiar apariencia visual
-					if (disabled) {
-						oiField.classList.add('bg-light');
-					} else {
-						oiField.classList.remove('bg-light');
-					}
-				});
-
-				// Cambiar apariencia del section
-				if (disabled) {
-					oiSection.classList.add('opacity-50');
-				} else {
-					oiSection.classList.remove('opacity-50');
-				}
-			}
-
-			// Event listener para el checkbox
-			sameCrystalCheckbox.addEventListener('change', function () {
-				if (this.checked) {
-					// Sincronizar y deshabilitar
-					syncFields();
-					toggleOIFields(true);
-				} else {
-					// Solo habilitar
-					toggleOIFields(false);
-				}
-			});
-
-			// Sincronizar en tiempo real mientras esté marcado
-			fieldsToSync.forEach(pair => {
-				const odField = document.getElementById(pair.od);
-				odField.addEventListener('input', function () {
-					if (sameCrystalCheckbox.checked) {
-						const oiField = document.getElementById(pair.oi);
-						oiField.value = this.value;
-					}
-				});
-			});
-		});
-	</script>
-
-	<style>
-		.opacity-50 {
-			opacity: 0.5;
-			pointer-events: none;
-		}
-	</style>
+	<script type="module" src="~/js/Order/Order.Crystal.js"></script>

@@ -18,8 +18,6 @@ namespace LovatoOpticalApp.Persistence
 			_configuration = configuration;
 		}
 
-		public DbSet<Frame> Frames { get; set; }
-		public DbSet<Crystal> Crystals { get; set; }
 		public DbSet<Accessory> Accessories { get; set; }
 
 		public DbSet<Customer> Customers { get; set; }
@@ -38,7 +36,6 @@ namespace LovatoOpticalApp.Persistence
 		public DbSet<DiscountByPercentage> DiscountByPercentages { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
-		public DbSet<Covering> Coverings { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options)
 		{
@@ -61,32 +58,7 @@ namespace LovatoOpticalApp.Persistence
 					  .OnDelete(DeleteBehavior.Cascade);
 			});
 
-			modelBuilder.Entity<Crystal>();
-			modelBuilder.Entity<Crystal>()
-				.HasMany(c => c.Coverings)
-				.WithMany(r => r.Crystals)
-				.UsingEntity(j => j.ToTable("crystal_covering"));
-
-			modelBuilder.Entity<Order>(entity =>
-			{
-				entity.HasOne(o => o.CrystalLeft)
-					  .WithMany()
-					  .HasForeignKey("CrystalLeftId")
-					  .OnDelete(DeleteBehavior.Restrict);
-
-				entity.HasOne(o => o.CrystalRight)
-					  .WithMany()
-					  .HasForeignKey("CrystalRightId")
-					  .OnDelete(DeleteBehavior.Restrict);
-
-				entity.HasOne(o => o.Frame)
-					  .WithMany()
-					  .OnDelete(DeleteBehavior.Restrict);
-
-				entity.HasOne(o => o.Customer)
-					  .WithMany()
-					  .OnDelete(DeleteBehavior.Restrict);
-			});
+			
 
 			modelBuilder.Entity<CrystalOrderWork>(entity =>
 			{

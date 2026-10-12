@@ -1,4 +1,4 @@
-﻿import { DB_FRAMES, state } from './Order.State.js';
+﻿import { state } from './Order.State.js';
 import { hideFeedback } from './Order.UI.js';
 import { formatToGuarani } from '../Helper/Helper.js';
 

@@ -2,24 +2,15 @@
 
 namespace LovatoOpticalApp.Core.Entities
 {
-    public class Crystal : Product
+    public class CrystalType
     {
-		public List<Covering> Coverings { get; set; } = new();
-        public Crystal(
-            string name,
-            decimal purchasePrice,
-            decimal salePrice,
-            int quantity,
-            int minimumQuantity = 1,
-            string description = "")
-        {
-            Type = ProductTypeEnum.Crystal;  // se asigna aquí
-            Name = name;
-            PurchasePrice = purchasePrice;
-            SalePrice = salePrice;
-            Quantity = quantity;
-            MinimumQuantity = minimumQuantity;
-            Description = description;
-        }
+		public Guid Id { get; set; }
+        public string Name { get; set; } // "Blanco", "Simple", "Bifocal", etc
+        public string Description { get; set; }
+        public bool Active { get; set; } = true;
+        public DateTime CreateAt { get; set; } = DateTime.UtcNow;
+
+        // Relaciones
+        public ICollection<CrystalPrice> Prices { get; set; } = new List<CrystalPrice>();
     }
 }
