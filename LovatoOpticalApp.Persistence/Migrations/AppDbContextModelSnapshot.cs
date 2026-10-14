@@ -23,37 +23,29 @@ namespace LovatoOpticalApp.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CoveringCrystal", b =>
-                {
-                    b.Property<Guid>("CoveringsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CrystalsId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("CoveringsId", "CrystalsId");
-
-                    b.HasIndex("CrystalsId");
-
-                    b.ToTable("crystal_covering", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Covering", b =>
+            modelBuilder.Entity("LovatoOpticalApp.Core.CoatingType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Coverings", "lovato");
+                    b.ToTable("CoatingTypes", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.CrystalOrderWork", b =>
@@ -201,38 +193,161 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.ToTable("Accessories", "lovato");
                 });
 
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Crystal", b =>
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CoatingPrice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("CoatingTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("EffectivityDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CoatingTypeId");
+
+                    b.ToTable("CoatingPrices", "lovato");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CrystalAdditionConfiguration", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("EffectivityDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("PricePerDiopter")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CrystalAdditionConfigurations", "lovato");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CrystalBrand", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("MinimumQuantity")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("PurchasePrice")
+                    b.HasKey("Id");
+
+                    b.ToTable("CrystalBrands", "lovato");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CrystalBrandPrice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CrystalBrandId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("EffectivityDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Price")
                         .HasColumnType("numeric");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("SalePrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Crystals", "lovato");
+                    b.HasIndex("CrystalBrandId");
+
+                    b.ToTable("CrystalBrandPrices", "lovato");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CrystalPrice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CrystalTypeId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("EffectivityDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CrystalTypeId");
+
+                    b.ToTable("CrystalPrices", "lovato");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CrystalType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CrystalTypes", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Customer", b =>
@@ -270,277 +385,6 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Discounts.DiscountByFixedAmount", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("FixedAmount")
-                        .HasColumnType("numeric");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DiscountByFixedAmounts", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Discounts.DiscountByPercentage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("Percentage")
-                        .HasColumnType("numeric");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DiscountByPercentages", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Frame", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("FrameType")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Material")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("MinimumQuantity")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("PurchasePrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("SalePrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Frames", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Invoice", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("State")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("Invoices", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Order", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid?>("CrystalLeftId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CrystalOrderWorkId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("CrystalRightId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("FrameId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Observations")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("State")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CrystalLeftId");
-
-                    b.HasIndex("CrystalOrderWorkId");
-
-                    b.HasIndex("CrystalRightId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("FrameId");
-
-                    b.ToTable("Orders", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.CashPayment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("AmountReceived")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("PaidAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CashPayments", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.CreditCardPayment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("CardBrand")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Installments")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("PaidAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CreditCardPayments", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.DebitCardPayment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Bank")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastFourDigits")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("PaidAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DebitCardPayments", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.PaymentProof", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FileUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsVerified")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("ReceivedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PaymentProofs", "lovato");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.TransferPayment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("PaidAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ProofId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProofId");
-
-                    b.ToTable("TransferPayments", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Recipe", b =>
@@ -662,81 +506,37 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.ToTable("Users", "lovato");
                 });
 
-            modelBuilder.Entity("CoveringCrystal", b =>
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CoatingPrice", b =>
                 {
-                    b.HasOne("LovatoOpticalApp.Core.Covering", null)
-                        .WithMany()
-                        .HasForeignKey("CoveringsId")
+                    b.HasOne("LovatoOpticalApp.Core.CoatingType", "CoatingType")
+                        .WithMany("Prices")
+                        .HasForeignKey("CoatingTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Crystal", null)
-                        .WithMany()
-                        .HasForeignKey("CrystalsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("CoatingType");
                 });
 
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Invoice", b =>
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CrystalBrandPrice", b =>
                 {
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
+                    b.HasOne("LovatoOpticalApp.Core.Entities.CrystalBrand", "CrystalBrand")
+                        .WithMany("Precios")
+                        .HasForeignKey("CrystalBrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("CrystalBrand");
                 });
 
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Order", b =>
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CrystalPrice", b =>
                 {
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Crystal", "CrystalLeft")
-                        .WithMany()
-                        .HasForeignKey("CrystalLeftId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LovatoOpticalApp.Core.CrystalOrderWork", "CrystalOrderWork")
-                        .WithMany()
-                        .HasForeignKey("CrystalOrderWorkId")
+                    b.HasOne("LovatoOpticalApp.Core.Entities.CrystalType", "CrystalType")
+                        .WithMany("Prices")
+                        .HasForeignKey("CrystalTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Crystal", "CrystalRight")
-                        .WithMany()
-                        .HasForeignKey("CrystalRightId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Frame", "Frame")
-                        .WithMany()
-                        .HasForeignKey("FrameId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("CrystalLeft");
-
-                    b.Navigation("CrystalOrderWork");
-
-                    b.Navigation("CrystalRight");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Frame");
-                });
-
-            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Payments.TransferPayment", b =>
-                {
-                    b.HasOne("LovatoOpticalApp.Core.Entities.Payments.PaymentProof", "Proof")
-                        .WithMany()
-                        .HasForeignKey("ProofId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Proof");
+                    b.Navigation("CrystalType");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Recipe", b =>
@@ -748,6 +548,21 @@ namespace LovatoOpticalApp.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.CoatingType", b =>
+                {
+                    b.Navigation("Prices");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CrystalBrand", b =>
+                {
+                    b.Navigation("Precios");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.CrystalType", b =>
+                {
+                    b.Navigation("Prices");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Customer", b =>

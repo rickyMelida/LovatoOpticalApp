@@ -11,22 +11,14 @@ namespace LovatoOpticalApp.Persistence.Repository
         public OrderRepository(AppDbContext context) => _context = context;
 
         public async Task<Order?> GetByIdAsync(Guid id) =>
-            await _context.Orders
-                .Include(o => o.Customer)
-                .Include(o => o.Frame)
-                .Include(o => o.CrystalOrderWork)
-                .FirstOrDefaultAsync(o => o.Id == id);
+            throw new NotImplementedException("GetByIdAsync method is not implemented yet.");
 
         public async Task<IEnumerable<Order>> GetAllAsync() =>
-            await _context.Orders
-                .Include(o => o.Customer)
-                .Include(o => o.Frame)
-                .ToListAsync();
+            throw new NotImplementedException("GetAllAsync method is not implemented yet.");
 
         public async Task AddAsync(Order order)
         {
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException("AddAsync method is not implemented yet.");
         }
     }
 }

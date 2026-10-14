@@ -18,24 +18,28 @@ namespace LovatoOpticalApp.Persistence
 			_configuration = configuration;
 		}
 
-		public DbSet<Accessory> Accessories { get; set; }
-
 		public DbSet<Customer> Customers { get; set; }
 		public DbSet<Recipe> Recipes { get; set; }
-		public DbSet<Order> Orders { get; set; }
+		public DbSet<Frame> Frames { get; set; }
+		public DbSet<Accessory> Accessories { get; set; }
 		public DbSet<CrystalOrderWork> CrystalOrderWorks { get; set; }
-		public DbSet<Invoice> Invoices { get; set; }
-
+		/*public DbSet<Order> Orders { get; set; }
 		public DbSet<CashPayment> CashPayments { get; set; }
 		public DbSet<CreditCardPayment> CreditCardPayments { get; set; }
 		public DbSet<DebitCardPayment> DebitCardPayments { get; set; }
 		public DbSet<TransferPayment> TransferPayments { get; set; }
 		public DbSet<PaymentProof> PaymentProofs { get; set; }
-
 		public DbSet<DiscountByFixedAmount> DiscountByFixedAmounts { get; set; }
-		public DbSet<DiscountByPercentage> DiscountByPercentages { get; set; }
+		public DbSet<DiscountByPercentage> DiscountByPercentages { get; set; }*/
 		public DbSet<User> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
+		public DbSet<CrystalType> CrystalTypes { get; set; }
+		public DbSet<CrystalPrice> CrystalPrices { get; set; }
+		public DbSet<CrystalBrand> CrystalBrands { get; set; }
+		public DbSet<CrystalBrandPrice> CrystalBrandPrices { get; set; }
+		public DbSet<CoatingType> CoatingTypes { get; set; }
+		public DbSet<CoatingPrice> CoatingPrices { get; set; }
+		public DbSet<CrystalAdditionConfiguration> CrystalAdditionConfigurations { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder options)
 		{
@@ -56,13 +60,6 @@ namespace LovatoOpticalApp.Persistence
 					  .WithOne(r => r.Customer)
 					  .HasForeignKey(r => r.CustomerId)
 					  .OnDelete(DeleteBehavior.Cascade);
-			});
-
-			
-
-			modelBuilder.Entity<CrystalOrderWork>(entity =>
-			{
-
 			});
 		}
 	}
