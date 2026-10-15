@@ -345,6 +345,9 @@ namespace LovatoOpticalApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("CrystalTypes", "lovato");
@@ -385,6 +388,57 @@ namespace LovatoOpticalApp.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers", "lovato");
+                });
+
+            modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Frame", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("FrameType")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Material")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MinimumQuantity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("SalePrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Frames", "lovato");
                 });
 
             modelBuilder.Entity("LovatoOpticalApp.Core.Entities.Recipe", b =>

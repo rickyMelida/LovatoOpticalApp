@@ -1,4 +1,5 @@
 ﻿using LovatoOpticalApp.Core.Entities.Enums;
+using LovatoOpticalApp.Core.Enums;
 
 namespace LovatoOpticalApp.Core.Entities
 {
@@ -8,6 +9,7 @@ namespace LovatoOpticalApp.Core.Entities
         public string Name { get; set; } // "Blanco", "Simple", "Bifocal", etc
         public string Description { get; set; }
         public bool Active { get; set; } = true;
+		public CrystalTypeEnum Type { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
 
         // Relaciones

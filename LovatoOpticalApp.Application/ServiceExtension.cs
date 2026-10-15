@@ -21,6 +21,7 @@ namespace LovatoOpticalApp.Application
 			services.AddScoped<IRecipeRepository, RecipeRepository>();
 			services.AddScoped<IOrderRepository, OrderRepository>();
 			services.AddScoped<ICrystalOrderWorkRepository, CrystalOrderWorkRepository>();
+			services.AddScoped<ICrystalPriceRepository, CrystalPriceRepository>();
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<IOrderService, OrderService>();
 			services.AddScoped<ICustomerService, CustomerService>();
@@ -32,6 +33,7 @@ namespace LovatoOpticalApp.Application
 			services.AddScoped<IProductDetailStrategy, AccessoryProductStrategy>();
 			services.AddScoped<ICustomerRecipeUnitOfWork, CustomerRecipeUnitOfWork>();
 			services.AddScoped<ICrystalOrderWorkService, CrystalOrderWorkService>();
+			services.AddScoped<ICrystalPriceService, CrystalPriceService>();
 
 			services.AddAutoMapper(cfg =>
 			{
@@ -39,6 +41,7 @@ namespace LovatoOpticalApp.Application
 				cfg.AddProfile<FrameProfile>();
 				cfg.AddProfile<ProductProfile>();
 				cfg.AddProfile<AccessoryProfile>();
+				cfg.AddProfile<CrystalProfile>();
 			});
 		}
 	}

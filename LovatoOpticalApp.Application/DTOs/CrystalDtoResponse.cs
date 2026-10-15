@@ -1,9 +1,0 @@
-﻿using LovatoOpticalApp.Application.DTOs.Common;
-
-namespace LovatoOpticalApp.Application.DTOs
-{
-    public class CrystalDtoResponse : ProductResponse
-    {
-
-    }
-}
