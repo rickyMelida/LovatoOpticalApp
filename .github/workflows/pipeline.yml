@@ -33,6 +33,12 @@ jobs:
       - name: Build
         run: dotnet build "LovatoOpticalApp/LovatoOpticalApp.csproj" --no-restore -c Release
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: LovatoOpticalApp/bin/Release/net10.0/publish/
+
       # 5. Tests
       #- name: Test
       #  run: dotnet test "LovatoOpticalApp.Tests/LovatoOpticalApp.Tests.csproj" -c Release --verbosity normal
