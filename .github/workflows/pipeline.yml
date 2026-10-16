@@ -34,7 +34,7 @@ jobs:
         run: dotnet build "LovatoOpticalApp/LovatoOpticalApp.csproj" --no-restore -c Release
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: build-artifact
           path: LovatoOpticalApp/bin/Release/net10.0/publish/
