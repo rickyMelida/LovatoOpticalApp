@@ -15,17 +15,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout del código
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Setup .NET
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
 
-      # 3. Restaurar dependencias del proyecto MVC
       - name: Restore dependencies
         run: dotnet restore "LovatoOpticalApp/LovatoOpticalApp.csproj"
 
@@ -49,6 +46,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-push
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: build-artifact
+      - name: Output Content
+        run: ls
+
       - name: Checkout
         uses: actions/checkout@v4
       # 6. Login a Docker Hub
