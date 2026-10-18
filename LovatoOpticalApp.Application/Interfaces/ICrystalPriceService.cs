@@ -5,6 +5,6 @@ namespace LovatoOpticalApp.Application.Interfaces
 {
     public interface ICrystalPriceService
     {
-        Task<List<CrystalTypeDto>> GetCrystalPriceByTypeAsync(CrystalTypeEnum crystalType);
+        Task<CrystalTypeDto> GetCrystalPriceByTypeAsync(CrystalTypeEnum crystalType);
     }
 }

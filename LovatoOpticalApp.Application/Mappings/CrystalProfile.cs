@@ -9,7 +9,8 @@ namespace LovatoOpticalApp.Application.Mappings
 		public CrystalProfile()
 		{
 			CreateMap<CrystalPriceDto, CrystalPrice>();
-			CreateMap<CrystalPrice, CrystalPriceDto>();
+			CreateMap<CrystalPrice, CrystalPriceDto>()
+				.ForMember(destination => destination.CrystalType, options => options.Ignore());
 			CreateMap<CrystalTypeDto, CrystalType>();
 			CreateMap<CrystalType, CrystalTypeDto>();
 		}

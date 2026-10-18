@@ -61,6 +61,14 @@ namespace LovatoOpticalApp.Persistence
 					  .HasForeignKey(r => r.CustomerId)
 					  .OnDelete(DeleteBehavior.Cascade);
 			});
+
+			modelBuilder.Entity<CrystalType>(entity =>
+			{
+				entity.HasMany(ct => ct.Prices)
+					  .WithOne(cp => cp.CrystalType)
+					  .HasForeignKey(cp => cp.CrystalTypeId)
+					  .OnDelete(DeleteBehavior.Cascade);
+			});
 		}
 	}
 }

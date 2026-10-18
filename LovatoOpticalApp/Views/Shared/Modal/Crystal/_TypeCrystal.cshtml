@@ -11,26 +11,48 @@
 			<div class="modal-body">
 				<div class="row g-3">
 					<div class="col-4">
-						<button type="button" class="btn btn-secondary" data-crystal="blankVisionSimpleModal"
-								style="width: 200px;">Blanco / Vision Simple</button>
+						<button type="button" 
+								class="btn btn-secondary" 
+								data-crystal="blankVisionSimpleModal"
+								style="width: 200px;">
+							Blanco / Vision Simple
+						</button>
 					</div>
 					<div class="col-4">
-						<button type="button" class="btn btn-secondary" data-crystal="bifocalModal"
-								style="width: 200px;">Bifocal</button>
+						<button type="button" 
+								class="btn btn-secondary" 
+								data-crystal="bifocalModal"
+								style="width: 200px;">
+								Bifocal
+						</button>
 					</div>
 					<div class="col-4">
-						<button type="button" class="btn btn-secondary" data-crystal="multifocalModal"
-								style="width: 200px;">Multifocal</button>
+						<button type="button" 
+								class="btn btn-secondary" 
+								data-crystal="multifocalModal"
+								style="width: 200px;">
+								Multifocal
+						</button>
 					</div>
 				</div>
 				<div class="row g-2 my-3">
 					<div class="col-6">
-						<button type="button" class="btn btn-info" data-crystal="coastPriceModal"
-								style="width: 300px;">Recubrimientos / Filtros</button>
+						<button type="button" 
+								class="btn btn-info" 
+								data-crystal="coastPriceModal"
+								data-crystal-type="CoastFilter"
+								style="width: 300px;">
+							Recubrimientos / Filtros
+						</button>
 					</div>
 					<div class="col-6">
-						<button type="button" class="btn btn-info" data-crystal="pricePerAdditionModal"
-								style="width: 300px;">Precio por Adición</button>
+						<button type="button" 
+								class="btn btn-info" 
+								data-crystal="pricePerAdditionModal"
+								data-crystal-type="PricePerAddition"
+								style="width: 300px;">
+							Precio por Adición
+						</button>
 					</div>
 				</div>
 			</div>
@@ -38,29 +60,4 @@
 	</div>
 </div>
 
-<script>
-	const buttons = document.querySelectorAll("#typeCrystalSelectorModal .btn");
-
-	buttons.forEach(button => {
-		button.addEventListener("click", () => {
-			const selectedType = button.getAttribute("data-crystal");
-			console.log("Tipo de cristal seleccionado:", selectedType);
-
-			showTypeCrystalSelectorModal(selectedType);
-			hideTypeCrystalSelectorModal("typeCrystalSelectorModal");
-			
-		});
-	});
-
-	function showTypeCrystalSelectorModal(elementId) {
-		const typeCrystalSelectorModal = new bootstrap.Modal(document.getElementById(elementId));
-		typeCrystalSelectorModal.show();
-	}
-
-	function hideTypeCrystalSelectorModal(elementId) {
-		const typeCrystalSelectorModal = bootstrap.Modal.getInstance(document.getElementById(elementId));
-		if (typeCrystalSelectorModal) {
-			typeCrystalSelectorModal.hide();
-		}
-	}
-</script>
+<script src="~/js/Crystal/Crystal.js" type="module"></script>

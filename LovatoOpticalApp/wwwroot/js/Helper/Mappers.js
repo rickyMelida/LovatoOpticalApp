@@ -1,3 +1,13 @@
+export const mapCrystalTypeToEnum = {
+	"SingleVision": 1,
+	"Blank": 2,
+	"BifocalKriptop": 3,
+	"BifocalFloptop": 4,
+	"Multifocal": 5,
+	"BlankSingleVision": [1, 2],
+	"Bifocal": [3, 4],
+}
+
 export const mapProductTypeToEnum = {
 	"Frame": 1,
 	"Crystal": 2,

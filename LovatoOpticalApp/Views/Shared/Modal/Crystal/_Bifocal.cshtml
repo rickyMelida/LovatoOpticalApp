@@ -1,4 +1,4 @@
-<div class="modal fade" id="bifocalModal" tabindex="-1" aria-labelledby="bifocalModalLabel" aria-hidden="true">
+<div class="modal fade" id="bifocalModal" tabindex="-1" aria-labelledby="bifocalModalLabel" aria-hidden="true" data-crystal-type="Bifocal">
 	<div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -10,18 +10,16 @@
 			<div class="modal-body">
 
 				<div class="container mt-4">
-					<form class="row g-3" onsubmit="guardarConfig(event)">
+					<form class="row g-3" >
 						<div class="col-12">
 							<div class="row g-3">
 								<div class="col-12 col-md-6">
 									<label for="prec_bifocal_kriptop" class="form-label">Bifocal Kriptop</label>
-									<input type="text" class="form-control input-guarani" id="prec_bifocal_kriptop"
-										   step="1" min="0">
+									<input type="text" class="form-control input-guarani" id="prec_bifocal_kriptop" />
 								</div>
 								<div class="col-12 col-md-6">
 									<label for="prec_bifocal_flaptop" class="form-label">Bifocal Flaptop</label>
-									<input type="text" class="form-control input-guarani" id="prec_bifocal_flaptop"
-										   step="1" min="0">
+									<input type="text" class="form-control input-guarani" id="prec_bifocal_flaptop" />
 								</div>
 							</div>
 						</div>
@@ -46,3 +44,5 @@
 		</div>
 	</div>
 </div>
+
+<script src="~/js/Crystal/Crystal.Prices.js" type="module"></script>

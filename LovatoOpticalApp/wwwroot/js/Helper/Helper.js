@@ -16,8 +16,7 @@ export const aplicarFormatoGuarani = (input) => {
     });
 
     const limpiarNumero = (valor) => valor.replace(/\D/g, "");
-
-    input.addEventListener("blur", () => {
+    const formatearValor = () => {
         const valorLimpio = limpiarNumero(input.value);
 
         if (!valorLimpio) {
@@ -26,11 +25,15 @@ export const aplicarFormatoGuarani = (input) => {
         }
 
         input.value = formatterGuarani.format(Number(valorLimpio));
-    });
+    };
+
+    input.addEventListener("blur", formatearValor);
 
     input.addEventListener("focus", () => {
         input.value = limpiarNumero(input.value);
     });
+
+    formatearValor();
 }
 
 export const guaraniStringANumero = (valor) => {

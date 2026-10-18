@@ -12,11 +12,15 @@ namespace LovatoOpticalApp.Persistence.Repository
 		{
 			_context = context;
 		}
-		public async Task<List<CrystalType>> GetCrystalPricesByTypeAsync(CrystalTypeEnum crystalType)
+		public async Task<CrystalType> GetCrystalPricesByTypeAsync(CrystalTypeEnum crystalType)
 		{
 			try
 			{
-				return await _context.CrystalTypes.Where(c => c.Type == crystalType).ToListAsync();
+				return await _context.CrystalTypes
+					.Include(crystal => crystal.Prices)
+					.Where(crystal => crystal.Type == crystalType)
+					.FirstOrDefaultAsync()
+					?? throw new InvalidOperationException($"Crystal type '{crystalType}' was not found.");
 			}
 			catch (Exception ex)
 			{

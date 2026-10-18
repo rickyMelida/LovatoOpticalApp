@@ -5,6 +5,6 @@ namespace LovatoOpticalApp.Persistence.Interfaces
 {
 	public interface ICrystalPriceRepository
 	{
-		Task<List<CrystalType>> GetCrystalPricesByTypeAsync(CrystalTypeEnum crystalType);
+		Task<CrystalType> GetCrystalPricesByTypeAsync(CrystalTypeEnum crystalType);
 	}
 }

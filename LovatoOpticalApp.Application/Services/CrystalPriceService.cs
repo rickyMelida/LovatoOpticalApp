@@ -17,10 +17,10 @@ namespace LovatoOpticalApp.Application.Services
 			_crystalPriceRepository = crystalPriceRepository;
 		}
 
-		public async Task<List<CrystalTypeDto>> GetCrystalPriceByTypeAsync(CrystalTypeEnum crystalType)
+		public async Task<CrystalTypeDto> GetCrystalPriceByTypeAsync(CrystalTypeEnum crystalType)
 		{
 			var crystalTypes = await _crystalPriceRepository.GetCrystalPricesByTypeAsync(crystalType);
-			var result = _mapper.Map<List<CrystalTypeDto>>(crystalTypes);
+			var result = _mapper.Map<CrystalTypeDto>(crystalTypes);
 			return result;
 		}
 	}

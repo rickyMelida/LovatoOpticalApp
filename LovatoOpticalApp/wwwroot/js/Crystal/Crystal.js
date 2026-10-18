@@ -1,38 +1,32 @@
 import { aplicarFormatoGuarani } from '../Helper/Helper.js';
 import { showModal } from "../Common/ModalEvents.js";
+import { loadCrystalPrices } from "./Crystal.Prices.js"
 
-document.querySelectorAll(".input-guarani").forEach(aplicarFormatoGuarani);
 const btnLoadCrystalPrices = document.getElementById("btnLoadCrystalPrices");
+const buttons = document.querySelectorAll("#typeCrystalSelectorModal .btn");
 
-/*const lista = document.getElementById("multifocales-lista");
-const template = document.getElementById("fila-multifocal-template");
-const mensajeVacio = document.getElementById("multifocales-vacio");
+buttons.forEach(button => {
+	button.addEventListener("click", async () => {
+		const selectedType = button.getAttribute("data-crystal");
+		const modalSelected = document.getElementById(selectedType);
+		
+		showTypeCrystalSelectorModal(selectedType);
+		hideTypeCrystalSelectorModal("typeCrystalSelectorModal");
+		loadCrystalPrices(modalSelected);
 
-function actualizarFilas() {
-	[...lista.rows].forEach((fila, indice) => {
-		fila.querySelector(".multifocal-marca").name = `multifocales[${indice}].Marca`;
-		fila.querySelector(".multifocal-gama").name = `multifocales[${indice}].Gama`;
-		fila.querySelector(".multifocal-precio").name = `multifocales[${indice}].Precio`;
 	});
-	mensajeVacio.hidden = lista.rows.length > 0;
-}
-
-document.getElementById("agregar-multifocal").addEventListener("click", () => {
-	const fila = template.content.firstElementChild.cloneNode(true);
-	aplicarFormatoGuarani(fila.querySelector(".multifocal-precio"));
-	lista.appendChild(fila);
-	actualizarFilas();
 });
 
-lista.addEventListener("click", (event) => {
-	const boton = event.target.closest(".quitar-multifocal");
-	if (!boton) return;
+function showTypeCrystalSelectorModal(elementId) {
+	const typeCrystalSelectorModal = new bootstrap.Modal(document.getElementById(elementId));
+	typeCrystalSelectorModal.show();
+}
 
-	boton.closest("tr").remove();
-	actualizarFilas();
-});*/
+function hideTypeCrystalSelectorModal(elementId) {
+	const typeCrystalSelectorModal = bootstrap.Modal.getInstance(document.getElementById(elementId));
+	if (typeCrystalSelectorModal) {
+		typeCrystalSelectorModal.hide();
+	}
+}
 
-btnLoadCrystalPrices.addEventListener("click", async () => {
-	showModal("typeCrystalSelectorModal");
-
-})
+btnLoadCrystalPrices.addEventListener("click", () => showModal("typeCrystalSelectorModal"));

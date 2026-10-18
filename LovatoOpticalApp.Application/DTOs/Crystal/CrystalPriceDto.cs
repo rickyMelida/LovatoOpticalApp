@@ -10,6 +10,6 @@ namespace LovatoOpticalApp.Application.DTOs
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
 
         // Relación
-        public CrystalTypeDto CrystalType { get; set; }
+        public CrystalTypeDto? CrystalType { get; set; }
 	}
 }

@@ -1,9 +1,9 @@
 <div class="modal fade" id="blankVisionSimpleModal" tabindex="-1" aria-labelledby="blankVisionSimpleModalLabel"
-	 aria-hidden="true">
+	 aria-hidden="true" data-crystal-type="BlankSingleVision" >
 	<div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h1 class="modal-title fs-5" id="blankVisionSimpleModalLabel">
+				<h1 class="modal-title fs-5" id="blankVisionSimpleModalLabel" >
 					<i class="bi bi-eye me-2"></i>Precios de Cristales
 				</h1>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -16,13 +16,11 @@
 							<div class="row g-3">
 								<div class="col-12 col-md-6">
 									<label for="prec_blanco" class="form-label">Blanco (Sin Graduación)</label>
-									<input type="text" class="form-control input-guarani" id="prec_blanco" step="1"
-										   min="0">
+									<input type="text" class="form-control input-guarani" id="prec_blanco" />
 								</div>
 								<div class="col-12 col-md-6">
 									<label for="prec_simple" class="form-label">Visión Simple</label>
-									<input type="text" class="form-control input-guarani" id="prec_simple" step="1"
-										   min="0">
+									<input type="text" class="form-control input-guarani" id="prec_simple" />
 								</div>
 							</div>
 						</div>
@@ -46,3 +44,5 @@
 		</div>
 	</div>
 </div>
+
+<script src="~/js/Crystal/Crystal.Prices.js" type="module"></script>
