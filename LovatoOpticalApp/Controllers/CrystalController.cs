@@ -17,6 +17,7 @@ namespace LovatoOpticalApp.Controllers
 			return View();
 		}
 
+		[HttpGet]
 		public async Task<IActionResult> GetCrystalPricesByType(string crystalType)
 		{
 			if (!Enum.TryParse(crystalType, out CrystalTypeEnum crystalTypeEnum))
@@ -25,6 +26,14 @@ namespace LovatoOpticalApp.Controllers
 			}
 
 			var crystalPrices = await _crystalPriceService.GetCrystalPriceByTypeAsync(crystalTypeEnum);
+			return Ok(crystalPrices);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetMultifocalPrices()
+		{
+			var crystalPrices = await _crystalPriceService.GetMultifocalPrices();
+			
 			return Ok(crystalPrices);
 		}
 	}

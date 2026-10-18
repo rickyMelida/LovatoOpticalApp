@@ -7,7 +7,10 @@ export const loadCrystalPrices = async (modalSelected) => {
 	const isMultifocal = crystalTypeEnum === mapCrystalTypeToEnum["Multifocal"];
 
 	if (isMultifocal) {
-		console.log("Tipo de cristal seleccionado:", dataCrystalType, "Enum:", crystalTypeEnum);
+		const response = await getMultifocalPrices();
+		renderMultifocalPrices(response);
+		console.log({ multifocales: response });
+
 		return;
 	}
 
@@ -63,14 +66,85 @@ const setBifocalPrices = async (prices) => {
 		new Date(item.effectivityDate) > new Date(max.effectivityDate) ? item : max
 	);
 
-	
-	
+
+
 	bifocalKriptoInput.value = bifocalKriptoCurrentPrice.price;
 	bifocalFlaptopInput.value = bifocalFlaptopPrice.price;
 }
 
+const renderMultifocalPrices = (prices) => {
+	const tbody = document.getElementById("multifocales-lista");
+	tbody.innerHTML = ""; // limpiar antes de rellenar
+
+	if (!prices || prices.length === 0) {
+		tbody.innerHTML = `
+                <tr>
+                    <td colspan="4" class="text-center text-muted">No hay resultados</td>
+                </tr>`;
+		return;
+	}
+
+	const fragment = document.createDocumentFragment();
+
+	prices.forEach(item => {
+		const tr = document.createElement("tr");
+
+		const tdMarca = document.createElement("td");
+		tdMarca.textContent = item.name;
+
+		const tdDescripcion = document.createElement("td");
+		tdDescripcion.textContent = item.description;
+
+		const tdPrecio = document.createElement("td");
+		tdPrecio.textContent = new Intl.NumberFormat("es-PY", {
+			style: "currency",
+			currency: "PYG",
+			maximumFractionDigits: 0
+		}).format(/*item.precio*/300000);
+
+		const tdAcciones = document.createElement("td");
+		tdAcciones.className = "text-center";
+		tdAcciones.innerHTML = `
+			<button type="button" class="btn btn-outline-warning editar-multifocal" aria-label="Editar multifocal">
+				<i class="bi bi-pen"></i>
+			</button>
+		`;
+
+		tr.append(tdMarca, tdDescripcion, tdPrecio, tdAcciones);
+		fragment.appendChild(tr);
+	});
+
+	tbody.appendChild(fragment);
+}
+
+export const newMultifocalBrand = (data = {}) => {
+	const tbody = document.getElementById("multifocales-lista");
+	const template = document.getElementById("fila-multifocal-template");
+	// Clonar el contenido del template
+    const fragment = template.content.cloneNode(true);
+    const fila = fragment.querySelector("tr");
+
+    // Rellenar valores si se pasan (útil para cargar registros existentes)
+    fila.querySelector(".multifocal-marca").value = data.marca ?? "";
+    fila.querySelector(".multifocal-description").value = data.descripcion ?? "";
+    fila.querySelector(".multifocal-precio").value = data.precio ?? "";
+
+    tbody.appendChild(fragment);
+
+    // Llevar el foco al primer input de la nueva fila
+    fila.querySelector(".multifocal-marca").focus();
+}
+
 const getCrystalPriceByType = async (type) => {
 	const response = await fetch(`/Crystal/GetCrystalPricesByType?crystalType=${type}`);
+	if (!response.ok)
+		throw new Error('Failed to fetch crystal price');
+
+	return await response.json();
+}
+
+const getMultifocalPrices = async () => {
+	const response = await fetch(`/Crystal/GetMultifocalPrices`);
 	if (!response.ok)
 		throw new Error('Failed to fetch crystal price');
 

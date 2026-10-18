@@ -1,9 +1,9 @@
-import { aplicarFormatoGuarani } from '../Helper/Helper.js';
 import { showModal } from "../Common/ModalEvents.js";
-import { loadCrystalPrices } from "./Crystal.Prices.js"
+import { loadCrystalPrices, newMultifocalBrand } from "./Crystal.Prices.js";
 
 const btnLoadCrystalPrices = document.getElementById("btnLoadCrystalPrices");
 const buttons = document.querySelectorAll("#typeCrystalSelectorModal .btn");
+const btnAgregar = document.getElementById("agregar-multifocal");
 
 buttons.forEach(button => {
 	button.addEventListener("click", async () => {
@@ -30,3 +30,10 @@ function hideTypeCrystalSelectorModal(elementId) {
 }
 
 btnLoadCrystalPrices.addEventListener("click", () => showModal("typeCrystalSelectorModal"));
+btnAgregar.addEventListener("click", () => newMultifocalBrand());
+document.getElementById("multifocales-lista").addEventListener("click", (e) => {
+    const btn = e.target.closest(".quitar-multifocal");
+    if (!btn) return;
+
+    btn.closest("tr").remove();
+});

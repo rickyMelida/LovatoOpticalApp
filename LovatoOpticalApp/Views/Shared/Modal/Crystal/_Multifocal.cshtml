@@ -29,13 +29,11 @@
 											<th scope="col">Marca</th>
 											<th scope="col">Descripción</th>
 											<th scope="col">Precio</th>
-											<th scope="col"><span class="visually-hidden">Acciones</span></th>
+											<th scope="col">Editar</th>
 										</tr>
 									</thead>
 									<tbody id="multifocales-lista"></tbody>
 								</table>
-								<p class="text-muted mb-0" id="multifocales-vacio">Aún no se agregaron precios de
-									multifocales.</p>
 							</div>
 						</div>
 						<div class="col-12">
@@ -47,7 +45,7 @@
 								</div>
 								<div class="col-12 col-md-6">
 									<button type="button" class="btn btn-danger w-100">
-										<i class="bi bi-arrow-counterclockwise"></i> Cancelar
+										<i class="bi bi-x"></i> Cancelar
 									</button>
 								</div>
 							</div>
@@ -58,5 +56,28 @@
 		</div>
 	</div>
 </div>
+
+<template id="fila-multifocal-template">
+	<tr>
+		<td>
+			<input type="text" class="form-control multifocal-marca" placeholder="Ej.: Marca"
+				   aria-label="Marca del multifocal">
+		</td>
+		<td>
+			<input type="text" class="form-control multifocal-description" placeholder="Ej.: Descripción de la línea o gama"
+				   aria-label="Descripción del multifocal">
+		</td>
+		<td>
+			<input type="text" class="form-control input-guarani multifocal-precio" inputmode="numeric"
+				   placeholder="Precio en guaraníes" aria-label="Precio del multifocal">
+		</td>
+		<td class="text-end">
+			<button type="button" class="btn btn-outline-danger quitar-multifocal" aria-label="Quitar multifocal">
+				<i class="bi bi-trash"></i>
+			</button>
+		</td>
+	</tr>
+</template>
+
 
 <script src="~/js/Crystal/Crystal.Prices.js" type="module"></script>

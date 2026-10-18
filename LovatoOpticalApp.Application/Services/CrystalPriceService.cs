@@ -23,5 +23,11 @@ namespace LovatoOpticalApp.Application.Services
 			var result = _mapper.Map<CrystalTypeDto>(crystalTypes);
 			return result;
 		}
+
+		public async Task<List<CrystalBrandDto>> GetMultifocalPrices()
+		{
+			var brands = await _crystalPriceRepository.GetMultifocalPrices();
+			return _mapper.Map<List<CrystalBrandDto>>(brands);
+		}
 	}
 }

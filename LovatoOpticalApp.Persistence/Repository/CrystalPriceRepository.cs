@@ -28,5 +28,12 @@ namespace LovatoOpticalApp.Persistence.Repository
 				throw new Exception("An error occurred while retrieving crystal prices.", ex);
 			}
 		}
+
+		public async Task<List<CrystalBrand>> GetMultifocalPrices()
+		{
+			return await _context.CrystalBrands
+				.Include(brand => brand.Prices)
+				.ToListAsync();
+		}
 	}
 }

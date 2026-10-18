@@ -9,6 +9,6 @@ namespace LovatoOpticalApp.Core.Entities
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
 
         // Relaciones
-        public ICollection<CrystalBrandPrice> Precios { get; set; } = new List<CrystalBrandPrice>();
+        public ICollection<CrystalBrandPrice> Prices { get; set; } = new List<CrystalBrandPrice>();
 	}
 }
